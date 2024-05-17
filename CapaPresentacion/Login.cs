@@ -17,11 +17,13 @@ namespace CapaPresentacion
             InitializeComponent();
         }
 
+        //me cierra el formulario de incio de sesion al presionar cancelar 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
+        //configuracion del boton de ingresar para que oculte el formulario de i.s y muestre el principal
         private void btnIngresar_Click(object sender, EventArgs e)
         {
             Inicio form = new Inicio();
@@ -34,6 +36,7 @@ namespace CapaPresentacion
 
         private void FormClosing(object sender, FormClosingEventArgs e)
         {
+            //me muestre los campos de clave y documentos vacios al volver al inicio de sesion
             txtBoxDoc.Text = "";
             txtBoxClave.Text = "";
 
