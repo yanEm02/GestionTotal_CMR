@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CapaEntidad
 {
-    internal class Usuario
+    public class Usuario
     {
         public int IdUsuario { get; set; }  
         public string Documento { get; set; }
