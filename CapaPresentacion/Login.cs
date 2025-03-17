@@ -8,6 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using CapaNegocio;
+using CapaEntidad;
+
 namespace CapaPresentacion
 {
     public partial class Login : Form
@@ -26,12 +29,29 @@ namespace CapaPresentacion
         //configuracion del boton de ingresar para que oculte el formulario de i.s y muestre el principal
         private void btnIngresar_Click(object sender, EventArgs e)
         {
-            Inicio form = new Inicio();
+            List<Usuario> TEST = new CN_Usuario().Listar();
 
-            form.Show();
-            this.Hide();
+            Usuario ousuario = new CN_Usuario().Listar().Where(u => u.Documento == txtBoxDoc.Text && u.Clave == txtBoxClave.Text).FirstOrDefault();
 
-            form.FormClosing += FormClosing;
+            if (ousuario != null)
+            {
+
+
+
+                Inicio form = new Inicio();
+
+                form.Show();
+                this.Hide();
+
+                form.FormClosing += FormClosing;
+            }
+            else
+            {
+                MessageBox.Show("Nos se encontro el usuario","Mensaje",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
+            }
+
+
+
         }
 
         private void FormClosing(object sender, FormClosingEventArgs e)
