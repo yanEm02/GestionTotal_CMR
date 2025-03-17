@@ -8,16 +8,32 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using CapaEntidad;
+
 namespace CapaPresentacion
 {
     public partial class Inicio : Form
     {
-        public Inicio()
+
+        private static Usuario usuarioActual; 
+        public Inicio(Usuario objusuario)
         {
+            usuarioActual = objusuario;
+
             InitializeComponent();
         }
 
         private void iconMenuItem1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Inicio_Load(object sender, EventArgs e)
+        {
+            lblusuario.Text = usuarioActual.Nombre;
+        }
+
+        private void iconMenuItemToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
         }
