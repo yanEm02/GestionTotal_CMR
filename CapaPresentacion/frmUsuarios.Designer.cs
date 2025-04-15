@@ -35,20 +35,23 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 22F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(315, 189);
+            this.label1.Location = new System.Drawing.Point(420, 233);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(254, 36);
+            this.label1.Size = new System.Drawing.Size(315, 42);
             this.label1.TabIndex = 0;
             this.label1.Text = "formulario usuario";
             // 
-            // fmUsuarios
+            // frmUsuarios
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(942, 480);
+            this.ClientSize = new System.Drawing.Size(1256, 591);
             this.Controls.Add(this.label1);
-            this.Name = "fmUsuarios";
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Name = "frmUsuarios";
             this.Text = "fmUsuarios";
+            this.Load += new System.EventHandler(this.frmUsuarios_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
