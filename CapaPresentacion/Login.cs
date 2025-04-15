@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
+﻿using CapaEntidad;
 using CapaNegocio;
-using CapaEntidad;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace CapaPresentacion
 {
@@ -47,7 +42,7 @@ namespace CapaPresentacion
             }
             else
             {
-                MessageBox.Show("Nos se encontro el usuario","Mensaje",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
+                MessageBox.Show("Nos se encontro el usuario", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
 
 
