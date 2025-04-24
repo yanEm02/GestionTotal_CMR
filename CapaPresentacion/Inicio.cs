@@ -1,8 +1,12 @@
-﻿using CapaEntidad;
-using FontAwesome.Sharp;
+﻿using FontAwesome.Sharp;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+
+using CapaEntidad;
+using CapaNegocio;
+using System.Linq;
 
 namespace CapaPresentacion
 {
@@ -13,6 +17,8 @@ namespace CapaPresentacion
         //variables para traer el menu 
         private static IconMenuItem MenuActivo = null;
         private static Form FormularioActivo = null;
+
+        //almacenamos el usuario que se ha logeado 
         public Inicio(Usuario objusuario)
         {
             usuarioActual = objusuario;
@@ -20,13 +26,34 @@ namespace CapaPresentacion
             InitializeComponent();
         }
 
-        private void iconMenuItem1_Click(object sender, EventArgs e)
-        {
+        //PRUEBA DE RECUPERACION DE DATOS
+        //private void Form1_Load(object sender, EventArgs e)
+        //{
+        //    List<Permiso> lista = new CN_Permiso().Listar(usuarioActual.IdUsuario); // O como estés llamando al método
+        //    foreach (var item in lista)
+        //    {
+        //        MessageBox.Show($"Rol: {item.oRol.IdRol}, Menú: {item.NombreMenu}");
+        //    }
+        //}
 
-        }
 
+
+        //MOMENTO DONDE SE CARGA LA PAGINA 
         private void Inicio_Load(object sender, EventArgs e)
         {
+
+            List<Permiso> ListaPermisos = new CN_Permiso().Listar(usuarioActual.IdUsuario); //creamos la lista para visualizar los permisos
+            foreach (IconMenuItem iconMenu in menu.Items)
+            {
+                bool encontrado = ListaPermisos.Any(m => m.NombreMenu == iconMenu.Name);
+
+                if(encontrado == false)
+                {
+                    iconMenu.Visible = false;
+                }
+            }
+
+
             lblusuario.Text = usuarioActual.Nombre;
         }
 
@@ -104,7 +131,7 @@ namespace CapaPresentacion
 
         private void menuCliente_Click(object sender, EventArgs e)
         {
-            AbrirFormulario((IconMenuItem)sender, new frmClientes());
+            AbrirFormulario((IconMenuItem)sender, new frmClientes()); 
         }
 
         //==========PROVEEDOR===
@@ -119,6 +146,33 @@ namespace CapaPresentacion
         {
             AbrirFormulario((IconMenuItem)sender, new frmReportes());
         }
+
+
+        //==========================TESTING LA OBTENCION DE DATOS 
+        //private void CargarPermisos()
+        //{
+        //    try
+        //    {
+        //        // Llama directamente a la clase de datos, o a través de la capa de negocio si la tienes
+        //        List<Permiso> lista = new CN_Permiso().Listar(usuarioActual.IdUsuario);
+
+        //        // 💬 Aquí agregas la línea de prueba
+        //        MessageBox.Show("Total permisos: " + lista.Count);
+
+        //        // Proyección simple para mostrar los datos en el DataGridView
+        //        var datos = lista.Select(p => new
+        //        {
+        //            IdRol = p.oRol.IdRol,
+        //            NombreMenu = p.NombreMenu
+        //        }).ToList();
+
+        //        dataGridViewPermisos.DataSource = datos;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show("Error al cargar permisos: " + ex.Message);
+        //    }
+        //}
 
     }
 }
