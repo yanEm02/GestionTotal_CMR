@@ -13,7 +13,7 @@ namespace CapaPresentacion
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Login()); //para que inicie con el formulario de inicio
-        }
+            Application.Run(new Inicio()); //para que inicie con el formulario de inicio
+        } 
     }
 }
