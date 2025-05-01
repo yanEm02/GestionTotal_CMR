@@ -19,23 +19,19 @@ namespace CapaPresentacion
         private static Form FormularioActivo = null;
 
         //almacenamos el usuario que se ha logeado 
-        public Inicio(Usuario objusuario)
+        public Inicio(Usuario objusuario = null)
         {
-            usuarioActual = objusuario;
+            if (objusuario == null)
+            {
+                usuarioActual = new Usuario() { Nombre = "ADMIN PREDEFINIDO", IdUsuario = 1 };
+            }
+            else
+            {
+                usuarioActual = objusuario;
+            }
 
             InitializeComponent();
         }
-
-        //PRUEBA DE RECUPERACION DE DATOS
-        //private void Form1_Load(object sender, EventArgs e)
-        //{
-        //    List<Permiso> lista = new CN_Permiso().Listar(usuarioActual.IdUsuario); // O como estés llamando al método
-        //    foreach (var item in lista)
-        //    {
-        //        MessageBox.Show($"Rol: {item.oRol.IdRol}, Menú: {item.NombreMenu}");
-        //    }
-        //}
-
 
 
         //MOMENTO DONDE SE CARGA LA PAGINA 
@@ -173,6 +169,7 @@ namespace CapaPresentacion
         //        MessageBox.Show("Error al cargar permisos: " + ex.Message);
         //    }
         //}
+
 
     }
 }
