@@ -91,7 +91,7 @@ namespace CapaPresentacion
         //==========MANTENEDOR===
         private void iconMenuItemToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AbrirFormulario(menuMantenedor, new frmVentas());
+            AbrirFormulario(menuMantenedor, new frmCategoria());
         }
 
         private void subMenuProducto_Click(object sender, EventArgs e)
