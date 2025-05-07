@@ -1,6 +1,7 @@
 ﻿using CapaEntidad;
 using CapaNegocio;
 using CapaPresentacion.Utilidades;
+using ClosedXML.Excel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -280,6 +281,73 @@ namespace CapaPresentacion
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
             Limpiar();
+        }
+
+        //ONFUGURACION DEL BOTON EXPORTAR
+        private void btnExportar_Click(object sender, EventArgs e)
+        {
+            if (dgvData.Rows.Count < 1) //VALIDAMOS QUE HAY DATOS QUE EXPORTAR
+            {
+                MessageBox.Show("No hay datos para exportar", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            else
+            {
+                DataTable dt = new DataTable();
+
+                foreach(DataGridViewColumn columna in dgvData.Columns) //agregamos las columnas
+                {
+                    if(columna.HeaderText != "" && columna.Visible)
+                    {
+                        dt.Columns.Add(columna.HeaderText,typeof(string));
+                    }
+                }
+
+                foreach(DataGridViewRow fila in dgvData.Rows)//agregamos las filas
+                {
+                    if (fila.Visible)
+                    {
+                        dt.Rows.Add(new object[]
+                        {
+
+                            fila.Cells[2].Value.ToString(),
+                            fila.Cells[3].Value.ToString(),
+                            fila.Cells[4].Value.ToString(),
+                            fila.Cells[6].Value.ToString(),
+                            fila.Cells[7].Value.ToString(),
+                            fila.Cells[8].Value.ToString(),
+                            fila.Cells[9].Value.ToString(),
+                            fila.Cells[11].Value.ToString(),
+                        });
+                    }
+                }
+
+                //creamos la ventana de dialogo para guardar el archivo
+                SaveFileDialog saveFile = new SaveFileDialog();
+                saveFile.FileName = string.Format("ReporteProducto_{0}.xlsx", DateTime.Now.ToString("ddMMyyyyHHmmss"));
+                saveFile.Filter = "Excel Files | *.xlsx";
+
+                if (saveFile.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    { //crfeamos el archivo excel y agregamos los datos
+                        XLWorkbook wb = new XLWorkbook();
+
+                        var hoja = wb.Worksheets.Add(dt, "Informe");
+
+                        hoja.ColumnsUsed().AdjustToContents();
+                        wb.SaveAs(saveFile.FileName);
+
+                        MessageBox.Show("Reporte Generado", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error al general el reporte", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    }
+                }
+
+            }
+
         }
     }
 }
