@@ -24,8 +24,6 @@ namespace CapaPresentacion
         //configuracion del boton de ingresar para que oculte el formulario de i.s y muestre el principal
         private void btnIngresar_Click(object sender, EventArgs e)
         {
-            List<Usuario> TEST = new CN_Usuario().Listar();
-
             Usuario ousuario = new CN_Usuario().Listar().Where(u => u.Documento == txtBoxDoc.Text && u.Clave == txtBoxClave.Text).FirstOrDefault();
 
             if (ousuario != null)
@@ -56,6 +54,11 @@ namespace CapaPresentacion
             txtBoxClave.Text = "";
 
             this.Show();
+        }
+
+        private void Login_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
