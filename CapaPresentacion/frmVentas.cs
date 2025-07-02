@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -158,19 +159,28 @@ namespace CapaPresentacion
 
             if (!productoExiste) //agregamos el producto a la caja de texto
             {
-                dgvData.Rows.Add(new object[]
+                bool respuesta = new CN_Venta().RestarStock(
+                    Convert.ToInt32(txtIdProducto.Text),
+                    Convert.ToInt32(txtCantidad.Value.ToString())
+                    );
+
+                if (respuesta)
                 {
+                    dgvData.Rows.Add(new object[]
+                    {
                     txtIdProducto.Text,
                     txtProducto.Text,
                     precio.ToString("0.00"),
                     txtCantidad.Value.ToString(),
                     (txtCantidad.Value * precio).ToString("0.00")
 
-                });
+                    });
+
+                    CalcularTotal();
+                    LimpiarProducto();
+                    txtCodProducto.Select();
+                }
             }
-            CalcularTotal();
-            LimpiarProducto();
-            txtCodProducto.Select();
         }
 
         private void dgvData_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
@@ -201,9 +211,16 @@ namespace CapaPresentacion
 
                 if (indice >= 0)
                 {
-                    dgvData.Rows.RemoveAt(indice);
-                    CalcularTotal();
+                    bool respuesta = new CN_Venta().SumarStock(
+                        Convert.ToInt32(dgvData.Rows[indice].Cells["IdProducto"].Value.ToString()),
+                        Convert.ToInt32(dgvData.Rows[indice].Cells["Cantidad"].Value.ToString())
+                        );
 
+                    if (respuesta)
+                    {
+                        dgvData.Rows.RemoveAt(indice);
+                        CalcularTotal();
+                    }
                 }
             }
         }
@@ -294,6 +311,84 @@ namespace CapaPresentacion
             if (e.KeyData == Keys.Enter)
             {
                 calcularCambio();
+            }
+        }
+
+        private void btnCrearVenta_Click(object sender, EventArgs e)
+        {
+            if (txtDocumentoCliente.Text == "") //primero haccemos las validaciones de que proveedor y que haya compras en registro
+            {
+                MessageBox.Show("Debe Seleccionar un Cliente", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (txtNombre.Text == "") //primero haccemos las validaciones de que proveedor y que haya compras en registro
+            {
+                MessageBox.Show("Debe Seleccionar un Cliente", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (dgvData.Rows.Count < 1)
+            {
+                MessageBox.Show("Debe ingresar los productos en la compra", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return ;
+            }
+
+            DataTable detalle_venta = new DataTable(); //creamos el data table
+
+            detalle_venta.Columns.Add("IdProducto", typeof(int));
+            detalle_venta.Columns.Add("PrecioVenta", typeof(decimal));
+            detalle_venta.Columns.Add("Cantidad", typeof(int));
+            detalle_venta.Columns.Add("SubTotal", typeof(decimal));
+
+            foreach (DataGridViewRow row in dgvData.Rows)
+            { //agregamos los valores dentro del datatable
+                detalle_venta.Rows.Add(new object[]{
+                    Convert.ToInt32(row.Cells["IdProducto"].Value.ToString()),
+                    row.Cells["Precio"].Value.ToString(),
+                    row.Cells["Cantidad"].Value.ToString(),
+                    row.Cells["SubTotal"].Value.ToString(),
+
+                });
+
+            }
+
+            int idCorrelativo = new CN_Venta().ObtenerCorrelativo(); //generamos el numero de compra aleatorio
+            string numeroDocumento = string.Format("{0:00000}", idCorrelativo);
+
+            calcularCambio(); //calculamos el cambio, para que actualize antes de realizar la venta
+
+            Venta oVenta = new Venta() //insertamos en la tabla venta
+            {
+                oUsuario = new Usuario() { IdUsuario = _usuario.IdUsuario },
+                TipoDocumento = ((OpcionCombo)cmbTipoDocumento.SelectedItem).Texto,
+                NumeroDocumento = numeroDocumento,
+                DocumentoCliente = txtDocumentoCliente.Text,
+                NombreCliente = txtNombre.Text,
+                MontoPago = Convert.ToDecimal(txtPagaCon.Text),
+                MontoCambio = Convert.ToDecimal(txtCambio.Text),
+                MontoTotal = Convert.ToDecimal(txtTotalPagar.Text),
+            };
+
+            //creamos la variable para guardar el mesanje del metodo almacenado
+            string mensaje = string.Empty;
+            bool respuesta = new CN_Venta().Registrar(oVenta,detalle_venta, out mensaje);
+
+            if (respuesta)
+            {
+                var result = MessageBox.Show("Numero de venta generada:\n" + numeroDocumento + "\n\nDesea copiar al portapapeles?", "Mensaje", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                if (result == DialogResult.Yes)
+                {
+                    Clipboard.SetText(numeroDocumento);
+                }
+
+                txtDocumentoCliente.Text = "0";
+                txtNombre.Text = "";
+                dgvData.Rows.Clear();
+                txtPagaCon.Text = "";
+                txtCambio.Text = "";
+                CalcularTotal();
+            }
+            else {
+                MessageBox.Show(mensaje, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
     }
