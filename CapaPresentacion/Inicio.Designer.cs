@@ -33,6 +33,7 @@
             this.menuMantenedor = new FontAwesome.Sharp.IconMenuItem();
             this.subMenuCategoria = new System.Windows.Forms.ToolStripMenuItem();
             this.subMenuProducto = new System.Windows.Forms.ToolStripMenuItem();
+            this.subMenuNegocio = new System.Windows.Forms.ToolStripMenuItem();
             this.menuVenta = new FontAwesome.Sharp.IconMenuItem();
             this.subMenuRegistrarVenta = new System.Windows.Forms.ToolStripMenuItem();
             this.subMenuVerDetalleVenta = new System.Windows.Forms.ToolStripMenuItem();
@@ -42,13 +43,14 @@
             this.menuCliente = new FontAwesome.Sharp.IconMenuItem();
             this.menuProveedor = new FontAwesome.Sharp.IconMenuItem();
             this.menuReporte = new FontAwesome.Sharp.IconMenuItem();
+            this.subMenuReporteCompra = new System.Windows.Forms.ToolStripMenuItem();
+            this.subMenuReporteVenta = new System.Windows.Forms.ToolStripMenuItem();
             this.menuAcercaDe = new FontAwesome.Sharp.IconMenuItem();
             this.label1 = new System.Windows.Forms.Label();
             this.contenedor = new System.Windows.Forms.Panel();
             this.lblusuario = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.menuTitulo = new System.Windows.Forms.MenuStrip();
-            this.subMenuNegocio = new System.Windows.Forms.ToolStripMenuItem();
             this.menu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -113,6 +115,13 @@
             this.subMenuProducto.Size = new System.Drawing.Size(180, 22);
             this.subMenuProducto.Text = "Producto";
             this.subMenuProducto.Click += new System.EventHandler(this.subMenuProducto_Click);
+            // 
+            // subMenuNegocio
+            // 
+            this.subMenuNegocio.Name = "subMenuNegocio";
+            this.subMenuNegocio.Size = new System.Drawing.Size(180, 22);
+            this.subMenuNegocio.Text = "Negocio";
+            this.subMenuNegocio.Click += new System.EventHandler(this.subMenuNegocio_Click);
             // 
             // menuVenta
             // 
@@ -200,6 +209,9 @@
             // 
             // menuReporte
             // 
+            this.menuReporte.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.subMenuReporteCompra,
+            this.subMenuReporteVenta});
             this.menuReporte.IconChar = FontAwesome.Sharp.IconChar.BarChart;
             this.menuReporte.IconColor = System.Drawing.Color.Black;
             this.menuReporte.IconFont = FontAwesome.Sharp.IconFont.Auto;
@@ -209,7 +221,20 @@
             this.menuReporte.Size = new System.Drawing.Size(65, 69);
             this.menuReporte.Text = "Reportes";
             this.menuReporte.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.menuReporte.Click += new System.EventHandler(this.menuReporte_Click);
+            // 
+            // subMenuReporteCompra
+            // 
+            this.subMenuReporteCompra.Name = "subMenuReporteCompra";
+            this.subMenuReporteCompra.Size = new System.Drawing.Size(166, 22);
+            this.subMenuReporteCompra.Text = "Reporte Compras";
+            this.subMenuReporteCompra.Click += new System.EventHandler(this.subMenuReporteCompra_Click);
+            // 
+            // subMenuReporteVenta
+            // 
+            this.subMenuReporteVenta.Name = "subMenuReporteVenta";
+            this.subMenuReporteVenta.Size = new System.Drawing.Size(166, 22);
+            this.subMenuReporteVenta.Text = "Reporte Ventas";
+            this.subMenuReporteVenta.Click += new System.EventHandler(this.subMenuReporteVenta_Click);
             // 
             // menuAcercaDe
             // 
@@ -280,13 +305,6 @@
             this.menuTitulo.TabIndex = 1;
             this.menuTitulo.Text = "menuStrip2";
             // 
-            // subMenuNegocio
-            // 
-            this.subMenuNegocio.Name = "subMenuNegocio";
-            this.subMenuNegocio.Size = new System.Drawing.Size(180, 22);
-            this.subMenuNegocio.Text = "Negocio";
-            this.subMenuNegocio.Click += new System.EventHandler(this.subMenuNegocio_Click);
-            // 
             // Inicio
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -333,6 +351,8 @@
         private System.Windows.Forms.ToolStripMenuItem subMenuVerDetalleCompra;
         private System.Windows.Forms.MenuStrip menuTitulo;
         private System.Windows.Forms.ToolStripMenuItem subMenuNegocio;
+        private System.Windows.Forms.ToolStripMenuItem subMenuReporteCompra;
+        private System.Windows.Forms.ToolStripMenuItem subMenuReporteVenta;
     }
 }
 

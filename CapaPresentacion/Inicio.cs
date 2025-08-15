@@ -142,10 +142,18 @@ namespace CapaPresentacion
         }
 
         //==========REPORTE===
-        private void menuReporte_Click(object sender, EventArgs e)
+
+        private void subMenuReporteCompra_Click(object sender, EventArgs e)
         {
-            AbrirFormulario((IconMenuItem)sender, new frmReportes());
+            AbrirFormulario(menuReporte, new frmReporteCompra());
         }
+
+        private void subMenuReporteVenta_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario(menuReporte, new frmReporteVenta());
+        }
+
+
 
 
         //==========================TESTING LA OBTENCION DE DATOS 
