@@ -40,7 +40,7 @@ namespace CapaPresentacion
             }
             else
             {
-                MessageBox.Show("Nos se encontro el usuario", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("No se encuentra el usuario", "Usuario o Clave Incorrecta", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
 
 
@@ -57,6 +57,11 @@ namespace CapaPresentacion
         }
 
         private void Login_Load(object sender, EventArgs e)
+        {
+            this.AutoScaleMode = AutoScaleMode.Dpi; //para que se adapte a la resolucion de la pantalla
+        }
+
+        private void label1_Click(object sender, EventArgs e)
         {
 
         }

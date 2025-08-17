@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using CapaEntidad;
 using CapaNegocio;
 using System.Linq;
+using CapaPresentacion.Sub_Forms;
 
 namespace CapaPresentacion
 {
@@ -15,8 +16,8 @@ namespace CapaPresentacion
 
         private static Usuario usuarioActual;
         //variables para traer el menu 
-        private static IconMenuItem MenuActivo = null;
-        private static Form FormularioActivo = null;
+        private static IconMenuItem MenuActivo = null;  //almacenamos el menu que esta activo
+        private static Form FormularioActivo = null; //almacena el formulario activo que se muestra en el panel
 
         //almacenamos el usuario que se ha logeado 
         public Inicio(Usuario objusuario = null)
@@ -31,12 +32,19 @@ namespace CapaPresentacion
             }
 
             InitializeComponent();
+
+            // Asegura que el contenedor ocupe todo el espacio disponible
+            contenedor.Dock = DockStyle.Fill;
+
+            // Suscríbete al evento Resize
+            this.Resize += Inicio_Resize;
         }
 
 
         //MOMENTO DONDE SE CARGA LA PAGINA 
         private void Inicio_Load(object sender, EventArgs e)
         {
+            //this.AutoScaleMode = AutoScaleMode.Dpi; //para que se adapte a la resolucion de la pantalla
 
             List<Permiso> ListaPermisos = new CN_Permiso().Listar(usuarioActual.IdUsuario); //creamos la lista para visualizar los permisos
             foreach (IconMenuItem iconMenu in menu.Items)
@@ -53,33 +61,42 @@ namespace CapaPresentacion
             lblusuario.Text = usuarioActual.Nombre;
         }
 
-      
 
-        //==========USUARIO===
 
-        //creamos un metodo para traer o abrir el formulario usuario
+        //===========
+
+        //creamos un metodo para traer o abrir el formulario que se cliquee en el menu
         private void AbrirFormulario(IconMenuItem menu, Form formulario)
         {
             if (MenuActivo != null)
             {
-                MenuActivo.BackColor = Color.White;
+                MenuActivo.BackColor = Color.PeachPuff;
             }
-            menu.BackColor = Color.Silver;
+            menu.BackColor = Color.White;
             MenuActivo = menu;
 
             if (FormularioActivo != null)
             { 
                 FormularioActivo.Close();
             }
+            
+
+            imgCentral.Hide();
+            // Limpia el contenedor antes de agregar el nuevo formulario
+            contenedor.Controls.Clear();
 
             FormularioActivo = formulario;
             formulario.TopLevel = false;
             formulario.FormBorderStyle = FormBorderStyle.None;
             formulario.Dock = DockStyle.Fill;
-            formulario.BackColor = Color.SteelBlue;
+            formulario.BackColor = Color.Linen;
+            //formulario.AutoScaleMode = AutoScaleMode.Dpi; //para que se adapte a la resolucion de la pantalla
 
             //agregamos el formulario ya hecho
             contenedor.Controls.Add(formulario);
+            // Ajusta el tamaño del formulario principal al del subformulario
+            //this.Size = formulario.Size;
+
             formulario.Show();
         }
         private void menuUsuario_Click(object sender, EventArgs e)
@@ -151,6 +168,24 @@ namespace CapaPresentacion
         private void subMenuReporteVenta_Click(object sender, EventArgs e)
         {
             AbrirFormulario(menuReporte, new frmReporteVenta());
+        }
+
+        private void menuAcercaDe_Click(object sender, EventArgs e)
+        {
+            subFormAcercaDe subForm = new subFormAcercaDe();
+            subForm.ShowDialog();
+        }
+
+        private void btnSalir_Click(object sender, EventArgs e)
+        {
+            if(MessageBox.Show("¿Desea salir de la aplicacion?", "Mensaje", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                this.Close();
+            }
+        }
+        private void Inicio_Resize(object sender, EventArgs e)
+        {
+            contenedor.Size = this.ClientSize;
         }
 
 

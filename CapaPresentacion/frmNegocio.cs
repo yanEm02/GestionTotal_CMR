@@ -99,5 +99,10 @@ namespace CapaPresentacion
                 MessageBox.Show(mensaje, "No se pudo guardar los cambios", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
+        private void CentrarGroupBox()
+        {
+            groupBox1.Left = (this.ClientSize.Width - groupBox1.Width) / 2;
+            groupBox1.Top = (this.ClientSize.Height - groupBox1.Height) / 2;
+        }
     }
 }

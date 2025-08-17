@@ -14,12 +14,16 @@ namespace CapaPresentacion
         public frmUsuarios()
         {
             InitializeComponent();
+            Dock.Equals(DockStyle.Fill); //para que ocupe todo el espacio del formulario
+
         }
 
 
         //cargamos le formulario
         private void frmUsuarios_Load(object sender, System.EventArgs e)
         {
+
+
             //COMBOBOX DE ESTADO
             //agregamos los items del combobox para desplegarlos, usando la clase dentro de utilidades, usamos clases y objetos 
             cboEstado.Items.Add(new OpcionCombo() { Valor = 1 , Texto = "Activo" });
@@ -139,7 +143,7 @@ namespace CapaPresentacion
         {
             if (Convert.ToInt32(txtid.Text) != 0)
             {
-                if (MessageBox.Show("Desea Eliminar el usuario?", "Mensaje", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                if (MessageBox.Show("Desea Eliminar el Usuario?", "Atencion!", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
 
                     //sacamos el id usuario de nuestra clase de usuario 

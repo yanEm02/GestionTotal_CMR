@@ -19,6 +19,18 @@ namespace CapaPresentacion
         public frmProducto()
         {
             InitializeComponent();
+            //this.Dock = DockStyle.Fill; // Ya lo tienes
+
+            //// Ajusta el DataGridView para que ocupe todo el espacio disponible
+            //dgvData.Dock = DockStyle.Fill;
+
+            //// Ejemplo para otros controles
+            //btnGuardar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            //btnEliminar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            //txtNombre.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            //txtDescripcion.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            //cboCategoria.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            //cboEstado.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
         }
 
         private void frmProducto_Load(object sender, EventArgs e)
