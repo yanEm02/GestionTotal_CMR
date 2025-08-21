@@ -96,7 +96,6 @@ namespace CapaPresentacion
             contenedor.Controls.Add(formulario);
             // Ajusta el tamaño del formulario principal al del subformulario
             //this.Size = formulario.Size;
-
             formulario.Show();
         }
         private void menuUsuario_Click(object sender, EventArgs e)
@@ -105,21 +104,21 @@ namespace CapaPresentacion
             AbrirFormulario((IconMenuItem)sender, new frmUsuarios());
         }
 
-        //==========MANTENEDOR===
-        private void iconMenuItemToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            AbrirFormulario(menuMantenedor, new frmCategoria());
-        }
+        //==========CATEGORIAS===
+        //private void iconMenuItemToolStripMenuItem_Click(object sender, EventArgs e)
+        //{
+        //    AbrirFormulario(menuMantenedor, new frmCategoria());
+        //}
 
-        private void subMenuProducto_Click(object sender, EventArgs e)
-        {
-            AbrirFormulario(menuMantenedor, new frmProducto());
+        //private void subMenuProducto_Click(object sender, EventArgs e)
+        //{
+        //    AbrirFormulario(menuMantenedor, new frmProducto());
 
-        }
-        private void subMenuNegocio_Click(object sender, EventArgs e)
-        {
-            AbrirFormulario(menuMantenedor, new frmNegocio());
-        }
+        //}
+        //private void subMenuNegocio_Click(object sender, EventArgs e)
+        //{
+        //    AbrirFormulario(menuMantenedor, new frmNegocio());
+        //}
 
         //==========VENTAS===
         private void subMenuRegistrarVenta_Click(object sender, EventArgs e)
@@ -132,7 +131,7 @@ namespace CapaPresentacion
             AbrirFormulario(menuVenta, new frmDetalleVenta());
         }
 
-        //==========VENTAS===
+        //==========COMPRAS===
 
         private void subMenuRegistrarCompra_Click(object sender, EventArgs e)
         {
@@ -170,6 +169,28 @@ namespace CapaPresentacion
             AbrirFormulario(menuReporte, new frmReporteVenta());
         }
 
+
+        //=========INVENTARIO===
+
+        private void menuInventario_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario((IconMenuItem)sender, new frmProducto());
+        }
+
+        private void categoriaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario(menuMantenedor, new frmCategoria());
+        }
+
+        //==========CONFIGURACIOKN/MANTENEDOR ===
+
+        private void menuMantenedor_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario(menuMantenedor, new frmNegocio());
+        }
+
+        //==========ACERCA DE ===
+
         private void menuAcercaDe_Click(object sender, EventArgs e)
         {
             subFormAcercaDe subForm = new subFormAcercaDe();
@@ -187,6 +208,7 @@ namespace CapaPresentacion
         {
             contenedor.Size = this.ClientSize;
         }
+
 
 
 
