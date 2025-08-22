@@ -54,6 +54,13 @@ namespace CapaPresentacion
         {
             string mensaje = string.Empty;
 
+            if (!EsCorreoValido(txtCorreo.Text))
+            {
+                MessageBox.Show("Por favor, ingrese un correo electrónico válido.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtCorreo.Focus();
+                return;
+            }
+
             Proveedor obj = new Proveedor()
             {
                 IdProveedor = Convert.ToInt32(txtid.Text),
@@ -232,6 +239,15 @@ namespace CapaPresentacion
                 e.Graphics.DrawImage(Properties.Resources.check_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24, new Rectangle(x, y, w, h));
                 e.Handled = true;
             }
+        }
+
+        private bool EsCorreoValido(string correo) //para confirmar si el correo es valido
+        {
+            // Expresión regular básica para validar correo electrónico
+            return System.Text.RegularExpressions.Regex.IsMatch(
+                correo,
+                @"^[^@\s]+@[^@\s]+\.[^@\s]+$"
+            );
         }
     }
 }

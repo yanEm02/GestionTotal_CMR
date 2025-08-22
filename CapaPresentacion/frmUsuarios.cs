@@ -74,6 +74,13 @@ namespace CapaPresentacion
         {
             string mensaje = string.Empty;
 
+            if (!EsCorreoValido(txtCorreo.Text))
+            {
+                MessageBox.Show("Por favor, ingrese un correo electrónico válido.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtCorreo.Focus();
+                return;
+            }
+
             Usuario objusuario = new Usuario() 
             {
                 IdUsuario = Convert.ToInt32(txtid.Text),
@@ -280,6 +287,15 @@ namespace CapaPresentacion
             }
 
 
+        }
+
+        private bool EsCorreoValido(string correo) //para confirmar si el correo es valido
+        {
+            // Expresión regular básica para validar correo electrónico
+            return System.Text.RegularExpressions.Regex.IsMatch(
+                correo,
+                @"^[^@\s]+@[^@\s]+\.[^@\s]+$"
+            );
         }
 
     }
