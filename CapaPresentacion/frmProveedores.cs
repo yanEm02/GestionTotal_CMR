@@ -10,8 +10,11 @@ namespace CapaPresentacion
 {
     public partial class frmProveedores : Form
     {
-        public frmProveedores()
+
+        private static Usuario usuarioActualFor;
+        public frmProveedores(Usuario usuarioActual)
         {
+            usuarioActualFor = usuarioActual;
             InitializeComponent();
         }
 
@@ -38,16 +41,46 @@ namespace CapaPresentacion
             cboBusqueda.ValueMember = "Valor";
             cboBusqueda.SelectedIndex = 0;
 
+            int rolUsuario = usuarioActualFor == null ? 1 : usuarioActualFor?.oRol?.IdRol ?? 1;
+
             //mostrar todos los usuarios en el data grid view
             List<Proveedor> lista = new CN_Proveedor().Listar();
 
             foreach (Proveedor item in lista)
             {
-                dgvData.Rows.Add(new object[] { "", item.IdProveedor, item.Documento, item.RazonSocial, item.Correo, item.Telefono, 
-                  item.Estado == true ? 1 : 0,
-                  item.Estado == true ? "Activo" : "No Activo",
-                });
+                // Si el usuario es administrador (rol 1) o usuarioActual es null, muestra todos
+                // Si el usuario es estándar (rol 2), muestra solo los activos
+                if (rolUsuario == 1 || rolUsuario == 0)
+                {
+                    dgvData.Rows.Add(new object[] { "", item.IdProveedor, item.Documento, item.RazonSocial, item.Correo, item.Telefono,
+                    item.Estado == true ? 1 : 0,
+                    item.Estado == true ? "Activo" : "No Activo",
+            });
+                }
+                else if (rolUsuario == 2 && item.Estado == true)
+                {
+                    dgvData.Rows.Add(new object[] { "", item.IdProveedor, item.Documento, item.RazonSocial, item.Correo, item.Telefono,
+                1, "Activo"
+            });
+                }
             }
+            
+            if(rolUsuario == 2)
+            {
+                btnEliminar.Visible = false; // Oculta el botón Eliminar para usuarios estándar
+                cboEstado.Enabled = false; // Deshabilita el ComboBox de estado para usuarios estándar
+                txtDocumento.Enabled = false; // Deshabilita el TextBox de documento para usuarios estándar
+                txtRazonSocial.Enabled = false; // Deshabilita el TextBox de razón social para usuarios estándar
+                //cboEstado.DropDownClosed += (s, args) => cboEstado.SelectedIndex = 0; // Evita que el usuario cambie el estado
+            }
+
+            //foreach (Proveedor item in lista)
+            //{
+            //    dgvData.Rows.Add(new object[] { "", item.IdProveedor, item.Documento, item.RazonSocial, item.Correo, item.Telefono, 
+            //      item.Estado == true ? 1 : 0,
+            //      item.Estado == true ? "Activo" : "No Activo",
+            //    });
+            //}
         }
 
         private void btnGuardar_Click(object sender, System.EventArgs e)

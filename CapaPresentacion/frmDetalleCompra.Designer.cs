@@ -67,7 +67,7 @@
             this.label1.Location = new System.Drawing.Point(153, 7);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(744, 554);
+            this.label1.Size = new System.Drawing.Size(953, 626);
             this.label1.TabIndex = 0;
             // 
             // label2
@@ -93,7 +93,7 @@
             this.btnLimpiarBuscador.IconColor = System.Drawing.Color.Black;
             this.btnLimpiarBuscador.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnLimpiarBuscador.IconSize = 16;
-            this.btnLimpiarBuscador.Location = new System.Drawing.Point(812, 37);
+            this.btnLimpiarBuscador.Location = new System.Drawing.Point(1007, 39);
             this.btnLimpiarBuscador.Name = "btnLimpiarBuscador";
             this.btnLimpiarBuscador.Size = new System.Drawing.Size(58, 28);
             this.btnLimpiarBuscador.TabIndex = 63;
@@ -112,7 +112,7 @@
             this.btnBuscar.IconColor = System.Drawing.Color.Black;
             this.btnBuscar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnBuscar.IconSize = 16;
-            this.btnBuscar.Location = new System.Drawing.Point(744, 39);
+            this.btnBuscar.Location = new System.Drawing.Point(939, 39);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(58, 28);
             this.btnBuscar.TabIndex = 62;
@@ -122,7 +122,7 @@
             // 
             // txtBusqueda
             // 
-            this.txtBusqueda.Location = new System.Drawing.Point(622, 44);
+            this.txtBusqueda.Location = new System.Drawing.Point(817, 44);
             this.txtBusqueda.Name = "txtBusqueda";
             this.txtBusqueda.Size = new System.Drawing.Size(116, 20);
             this.txtBusqueda.TabIndex = 61;
@@ -132,7 +132,7 @@
             this.label8.AutoSize = true;
             this.label8.BackColor = System.Drawing.Color.White;
             this.label8.Font = new System.Drawing.Font("Lato", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(496, 44);
+            this.label8.Location = new System.Drawing.Point(649, 47);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(137, 17);
             this.label8.TabIndex = 59;
@@ -150,7 +150,7 @@
             this.groupBoxInfoCompra.Font = new System.Drawing.Font("Lato", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBoxInfoCompra.Location = new System.Drawing.Point(178, 82);
             this.groupBoxInfoCompra.Name = "groupBoxInfoCompra";
-            this.groupBoxInfoCompra.Size = new System.Drawing.Size(692, 72);
+            this.groupBoxInfoCompra.Size = new System.Drawing.Size(889, 75);
             this.groupBoxInfoCompra.TabIndex = 64;
             this.groupBoxInfoCompra.TabStop = false;
             this.groupBoxInfoCompra.Text = "Informacion Compra";
@@ -184,9 +184,9 @@
             this.label4.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label4.Location = new System.Drawing.Point(170, 15);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(113, 17);
+            this.label4.Size = new System.Drawing.Size(101, 17);
             this.label4.TabIndex = 28;
-            this.label4.Text = "Tipo Documento";
+            this.label4.Text = "Forma de Pago";
             // 
             // txtTipoDocumento
             // 
@@ -227,9 +227,9 @@
             this.groupBox1.Controls.Add(this.label9);
             this.groupBox1.Controls.Add(this.txtDocProveedor);
             this.groupBox1.Font = new System.Drawing.Font("Lato", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(177, 161);
+            this.groupBox1.Location = new System.Drawing.Point(177, 163);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(693, 77);
+            this.groupBox1.Size = new System.Drawing.Size(890, 87);
             this.groupBox1.TabIndex = 65;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Informacion Proveedor";
@@ -269,11 +269,11 @@
             this.label9.BackColor = System.Drawing.Color.White;
             this.label9.Font = new System.Drawing.Font("Lato", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label9.Location = new System.Drawing.Point(6, 28);
+            this.label9.Location = new System.Drawing.Point(7, 26);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(137, 17);
+            this.label9.Size = new System.Drawing.Size(38, 17);
             this.label9.TabIndex = 25;
-            this.label9.Text = "Numero Documento";
+            this.label9.Text = "RNC";
             // 
             // txtDocProveedor
             // 
@@ -293,11 +293,11 @@
             this.PrecioCompra,
             this.Cantidad,
             this.SubTotal});
-            this.dgvData.Location = new System.Drawing.Point(178, 245);
+            this.dgvData.Location = new System.Drawing.Point(178, 254);
             this.dgvData.Name = "dgvData";
             this.dgvData.ReadOnly = true;
             this.dgvData.RowHeadersWidth = 51;
-            this.dgvData.Size = new System.Drawing.Size(692, 265);
+            this.dgvData.Size = new System.Drawing.Size(889, 259);
             this.dgvData.TabIndex = 66;
             // 
             // Producto
@@ -337,7 +337,7 @@
             this.label6.AutoSize = true;
             this.label6.BackColor = System.Drawing.Color.White;
             this.label6.Font = new System.Drawing.Font("Lato", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(175, 529);
+            this.label6.Location = new System.Drawing.Point(175, 536);
             this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(88, 17);
@@ -348,7 +348,7 @@
             // 
             this.txtMontoTotal.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtMontoTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMontoTotal.Location = new System.Drawing.Point(256, 526);
+            this.txtMontoTotal.Location = new System.Drawing.Point(328, 534);
             this.txtMontoTotal.Name = "txtMontoTotal";
             this.txtMontoTotal.Size = new System.Drawing.Size(138, 24);
             this.txtMontoTotal.TabIndex = 32;
@@ -360,12 +360,12 @@
             this.btnDescargarExcel.IconColor = System.Drawing.Color.Orange;
             this.btnDescargarExcel.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnDescargarExcel.IconSize = 24;
-            this.btnDescargarExcel.Location = new System.Drawing.Point(725, 522);
+            this.btnDescargarExcel.Location = new System.Drawing.Point(908, 529);
             this.btnDescargarExcel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnDescargarExcel.Name = "btnDescargarExcel";
-            this.btnDescargarExcel.Size = new System.Drawing.Size(145, 24);
+            this.btnDescargarExcel.Size = new System.Drawing.Size(159, 42);
             this.btnDescargarExcel.TabIndex = 68;
-            this.btnDescargarExcel.Text = "Descargar Excel";
+            this.btnDescargarExcel.Text = "Descargar PDF";
             this.btnDescargarExcel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnDescargarExcel.UseVisualStyleBackColor = true;
             this.btnDescargarExcel.Click += new System.EventHandler(this.btnDescargarExcel_Click);
@@ -374,7 +374,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1047, 623);
+            this.ClientSize = new System.Drawing.Size(1394, 786);
             this.Controls.Add(this.btnDescargarExcel);
             this.Controls.Add(this.txtMontoTotal);
             this.Controls.Add(this.label6);
@@ -390,6 +390,7 @@
             this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "frmDetalleCompra";
             this.Text = "frmDetalleCompra";
+            this.Load += new System.EventHandler(this.frmDetalleCompra_Load);
             this.groupBoxInfoCompra.ResumeLayout(false);
             this.groupBoxInfoCompra.PerformLayout();
             this.groupBox1.ResumeLayout(false);

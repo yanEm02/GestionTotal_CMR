@@ -1,5 +1,6 @@
 ﻿using CapaEntidad;
 using CapaNegocio;
+using CapaPresentacion.Sub_Forms;
 using CapaPresentacion.Utilidades;
 using System;
 using System.Collections.Generic;
@@ -15,8 +16,11 @@ namespace CapaPresentacion
 {
     public partial class frmClientes : Form
     {
-        public frmClientes()
+
+        private static Usuario usuarioActualFor; //almacenamos el usuario que se ha logeado
+        public frmClientes(Usuario usuarioActual)
         {
+            usuarioActualFor = usuarioActual;
             InitializeComponent();
         }
 
@@ -45,16 +49,71 @@ namespace CapaPresentacion
             cboBusqueda.ValueMember = "Valor";
             cboBusqueda.SelectedIndex = 0;
 
-            //mostrar todos los usuarios en el data grid view
+            //foreach (Cliente item in lista)
+            //{
+            //    dgvData.Rows.Add(new object[] { "", item.IdCliente, item.Documento, item.Nombre, item.Correo, item.Telefono,
+            //      item.Estado == true ? 1 : 0,
+            //      item.Estado == true ? "Activo" : "No Activo",
+            //    });
+            //}
+
+                //mostrar todos los usuarios en el data grid view
             List<Cliente> lista = new CN_Cliente().Listar();
+
+            //filtramos los resultados para mostrar solo los registros activos para usarios estandares y no activos /activos para administradores
+            int rolUsuario = usuarioActualFor == null ? 1 : usuarioActualFor?.oRol?.IdRol ?? 1;
 
             foreach (Cliente item in lista)
             {
-                dgvData.Rows.Add(new object[] { "", item.IdCliente, item.Documento, item.Nombre, item.Correo, item.Telefono,
-                  item.Estado == true ? 1 : 0,
-                  item.Estado == true ? "Activo" : "No Activo",
-                });
+                // Si el usuario es administrador (rol 1) o usuarioActual es null, muestra todos
+                // Si el usuario es estándar (rol 2), muestra solo los activos
+                if (rolUsuario == 1 || rolUsuario == 0)
+                {
+                    dgvData.Rows.Add(new object[] { "", item.IdCliente, item.Documento, item.Nombre, item.Correo, item.Telefono,
+                item.Estado == true ? 1 : 0,
+                item.Estado == true ? "Activo" : "No Activo",
+            });
+                }
+                else if (rolUsuario == 2 && item.Estado == true)
+                {
+                    dgvData.Rows.Add(new object[] { "", item.IdCliente, item.Documento, item.Nombre, item.Correo, item.Telefono,
+                1, "Activo"
+                    });
+                }
             }
+
+            if (rolUsuario == 2)
+            {
+                btnEliminar.Visible = false; // Oculta el botón Eliminar para usuarios estándar
+                cboEstado.Enabled = false; // Deshabilita el ComboBox de estado para usuarios estándar
+                //txtDocumento.Enabled = false; // Deshabilita el TextBox de documento para usuarios estándar
+                //txtNombreCompleto.Enabled = false; // Deshabilita el TextBox de razón social para usuarios estándar
+                //cboEstado.DropDownClosed += (s, args) => cboEstado.SelectedIndex = 0; // Evita que el usuario cambie el estado
+            }
+            if (rolUsuario == 1 || rolUsuario == 0)
+            {
+
+            }
+
+
+            //foreach (Cliente item in lista)
+            //{
+            //    dgvData.Rows.Add(new object[] { "", item.IdCliente, item.Documento, item.Nombre, item.Correo, item.Telefono, });
+            //    if ( usuarioActual == null || Convert.ToInt32(usuarioActual.oRol) == 1 )
+            //    {
+            //        dgvData.Rows.Add(new object[] {  item.Estado == true ? 1 : 0,item.Estado == true ? "Activo" : "No Activo", });
+            //    }
+            //    else
+            //    {
+            //        if (item.Estado == true)
+            //        {
+            //            dgvData.Rows.Add(new object[] { item.Estado == true ? 1 : 0, item.Estado == true ? "Activo" : "No Activo", });
+            //        }
+            //    }
+            //}
+
+
+    
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)
@@ -254,6 +313,11 @@ namespace CapaPresentacion
                 correo,
                 @"^[^@\s]+@[^@\s]+\.[^@\s]+$"
             );
+        }
+
+        private void btnClientesInactivos_Click(object sender, EventArgs e)
+        {
+            new subFormClientesInactivos().ShowDialog();
         }
     }
 }

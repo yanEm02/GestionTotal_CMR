@@ -17,7 +17,7 @@ namespace CapaPresentacion
             CultureInfo.DefaultThreadCurrentCulture = culture;
             CultureInfo.DefaultThreadCurrentUICulture = culture;
 
-            Application.EnableVisualStyles();
+            Application.EnableVisualStyles(); 
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Inicio()); //para que inicie con el formulario de inicio
         } 

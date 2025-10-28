@@ -32,19 +32,12 @@ namespace CapaPresentacion
             }
 
             InitializeComponent();
-
-            // Asegura que el contenedor ocupe todo el espacio disponible
-            contenedor.Dock = DockStyle.Fill;
-
-            // Suscríbete al evento Resize
-            this.Resize += Inicio_Resize;
         }
 
 
         //MOMENTO DONDE SE CARGA LA PAGINA 
         private void Inicio_Load(object sender, EventArgs e)
         {
-            //this.AutoScaleMode = AutoScaleMode.Dpi; //para que se adapte a la resolucion de la pantalla
 
             List<Permiso> ListaPermisos = new CN_Permiso().Listar(usuarioActual.IdUsuario); //creamos la lista para visualizar los permisos
             foreach (IconMenuItem iconMenu in menu.Items)
@@ -59,6 +52,8 @@ namespace CapaPresentacion
 
 
             lblusuario.Text = usuarioActual.Nombre;
+           // this.Size = new Size(1410 ,825); // Ajusta a las dimensiones que prefieras
+
         }
 
 
@@ -70,7 +65,7 @@ namespace CapaPresentacion
         {
             if (MenuActivo != null)
             {
-                MenuActivo.BackColor = Color.PeachPuff;
+                MenuActivo.BackColor = Color.SandyBrown;
             }
             menu.BackColor = Color.White;
             MenuActivo = menu;
@@ -97,6 +92,7 @@ namespace CapaPresentacion
             // Ajusta el tamaño del formulario principal al del subformulario
             //this.Size = formulario.Size;
             formulario.Show();
+            contenedor.PerformLayout();
         }
         private void menuUsuario_Click(object sender, EventArgs e)
         {
@@ -147,14 +143,14 @@ namespace CapaPresentacion
 
         private void menuCliente_Click(object sender, EventArgs e)
         {
-            AbrirFormulario((IconMenuItem)sender, new frmClientes()); 
+            AbrirFormulario((IconMenuItem)sender, new frmClientes(usuarioActual)); 
         }
 
         //==========PROVEEDOR===
 
         private void menuProveedor_Click(object sender, EventArgs e)
         {
-            AbrirFormulario((IconMenuItem)sender, new frmProveedores());
+            AbrirFormulario((IconMenuItem)sender, new frmProveedores(usuarioActual));
         }
 
         //==========REPORTE===

@@ -22,8 +22,9 @@ namespace CapaPresentacion
 
         private void frmVentas_Load(object sender, System.EventArgs e)
         {
-            cmbTipoDocumento.Items.Add(new OpcionCombo() { Valor = "Boleta", Texto = "Boleta" });
-            cmbTipoDocumento.Items.Add(new OpcionCombo() { Valor = "Factura", Texto = "Factura" });
+            cmbTipoDocumento.Items.Add(new OpcionCombo() { Valor = "Efectivo", Texto = "Efectivo" });
+            cmbTipoDocumento.Items.Add(new OpcionCombo() { Valor = "Tarjeta", Texto = "Tarjeta" });
+            cmbTipoDocumento.Items.Add(new OpcionCombo() { Valor = "Transferencia", Texto = "Transferencia" });
             cmbTipoDocumento.DisplayMember = "Texto";
             cmbTipoDocumento.ValueMember = "Valor";
             cmbTipoDocumento.SelectedIndex = 0;
@@ -330,6 +331,11 @@ namespace CapaPresentacion
             {
                 MessageBox.Show("Debe ingresar los productos en la compra", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return ;
+            }
+            if (Convert.ToDecimal(txtPagaCon.Text) < Convert.ToDecimal(txtTotalPagar.Text))
+            {
+                MessageBox.Show("El monto con el que paga el cliente no puede ser menor al total a pagar", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
 
             DataTable detalle_venta = new DataTable(); //creamos el data table

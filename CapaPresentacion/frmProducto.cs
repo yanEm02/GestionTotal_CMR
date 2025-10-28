@@ -52,7 +52,14 @@ namespace CapaPresentacion
             }
             cboCategoria.DisplayMember = "Texto";
             cboCategoria.ValueMember = "Valor";
-            cboCategoria.SelectedIndex = 0;
+            if (cboCategoria.Items.Count > 0)
+            {
+                cboCategoria.SelectedIndex = 0;
+            }
+            else
+            {
+                MessageBox.Show("No hay categorias disponibles para mostrar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
 
 
             //[para realizar el filtro por columna 

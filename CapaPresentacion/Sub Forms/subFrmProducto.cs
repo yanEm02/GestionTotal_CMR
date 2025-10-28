@@ -40,7 +40,8 @@ namespace CapaPresentacion.Sub_Forms
 
             foreach (Producto item in lista)
             {
-                dgvData.Rows.Add(new object[] { 
+                if (item.Estado)
+                    dgvData.Rows.Add(new object[] { 
                     item.IdProducto,
                     item.Codigo,
                     item.Nombre,
