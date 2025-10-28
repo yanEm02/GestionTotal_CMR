@@ -39,7 +39,7 @@ namespace CapaPresentacion.Sub_Forms
             foreach (Cliente item in lista)
             {
                 if(item.Estado)
-                    dgvData.Rows.Add(new object[] {item.IdCliente, item.Documento });
+                    dgvData.Rows.Add(new object[] {item.Documento, item.Nombre });
             }
         }
 

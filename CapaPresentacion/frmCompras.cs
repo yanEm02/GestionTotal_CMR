@@ -26,8 +26,9 @@ namespace CapaPresentacion
 
         private void frmCompras_Load(object sender, System.EventArgs e)
         {
-            cmbTipoDocumento.Items.Add(new OpcionCombo() { Valor = "Boleta", Texto = "Boleta" });
-            cmbTipoDocumento.Items.Add(new OpcionCombo() { Valor = "Factura", Texto = "Factura" });
+            cmbTipoDocumento.Items.Add(new OpcionCombo() { Valor = "Efectivo", Texto = "Efectivo" });
+            cmbTipoDocumento.Items.Add(new OpcionCombo() { Valor = "Tarjeta", Texto = "Tarjeta" });
+            cmbTipoDocumento.Items.Add(new OpcionCombo() { Valor = "Transferencia", Texto = "Transferencia" });
             cmbTipoDocumento.DisplayMember = "Texto";
             cmbTipoDocumento.ValueMember = "Valor";
             cmbTipoDocumento.SelectedIndex = 0;
@@ -124,6 +125,11 @@ namespace CapaPresentacion
                 MessageBox.Show("Precio Venta - Formato moneda Incorrecto", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 txtPrecioVenta.Select();
             }
+            if (Convert.ToDecimal(txtPrecioVenta.Text) <= Convert.ToDecimal(txtPrecioCompra.Text))
+            {
+                MessageBox.Show("El precio de venta debe ser mayor al precio de compra.", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             foreach (DataGridViewRow fila in dgvData.Rows) //validamos si el producto ya existe
             {
                 if (fila.Cells["IdProducto"].Value.ToString() == txtIdProducto.Text)
@@ -142,7 +148,7 @@ namespace CapaPresentacion
                     precioCompra.ToString("0.00"),
                     precioVenta.ToString("0.00"),
                     txtCantidad.Value.ToString(),
-                    (txtCantidad.Value * precioVenta).ToString("0.00")
+                    (txtCantidad.Value * precioCompra).ToString("0.00")
 
                 });
             }
@@ -276,6 +282,13 @@ namespace CapaPresentacion
                 MessageBox.Show("Debe ingresar los productos en la compra", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             }
+            decimal montoTotal;
+            if (string.IsNullOrWhiteSpace(txtTotalPagar.Text) || !decimal.TryParse(txtTotalPagar.Text, out montoTotal))
+            {
+                MessageBox.Show("El monto total debe ser un número válido.", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            
 
             DataTable detalle_compra = new DataTable(); //creamos el data table
 

@@ -58,7 +58,7 @@ namespace CapaPresentacion
 
         private void Login_Load(object sender, EventArgs e)
         {
-            this.AutoScaleMode = AutoScaleMode.Dpi; //para que se adapte a la resolucion de la pantalla
+            //this.AutoScaleMode = AutoScaleMode.Dpi; //para que se adapte a la resolucion de la pantalla
         }
 
         private void label1_Click(object sender, EventArgs e)

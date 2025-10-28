@@ -27,6 +27,12 @@ namespace CapaPresentacion
         {
             Compra oCompra = new CN_Compra().ObtenerCompra(txtBusqueda.Text);
 
+            if(txtBusqueda.Text == "")
+            {
+                MessageBox.Show("Ingrese un numero de compra", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
             if (oCompra.IdCompra != 0)
             {
                 txtNumeroDocumento.Text = oCompra.NumeroDocumento;
@@ -132,6 +138,11 @@ namespace CapaPresentacion
                     MessageBox.Show("Factura Generada","Mensaje",MessageBoxButtons.OK,MessageBoxIcon.Information);
                 }
             }
+
+        }
+
+        private void frmDetalleCompra_Load(object sender, EventArgs e)
+        {
 
         }
     }
