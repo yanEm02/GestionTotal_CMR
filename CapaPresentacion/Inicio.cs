@@ -32,28 +32,28 @@ namespace CapaPresentacion
             }
 
             InitializeComponent();
+            ConfigurarControlesDeUsuarioEnMenu(); // <--- AÑADIR ESTA LÍNEA
+
         }
 
 
         //MOMENTO DONDE SE CARGA LA PAGINA 
         private void Inicio_Load(object sender, EventArgs e)
         {
-
             List<Permiso> ListaPermisos = new CN_Permiso().Listar(usuarioActual.IdUsuario); //creamos la lista para visualizar los permisos
-            foreach (IconMenuItem iconMenu in menu.Items)
+            
+            // Use OfType<IconMenuItem>() to filter only the items of that specific type.
+            foreach (IconMenuItem iconMenu in menu.Items.OfType<IconMenuItem>())
             {
                 bool encontrado = ListaPermisos.Any(m => m.NombreMenu == iconMenu.Name);
 
-                if(encontrado == false)
+                if (encontrado == false)
                 {
                     iconMenu.Visible = false;
                 }
             }
 
-
-            lblusuario.Text = usuarioActual.Nombre;
-           // this.Size = new Size(1410 ,825); // Ajusta a las dimensiones que prefieras
-
+            // lblusuario.Text = usuarioActual.Nombre;
         }
 
 
@@ -71,29 +71,48 @@ namespace CapaPresentacion
             MenuActivo = menu;
 
             if (FormularioActivo != null)
-            { 
+            {
                 FormularioActivo.Close();
             }
-            
 
-            imgCentral.Hide();
-            // Limpia el contenedor antes de agregar el nuevo formulario
+            //imgCentral.Hide();
             contenedor.Controls.Clear();
 
             FormularioActivo = formulario;
             formulario.TopLevel = false;
             formulario.FormBorderStyle = FormBorderStyle.None;
-            formulario.Dock = DockStyle.Fill;
             formulario.BackColor = Color.Linen;
-            //formulario.AutoScaleMode = AutoScaleMode.Dpi; //para que se adapte a la resolucion de la pantalla
 
-            //agregamos el formulario ya hecho
+            // --- INICIO DE LA MODIFICACIÓN ---
+            // 1. Forzar la creación del handle del subformulario.
+            //    Esto obliga a que se aplique el escalado DPI y se calcule su tamaño final.
+            if (!formulario.IsHandleCreated)
+            {
+                formulario.CreateControl();
+            }
+            Size subFormSize = formulario.Size;
+
+            // 2. Calcular el tamaño de la "decoración" de la ventana principal (bordes y barra de título).
+            int nonClientWidth = this.Width - this.ClientSize.Width;
+            int nonClientHeight = this.Height - this.ClientSize.Height;
+
+            // 3. Calcular el nuevo tamaño total requerido para la ventana 'Inicio'.
+            //    Ancho: El ancho del subformulario + el ancho de los bordes.
+            //    Alto: El alto del subformulario + el alto del menú + el alto de la barra de título/bordes.
+            int newWidth = subFormSize.Width + nonClientWidth;
+            int newHeight = subFormSize.Height + this.menu.Height + nonClientHeight;
+
+            // 4. Establecer el tamaño total de la ventana 'Inicio'.
+            this.Size = new Size(newWidth, newHeight);
+
+            // 5. Agregar el subformulario al contenedor y acoplarlo.
             contenedor.Controls.Add(formulario);
-            // Ajusta el tamaño del formulario principal al del subformulario
-            //this.Size = formulario.Size;
+            formulario.Dock = DockStyle.Fill;
+            // --- FIN DE LA MODIFICACIÓN ---
+
             formulario.Show();
-            contenedor.PerformLayout();
         }
+
         private void menuUsuario_Click(object sender, EventArgs e)
         {
             //insertamos el metodo para abrir el formulario aca abajo
@@ -205,36 +224,64 @@ namespace CapaPresentacion
             contenedor.Size = this.ClientSize;
         }
 
+        private void ConfigurarControlesDeUsuarioEnMenu()
+        {
+            // Crear el botón de salir
+            var btnSalir = new FontAwesome.Sharp.IconButton
+            {
+                IconChar = FontAwesome.Sharp.IconChar.SignOutAlt,
+                IconColor = System.Drawing.Color.Black,
+                IconFont = FontAwesome.Sharp.IconFont.Auto,
+                Size = new System.Drawing.Size(50, 45),
+                FlatStyle = System.Windows.Forms.FlatStyle.Flat,
+                BackColor = System.Drawing.Color.Transparent,
+            };
+            btnSalir.FlatAppearance.BorderSize = 0;
+            btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
+            var toolStripBtnSalir = new System.Windows.Forms.ToolStripControlHost(btnSalir)
+            {
+                Alignment = System.Windows.Forms.ToolStripItemAlignment.Right,
+                Margin = new System.Windows.Forms.Padding(0, 2, 0, 2)
+            };
 
+            // Crear la etiqueta para el nombre de usuario
+            var lblUsuario = new System.Windows.Forms.Label
+            {
+                Text = usuarioActual.Nombre,
+                Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold),
+                ForeColor = System.Drawing.Color.Black,
+                BackColor = System.Drawing.Color.Transparent,
+                AutoSize = true
+            };
+            // --- INICIO DE LA MODIFICACIÓN DE ALINEACIÓN ---
+            int topMarginUsuario = (btnSalir.Height - lblUsuario.Height) / 2;
+            var toolStripLblUsuario = new System.Windows.Forms.ToolStripControlHost(lblUsuario)
+            {
+                Alignment = System.Windows.Forms.ToolStripItemAlignment.Right,
+                Margin = new System.Windows.Forms.Padding(0, topMarginUsuario, 5, 0)
+            };
 
+            // Crear la etiqueta "Usuario:"
+            var lblTextoUsuario = new System.Windows.Forms.Label
+            {
+                Text = "Usuario:",
+                Font = new System.Drawing.Font("Microsoft Sans Serif", 10F),
+                ForeColor = System.Drawing.Color.Black,
+                BackColor = System.Drawing.Color.Transparent,
+                AutoSize = true
+            };
+            int topMarginTextoUsuario = (btnSalir.Height - lblTextoUsuario.Height) / 2;
+            var toolStripLblTextoUsuario = new System.Windows.Forms.ToolStripControlHost(lblTextoUsuario)
+            {
+                Alignment = System.Windows.Forms.ToolStripItemAlignment.Right,
+                Margin = new System.Windows.Forms.Padding(0, topMarginTextoUsuario, 0, 0)
+            };
+            // --- FIN DE LA MODIFICACIÓN DE ALINEACIÓN ---
 
-
-        //==========================TESTING LA OBTENCION DE DATOS 
-        //private void CargarPermisos()
-        //{
-        //    try
-        //    {
-        //        // Llama directamente a la clase de datos, o a través de la capa de negocio si la tienes
-        //        List<Permiso> lista = new CN_Permiso().Listar(usuarioActual.IdUsuario);
-
-        //        // 💬 Aquí agregas la línea de prueba
-        //        MessageBox.Show("Total permisos: " + lista.Count);
-
-        //        // Proyección simple para mostrar los datos en el DataGridView
-        //        var datos = lista.Select(p => new
-        //        {
-        //            IdRol = p.oRol.IdRol,
-        //            NombreMenu = p.NombreMenu
-        //        }).ToList();
-
-        //        dataGridViewPermisos.DataSource = datos;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show("Error al cargar permisos: " + ex.Message);
-        //    }
-        //}
-
-
+            // Añadir los controles al MenuStrip en orden inverso (porque se alinean a la derecha)
+            menu.Items.Add(toolStripBtnSalir);
+            menu.Items.Add(toolStripLblUsuario);
+            menu.Items.Add(toolStripLblTextoUsuario);
+        }
     }
 }

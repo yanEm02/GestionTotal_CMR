@@ -368,5 +368,15 @@ namespace CapaPresentacion
             }
 
         }
+
+        private void txtIndice_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtid_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

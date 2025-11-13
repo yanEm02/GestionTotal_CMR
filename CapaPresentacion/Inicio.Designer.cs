@@ -46,13 +46,7 @@
             this.menuMantenedor = new FontAwesome.Sharp.IconMenuItem();
             this.menuAcercaDe = new FontAwesome.Sharp.IconMenuItem();
             this.contenedor = new System.Windows.Forms.Panel();
-            this.imgCentral = new System.Windows.Forms.PictureBox();
-            this.lblusuario = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.btnSalir = new FontAwesome.Sharp.IconButton();
             this.menu.SuspendLayout();
-            this.contenedor.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.imgCentral)).BeginInit();
             this.SuspendLayout();
             // 
             // menu
@@ -72,7 +66,7 @@
             this.menu.Location = new System.Drawing.Point(0, 0);
             this.menu.Name = "menu";
             this.menu.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
-            this.menu.Size = new System.Drawing.Size(1395, 78);
+            this.menu.Size = new System.Drawing.Size(1129, 78);
             this.menu.TabIndex = 0;
             this.menu.Text = "menuStrip1";
             // 
@@ -178,7 +172,7 @@
             // subMenuCategoria
             // 
             this.subMenuCategoria.Name = "subMenuCategoria";
-            this.subMenuCategoria.Size = new System.Drawing.Size(157, 26);
+            this.subMenuCategoria.Size = new System.Drawing.Size(224, 26);
             this.subMenuCategoria.Text = "Categoria";
             this.subMenuCategoria.Click += new System.EventHandler(this.categoriaToolStripMenuItem_Click);
             // 
@@ -200,14 +194,14 @@
             // subMenuReporteCompra
             // 
             this.subMenuReporteCompra.Name = "subMenuReporteCompra";
-            this.subMenuReporteCompra.Size = new System.Drawing.Size(208, 26);
+            this.subMenuReporteCompra.Size = new System.Drawing.Size(224, 26);
             this.subMenuReporteCompra.Text = "Reporte Compras";
             this.subMenuReporteCompra.Click += new System.EventHandler(this.subMenuReporteCompra_Click);
             // 
             // subMenuReporteVenta
             // 
             this.subMenuReporteVenta.Name = "subMenuReporteVenta";
-            this.subMenuReporteVenta.Size = new System.Drawing.Size(208, 26);
+            this.subMenuReporteVenta.Size = new System.Drawing.Size(224, 26);
             this.subMenuReporteVenta.Text = "Reporte Ventas";
             this.subMenuReporteVenta.Click += new System.EventHandler(this.subMenuReporteVenta_Click);
             // 
@@ -253,79 +247,18 @@
             // contenedor
             // 
             this.contenedor.BackColor = System.Drawing.Color.White;
-            this.contenedor.Controls.Add(this.imgCentral);
             this.contenedor.Dock = System.Windows.Forms.DockStyle.Fill;
             this.contenedor.Location = new System.Drawing.Point(0, 78);
             this.contenedor.Margin = new System.Windows.Forms.Padding(4);
             this.contenedor.Name = "contenedor";
-            this.contenedor.Size = new System.Drawing.Size(1395, 559);
+            this.contenedor.Size = new System.Drawing.Size(1129, 599);
             this.contenedor.TabIndex = 3;
-            // 
-            // imgCentral
-            // 
-            this.imgCentral.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.imgCentral.Image = global::CapaPresentacion.Properties.Resources.ComerciaPlus_Logo;
-            this.imgCentral.Location = new System.Drawing.Point(363, 124);
-            this.imgCentral.Margin = new System.Windows.Forms.Padding(4);
-            this.imgCentral.Name = "imgCentral";
-            this.imgCentral.Size = new System.Drawing.Size(676, 298);
-            this.imgCentral.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.imgCentral.TabIndex = 0;
-            this.imgCentral.TabStop = false;
-            // 
-            // lblusuario
-            // 
-            this.lblusuario.BackColor = System.Drawing.Color.SandyBrown;
-            this.lblusuario.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblusuario.ForeColor = System.Drawing.Color.Black;
-            this.lblusuario.Location = new System.Drawing.Point(1076, 39);
-            this.lblusuario.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblusuario.Name = "lblusuario";
-            this.lblusuario.Size = new System.Drawing.Size(181, 25);
-            this.lblusuario.TabIndex = 4;
-            this.lblusuario.Text = "lblusuario";
-            // 
-            // label3
-            // 
-            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label3.AutoSize = true;
-            this.label3.BackColor = System.Drawing.Color.SandyBrown;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.Black;
-            this.label3.Location = new System.Drawing.Point(991, 39);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(77, 20);
-            this.label3.TabIndex = 5;
-            this.label3.Text = "Usuario: ";
-            // 
-            // btnSalir
-            // 
-            this.btnSalir.BackColor = System.Drawing.Color.SandyBrown;
-            this.btnSalir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSalir.IconChar = FontAwesome.Sharp.IconChar.SignOutAlt;
-            this.btnSalir.IconColor = System.Drawing.Color.Black;
-            this.btnSalir.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnSalir.Location = new System.Drawing.Point(1219, 25);
-            this.btnSalir.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.btnSalir.Name = "btnSalir";
-            this.btnSalir.Size = new System.Drawing.Size(134, 45);
-            this.btnSalir.TabIndex = 0;
-            this.btnSalir.UseVisualStyleBackColor = false;
-            this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
             // 
             // Inicio
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1395, 637);
-            this.Controls.Add(this.btnSalir);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.lblusuario);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.ClientSize = new System.Drawing.Size(1129, 677);
             this.Controls.Add(this.contenedor);
             this.Controls.Add(this.menu);
             this.MainMenuStrip = this.menu;
@@ -336,8 +269,6 @@
             this.Load += new System.EventHandler(this.Inicio_Load);
             this.menu.ResumeLayout(false);
             this.menu.PerformLayout();
-            this.contenedor.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.imgCentral)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -355,16 +286,12 @@
         private FontAwesome.Sharp.IconMenuItem menuProveedor;
         private FontAwesome.Sharp.IconMenuItem menuReporte;
         private System.Windows.Forms.Panel contenedor;
-        private System.Windows.Forms.Label lblusuario;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ToolStripMenuItem subMenuRegistrarVenta;
         private System.Windows.Forms.ToolStripMenuItem subMenuVerDetalleVenta;
         private System.Windows.Forms.ToolStripMenuItem subMenuRegistrarCompra;
         private System.Windows.Forms.ToolStripMenuItem subMenuVerDetalleCompra;
         private System.Windows.Forms.ToolStripMenuItem subMenuReporteCompra;
         private System.Windows.Forms.ToolStripMenuItem subMenuReporteVenta;
-        private FontAwesome.Sharp.IconButton btnSalir;
-        private System.Windows.Forms.PictureBox imgCentral;
         private FontAwesome.Sharp.IconMenuItem menuInventario;
         private System.Windows.Forms.ToolStripMenuItem subMenuCategoria;
     }
