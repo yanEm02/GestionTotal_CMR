@@ -145,6 +145,11 @@ namespace CapaPresentacion
         {
             AbrirFormulario(menuVenta, new frmDetalleVenta());
         }
+        private void menuProcedimiento_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario(menuProcedimiento, new frmProcedimientos()); 
+        }
+
 
         //==========COMPRAS===
 
@@ -283,5 +288,7 @@ namespace CapaPresentacion
             menu.Items.Add(toolStripLblUsuario);
             menu.Items.Add(toolStripLblTextoUsuario);
         }
+
+       
     }
 }
