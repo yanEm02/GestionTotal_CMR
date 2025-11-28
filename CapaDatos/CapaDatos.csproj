@@ -168,6 +168,7 @@
     <Compile Include="CD_Compra.cs" />
     <Compile Include="CD_Negocio.cs" />
     <Compile Include="CD_Permiso.cs" />
+    <Compile Include="CD_Procedimiento.cs" />
     <Compile Include="CD_Producto.cs" />
     <Compile Include="CD_Proveedor.cs" />
     <Compile Include="CD_Reporte.cs" />

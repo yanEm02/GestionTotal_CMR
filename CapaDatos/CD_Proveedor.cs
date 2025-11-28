@@ -22,7 +22,7 @@ namespace CapaDatos
                 try
                 {
                     StringBuilder query = new StringBuilder();
-                    query.AppendLine("select ID_PROVEEDOR,DOCUMENTO,RAZON_SOCIAL,CORREO,TELEFONO,Estado from PROVEEDOR");
+                    query.AppendLine("select ID_PROVEEDOR,DOCUMENTO,Nombre,TELEFONO,Estado from PROVEEDOR");
 
                     SqlCommand cmd = new SqlCommand(query.ToString(), oconexion);
                     cmd.CommandType = CommandType.Text; //para declararr el tipo de comando ya que es una consulta con select
@@ -38,8 +38,7 @@ namespace CapaDatos
                             {
                                 IdProveedor = Convert.ToInt32(dr["Id_Proveedor"]),
                                 Documento = dr["Documento"].ToString(),
-                                RazonSocial = dr["Razon_social"].ToString(),
-                                Correo = dr["Correo"].ToString(),
+                                RazonSocial = dr["Nombre"].ToString(),
                                 Telefono = dr["Telefono"].ToString(),
                                 Estado = Convert.ToBoolean(dr["Estado"])
                             });
@@ -70,7 +69,6 @@ namespace CapaDatos
                     SqlCommand cmd = new SqlCommand("SP_REGISTRAR_PROVEEDOR", oconexion);
                     cmd.Parameters.AddWithValue("documento", obj.Documento);
                     cmd.Parameters.AddWithValue("RazonSocial", obj.RazonSocial);
-                    cmd.Parameters.AddWithValue("Correo", obj.Correo);
                     cmd.Parameters.AddWithValue("Telefono", obj.Telefono);
                     cmd.Parameters.AddWithValue("estado", obj.Estado);
                     cmd.Parameters.Add("Resultado", SqlDbType.Int).Direction = ParameterDirection.Output;
@@ -110,7 +108,6 @@ namespace CapaDatos
                     cmd.Parameters.AddWithValue("IdProveedor", obj.IdProveedor);
                     cmd.Parameters.AddWithValue("documento", obj.Documento);
                     cmd.Parameters.AddWithValue("RazonSocial", obj.RazonSocial);
-                    cmd.Parameters.AddWithValue("Correo", obj.Correo);
                     cmd.Parameters.AddWithValue("Telefono", obj.Telefono);
                     cmd.Parameters.AddWithValue("estado", obj.Estado);
                     cmd.Parameters.Add("Resultado", SqlDbType.Int).Direction = ParameterDirection.Output;

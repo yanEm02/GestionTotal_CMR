@@ -48,7 +48,7 @@ namespace CapaPresentacion.Sub_Forms
             foreach (Cliente item in lista)
             {
                 if (item.Estado == false)
-                        dgvData.Rows.Add(new object[] { "", item.IdCliente, item.Documento, item.Nombre, item.Correo, item.Telefono,
+                        dgvData.Rows.Add(new object[] { "", item.IdCliente, item.Documento, item.Nombre, item.Edad, item.Sexo, item.Direccion, item.Telefono,
                       item.Estado == true ? 1 : 0,
                       item.Estado == true ? "Activo" : "No Activo",
                 });

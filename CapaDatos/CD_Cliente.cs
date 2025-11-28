@@ -23,7 +23,7 @@ namespace CapaDatos
                 try
                 {
                     StringBuilder query = new StringBuilder();
-                    query.AppendLine("select id_cliente,documento,nombre,correo,telefono,estado from CLIENTE");
+                    query.AppendLine("select id_cliente,documento,NombreCompleto,Edad,Sexo,Direccion,telefono,estado from CLIENTE");
 
                     SqlCommand cmd = new SqlCommand(query.ToString(), oconexion);
                     cmd.CommandType = CommandType.Text; //para declararr el tipo de comando ya que es una consulta con select
@@ -39,8 +39,10 @@ namespace CapaDatos
                             {
                                 IdCliente = Convert.ToInt32(dr["Id_Cliente"]),
                                 Documento = dr["Documento"].ToString(),
-                                Nombre = dr["Nombre"].ToString(),
-                                Correo = dr["Correo"].ToString(),
+                                Nombre = dr["NombreCompleto"].ToString(),
+                                Edad = dr["Edad"] != DBNull.Value ? Convert.ToInt32(dr["Edad"]) : 0, // Default to 0 if NULL
+                                Sexo = dr["Sexo"].ToString(),
+                                Direccion = dr["Direccion"].ToString(),
                                 Telefono = dr["telefono"].ToString(),
                                 Estado = Convert.ToBoolean(dr["Estado"]),
                             });
@@ -67,8 +69,10 @@ namespace CapaDatos
                 {
                     SqlCommand cmd = new SqlCommand("SP_REGISTRAR_CLIENTE", oconexion);
                     cmd.Parameters.AddWithValue("documento", obj.Documento);
-                    cmd.Parameters.AddWithValue("nombre", obj.Nombre);
-                    cmd.Parameters.AddWithValue("Correo", obj.Correo);
+                    cmd.Parameters.AddWithValue("Nombre", obj.Nombre);
+                    cmd.Parameters.AddWithValue("edad", obj.Edad);
+                    cmd.Parameters.AddWithValue("Sexo", obj.Sexo);
+                    cmd.Parameters.AddWithValue("Direccion", obj.Direccion);
                     cmd.Parameters.AddWithValue("Telefono", obj.Telefono);
                     cmd.Parameters.AddWithValue("estado", obj.Estado);
                     cmd.Parameters.Add("Resultado", SqlDbType.Int).Direction = ParameterDirection.Output;
@@ -107,8 +111,10 @@ namespace CapaDatos
                     SqlCommand cmd = new SqlCommand("SP_EDITAR_CLIENTE", oconexion);
                     cmd.Parameters.AddWithValue("Idcliente", obj.IdCliente);
                     cmd.Parameters.AddWithValue("documento", obj.Documento);
-                    cmd.Parameters.AddWithValue("nombre", obj.Nombre);
-                    cmd.Parameters.AddWithValue("Correo", obj.Correo);
+                    cmd.Parameters.AddWithValue("Nombre", obj.Nombre);
+                    cmd.Parameters.AddWithValue("Edad", obj.Edad);
+                    cmd.Parameters.AddWithValue("Sexo", obj.Sexo);
+                    cmd.Parameters.AddWithValue("Direccion", obj.Direccion);
                     cmd.Parameters.AddWithValue("Telefono", obj.Telefono);
                     cmd.Parameters.AddWithValue("estado", obj.Estado);
                     cmd.Parameters.Add("Resultado", SqlDbType.Int).Direction = ParameterDirection.Output;

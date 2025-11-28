@@ -319,6 +319,12 @@
     <Compile Include="Sub Forms\subFormClientesInactivos.Designer.cs">
       <DependentUpon>subFormClientesInactivos.cs</DependentUpon>
     </Compile>
+    <Compile Include="Sub Forms\subFormProcedimiento.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Sub Forms\subFormProcedimiento.Designer.cs">
+      <DependentUpon>subFormProcedimiento.cs</DependentUpon>
+    </Compile>
     <Compile Include="Sub Forms\subFrmProducto.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -388,6 +394,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Sub Forms\subFormClientesInactivos.resx">
       <DependentUpon>subFormClientesInactivos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Sub Forms\subFormProcedimiento.resx">
+      <DependentUpon>subFormProcedimiento.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Sub Forms\subFrmProducto.resx">
       <DependentUpon>subFrmProducto.cs</DependentUpon>

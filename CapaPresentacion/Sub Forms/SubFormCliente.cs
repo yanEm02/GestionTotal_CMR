@@ -1,6 +1,8 @@
 ﻿using CapaEntidad;
 using CapaNegocio;
 using CapaPresentacion.Utilidades;
+using DocumentFormat.OpenXml.Spreadsheet;
+using DocumentFormat.OpenXml.Wordprocessing;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -23,6 +25,11 @@ namespace CapaPresentacion.Sub_Forms
 
         private void SubFormCliente_Load(object sender, EventArgs e)
         {
+            cmbSexo.Items.Add(new OpcionCombo() { Texto = "Masculino" });
+            cmbSexo.Items.Add(new OpcionCombo() { Texto = "Femenino" });
+            cmbSexo.DisplayMember = "Texto";
+            cmbSexo.SelectedIndex = 0;
+
             foreach (DataGridViewColumn columna in dgvData.Columns)
             {
                 
@@ -39,7 +46,7 @@ namespace CapaPresentacion.Sub_Forms
             foreach (Cliente item in lista)
             {
                 if(item.Estado)
-                    dgvData.Rows.Add(new object[] {item.Documento, item.Nombre });
+                    dgvData.Rows.Add(new object[] {item.Documento, item.Nombre, item.Edad, item.Sexo, item.Telefono });
             }
         }
 
@@ -89,5 +96,68 @@ namespace CapaPresentacion.Sub_Forms
                 row.Visible = true;
             } 
         }
+
+        //CREAMOS PROCEDIMIENTO PARA AGREGAR CLIENTE NUEVO SI EL USUARIO DESEA 
+
+        private void btnGuardar_Click(object sender, EventArgs e)
+        {
+            string mensaje = string.Empty;
+            OpcionCombo sexoSeleccionado = (OpcionCombo)cmbSexo.SelectedItem;
+
+
+            Cliente obj = new Cliente()
+            {
+                IdCliente = Convert.ToInt32(txtid.Text),
+                Documento = txtDocumento.Text,
+                Nombre = txtNombreCompleto.Text,
+                Edad = Convert.ToInt32(txtEdad.Text),
+                Sexo = sexoSeleccionado.Texto,
+                Direccion = txtDireccion.Text,
+                Telefono = txtTelefono.Text,
+                Estado = true,
+            };
+
+            int idGenerado = new CN_Cliente().Registrar(obj, out mensaje);
+
+            if (idGenerado != 0)
+            {
+                //aqui agremos lo que este en el textbox del formulario para agregarse a la data grid view
+                dgvData.Rows.Add(new object[] {txtDocumento.Text, txtNombreCompleto.Text, txtEdad.Text,
+                    //((OpcionCombo)cmbSexo.SelectedItem).Valor.ToString(),
+                    ((OpcionCombo)cmbSexo.SelectedItem).Texto.ToString(),
+                    txtTelefono.Text,
+                    });
+
+                Limpiar();
+            }
+            else
+            {
+                MessageBox.Show(mensaje);
+            }
+
+
+            //_Cliente = new Cliente()
+            //{
+            //    Documento = dgvData.Rows[iRow].Cells["Documento"].Value.ToString(),
+            //    Nombre = dgvData.Rows[iRow].Cells["NombreCompleto"].Value.ToString()
+            //};
+            //this.DialogResult = DialogResult.OK;
+            //this.Close();
+        }
+
+        private void Limpiar()
+        {
+            //txtIndice.Text = "-1";
+            txtid.Text = "0";
+            txtDocumento.Text = "";
+            txtTelefono.Text = "";
+            txtNombreCompleto.Text = "";
+            //cboEstado.SelectedIndex = 0;
+
+            txtDocumento.Select();
+        }
+
+
+
     }
 }

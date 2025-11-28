@@ -14,15 +14,15 @@ using CapaPresentacion.Utilidades;
 
 namespace CapaPresentacion.Sub_Forms
 {
-    public partial class subFrmProducto : Form
+    public partial class subFormProcedimiento : Form
     {
-        public Producto _producto { get; set; }
-        public subFrmProducto()
+        public Procedimiento _procedimiento { get; set; }
+        public subFormProcedimiento()
         {
             InitializeComponent();
         }
 
-        private void subFrmProducto_Load(object sender, EventArgs e)
+        private void subFormProcedimiento_Load(object sender, EventArgs e)
         {
             foreach (DataGridViewColumn columna in dgvData.Columns)
             {
@@ -36,46 +36,23 @@ namespace CapaPresentacion.Sub_Forms
             cboBusqueda.SelectedIndex = 0;
 
             //mostrar todos los productos en el data grid view
-            List<Producto> lista = new CN_Producto().Listar();
+            List<Procedimiento> lista = new CN_Procedimiento().Listar();
 
-            foreach (Producto item in lista)
+            foreach (Procedimiento item in lista)
             {
                 if (item.Estado)
-                    dgvData.Rows.Add(new object[] { 
-                    item.IdProducto,
+                    dgvData.Rows.Add(new object[] {
+                    item.ID_Procedimiento,
                     item.Codigo,
                     item.Nombre,
                     item.oCategoria.Descripcion,
-                    item.Stock,
-                    item.PrecioCompra,
-                    item.PrecioVenta
+                    item.PrecioVenta,
+                    item.PrecioVentaAsegurado
                 });
             }
         }
 
-        private void dgvData_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            int iRow = e.RowIndex;
-            int iColumn = e.ColumnIndex;
-
-            if (iRow >= 0 && iColumn > 0)
-            {
-                _producto = new Producto()
-                {
-                    IdProducto = Convert.ToInt32(dgvData.Rows[iRow].Cells["Id"].Value.ToString()),
-                    Codigo = dgvData.Rows[iRow].Cells["Codigo"].Value.ToString(),
-                    Nombre = dgvData.Rows[iRow].Cells["Nombre"].Value.ToString(),
-                    Stock = Convert.ToInt32(dgvData.Rows[iRow].Cells["Stock"].Value.ToString()),
-                    PrecioCompra = Convert.ToDecimal(dgvData.Rows[iRow].Cells["PrecioCompra"].Value.ToString()),
-                    PrecioVenta = Convert.ToDecimal(dgvData.Rows[iRow].Cells["PrecioVenta"].Value.ToString())
-                };
-
-                this.DialogResult = DialogResult.OK;
-                this.Close();
-            }
-        }
-
-        private void btnBuscar_Click(object sender, EventArgs e)
+        private void btnBuscar_Click_1(object sender, EventArgs e)
         {
             string columnaFiltro = ((OpcionCombo)cboBusqueda.SelectedItem).Valor.ToString();
 
@@ -96,14 +73,34 @@ namespace CapaPresentacion.Sub_Forms
             }
         }
 
-        private void btnLimpiarBuscador_Click(object sender, EventArgs e)
+        private void btnLimpiarBuscador_Click_1(object sender, EventArgs e)
         {
             txtBusqueda.Text = "";
             foreach (DataGridViewRow row in dgvData.Rows)
             {
                 row.Visible = true;
+            }
+        }
 
+        private void dgvData_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int iRow = e.RowIndex;
+            int iColumn = e.ColumnIndex;
 
+            if (iRow >= 0 && iColumn > 0)
+            {
+                _procedimiento = new Procedimiento()
+                {
+                    ID_Procedimiento = Convert.ToInt32(dgvData.Rows[iRow].Cells["id"].Value.ToString()),
+                    Codigo = Convert.ToInt32(dgvData.Rows[iRow].Cells["Codigo"].Value.ToString()),
+                    Nombre = dgvData.Rows[iRow].Cells["Nombre"].Value.ToString(),
+                    oCategoria = new Categoria() { Descripcion = dgvData.Rows[iRow].Cells["Categoria"].Value.ToString() },
+                    PrecioVenta = Convert.ToDecimal(dgvData.Rows[iRow].Cells["PrecioVenta"].Value.ToString()),
+                    PrecioVentaAsegurado = Convert.ToDecimal(dgvData.Rows[iRow].Cells["PrecioVentaAsegurado"].Value.ToString()),
+                };
+
+                this.DialogResult = DialogResult.OK;
+                this.Close();
             }
         }
     }
