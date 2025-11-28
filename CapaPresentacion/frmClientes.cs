@@ -28,6 +28,10 @@ namespace CapaPresentacion
         {
             //COMBOBOX DE ESTADO
             //agregamos los items del combobox para desplegarlos, usando la clase dentro de utilidades, usamos clases y objetos 
+            cmbSexo.Items.Add(new OpcionCombo() {Texto = "Masculino" });
+            cmbSexo.Items.Add(new OpcionCombo() {Texto = "Femenino" });
+            cmbSexo.DisplayMember = "Texto";
+            cmbSexo.SelectedIndex = 0;
             cboEstado.Items.Add(new OpcionCombo() { Valor = 1, Texto = "Activo" });
             cboEstado.Items.Add(new OpcionCombo() { Valor = 0, Texto = "No Activo" });
             cboEstado.DisplayMember = "Texto";
@@ -57,7 +61,7 @@ namespace CapaPresentacion
             //    });
             //}
 
-                //mostrar todos los usuarios en el data grid view
+                //mostrar todos los CLIENTES en el data grid view
             List<Cliente> lista = new CN_Cliente().Listar();
 
             //filtramos los resultados para mostrar solo los registros activos para usarios estandares y no activos /activos para administradores
@@ -69,14 +73,16 @@ namespace CapaPresentacion
                 // Si el usuario es estándar (rol 2), muestra solo los activos
                 if (rolUsuario == 1 || rolUsuario == 0)
                 {
-                    dgvData.Rows.Add(new object[] { "", item.IdCliente, item.Documento, item.Nombre, item.Correo, item.Telefono,
-                item.Estado == true ? 1 : 0,
-                item.Estado == true ? "Activo" : "No Activo",
+                    dgvData.Rows.Add(new object[] { "", item.IdCliente, item.Documento, item.Nombre, item.Edad,
+                    item.Sexo,item.Direccion,item.Telefono,
+                    item.Estado == true ? 1 : 0,
+                    item.Estado == true ? "Activo" : "No Activo",
             });
                 }
                 else if (rolUsuario == 2 && item.Estado == true)
                 {
-                    dgvData.Rows.Add(new object[] { "", item.IdCliente, item.Documento, item.Nombre, item.Correo, item.Telefono,
+                    dgvData.Rows.Add(new object[] { "", item.IdCliente, item.Documento, item.Nombre, item.Edad,
+                    item.Sexo,item.Direccion,item.Telefono,
                 1, "Activo"
                     });
                 }
@@ -119,20 +125,17 @@ namespace CapaPresentacion
         private void btnGuardar_Click(object sender, EventArgs e)
         {
             string mensaje = string.Empty;
+            OpcionCombo sexoSeleccionado = (OpcionCombo)cmbSexo.SelectedItem;
 
-            if (!EsCorreoValido(txtCorreo.Text))
-            {
-                MessageBox.Show("Por favor, ingrese un correo electrónico válido.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtCorreo.Focus();
-                return;
-            }
 
             Cliente obj = new Cliente()
             {
                 IdCliente = Convert.ToInt32(txtid.Text),
                 Documento = txtDocumento.Text,
                 Nombre = txtNombreCompleto.Text,
-                Correo = txtCorreo.Text,
+                Edad = Convert.ToInt32(txtEdad.Text),
+                Sexo = sexoSeleccionado.Texto,
+                Direccion = txtDireccion.Text,
                 Telefono = txtTelefono.Text,
                 Estado = Convert.ToInt32(((OpcionCombo)cboEstado.SelectedItem).Valor) == 1 ? true : false,
             };
@@ -145,7 +148,10 @@ namespace CapaPresentacion
                 if (idGenerado != 0)
                 {
                     //aqui agremos lo que este en el textbox del formulario para agregarse a la data grid view
-                    dgvData.Rows.Add(new object[] { "", idGenerado, txtDocumento.Text, txtNombreCompleto.Text, txtCorreo.Text, txtTelefono.Text,
+                    dgvData.Rows.Add(new object[] { "", idGenerado, txtDocumento.Text, txtNombreCompleto.Text, txtEdad.Text,
+                    //((OpcionCombo)cmbSexo.SelectedItem).Valor.ToString(),
+                    ((OpcionCombo)cmbSexo.SelectedItem).Texto.ToString(),
+                    txtDireccion.Text, txtTelefono.Text, 
                     ((OpcionCombo)cboEstado.SelectedItem).Valor.ToString(), //para obtener el estado de la base de datos
                     ((OpcionCombo)cboEstado.SelectedItem).Texto.ToString(),
                     });
@@ -167,7 +173,10 @@ namespace CapaPresentacion
                     row.Cells["Id"].Value = txtid.Text;
                     row.Cells["Documento"].Value = txtDocumento.Text;
                     row.Cells["NombreCompleto"].Value = txtNombreCompleto.Text;
-                    row.Cells["Correo"].Value = txtCorreo.Text;
+                    row.Cells["Edad"].Value = txtEdad.Text;
+                   // row.Cells["SexoValor"].Value = ((OpcionCombo)cmbSexo.SelectedItem).Valor.ToString();
+                    row.Cells["Sexo"].Value = ((OpcionCombo)cmbSexo.SelectedItem).Texto.ToString();
+                    row.Cells["Direccion"].Value = txtDireccion.Text;
                     row.Cells["Telefono"].Value = txtTelefono.Text;
                     row.Cells["EstadoValor"].Value = ((OpcionCombo)cboEstado.SelectedItem).Valor.ToString();
                     row.Cells["Estado"].Value = ((OpcionCombo)cboEstado.SelectedItem).Texto.ToString();
@@ -187,7 +196,6 @@ namespace CapaPresentacion
             txtIndice.Text = "-1";
             txtid.Text = "0";
             txtDocumento.Text = "";
-            txtCorreo.Text = "";
             txtTelefono.Text = "";
             txtNombreCompleto.Text = "";
             cboEstado.SelectedIndex = 0;
@@ -227,7 +235,9 @@ namespace CapaPresentacion
                     txtid.Text = dgvData.Rows[indice].Cells["Id"].Value.ToString();
                     txtDocumento.Text = dgvData.Rows[indice].Cells["Documento"].Value.ToString();
                     txtNombreCompleto.Text = dgvData.Rows[indice].Cells["NombreCompleto"].Value.ToString();
-                    txtCorreo.Text = dgvData.Rows[indice].Cells["Correo"].Value.ToString();
+                    txtEdad.Text = dgvData.Rows[indice].Cells["Edad"].Value.ToString();
+                    cmbSexo.SelectedIndex = cmbSexo.FindStringExact(dgvData.Rows[indice].Cells["Sexo"].Value.ToString());
+                    txtDireccion.Text = dgvData.Rows[indice].Cells["Direccion"].Value.ToString();
                     txtTelefono.Text = dgvData.Rows[indice].Cells["telefono"].Value.ToString();
 
                     foreach (OpcionCombo oc in cboEstado.Items)

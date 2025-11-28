@@ -151,13 +151,13 @@ namespace CapaDatos
                     StringBuilder query = new StringBuilder();
 
                     query.AppendLine("select v.ID_VENTA,u.NombreCompleto,");
-                    query.AppendLine("v.Documento_Cliente,v.CLIENTE,");
-                    query.AppendLine("v.Tipo_Documento,v.numero_Documento,");
-                    query.AppendLine("v.MONTO_PAGO,v.Monto_cambio,v.Monto_total,");
-                    query.AppendLine("CONVERT(char(10),v.FECHA_REGISTRO,103)[FechaRegistro]");
+                    query.AppendLine("v.DocumentoCliente,v.CLIENTE,");
+                    query.AppendLine("v.TipoDocumento,v.numeroDocumento,");
+                    query.AppendLine("v.MONTOPAGO,v.Montocambio,v.Montototal,");
+                    query.AppendLine("CONVERT(char(10),v.FECHAREGISTRO,103)[FechaRegistro]");
                     query.AppendLine("from VENTA v");
                     query.AppendLine("inner join USUARIO u on u.ID_usuario = v.USUARIO");
-                    query.AppendLine("where v.NUMERO_DOCUMENTO = @numero");
+                    query.AppendLine("where v.NUMERODOCUMENTO = @numero");
 
                     SqlCommand cmd = new SqlCommand(query.ToString(), conexion);
                     cmd.Parameters.AddWithValue("@numero", numero);
@@ -171,13 +171,13 @@ namespace CapaDatos
                             {
                                 IdVenta = int.Parse(dataReader["ID_VENTA"].ToString()),
                                 oUsuario = new Usuario() { Nombre = dataReader["NombreCompleto"].ToString() },
-                                DocumentoCliente = dataReader["Documento_Cliente"].ToString(),
+                                DocumentoCliente = dataReader["DocumentoCliente"].ToString(),
                                 NombreCliente = dataReader["CLIENTE"].ToString(),
-                                TipoDocumento = dataReader["Tipo_Documento"].ToString(),
-                                NumeroDocumento = dataReader["numero_Documento"].ToString(),
-                                MontoPago = Convert.ToDecimal(dataReader["MONTO_PAGO"].ToString()),
-                                MontoCambio = Convert.ToDecimal(dataReader["Monto_cambio"].ToString()),
-                                MontoTotal = Convert.ToDecimal(dataReader["Monto_total"].ToString()),
+                                TipoDocumento = dataReader["TipoDocumento"].ToString(),
+                                NumeroDocumento = dataReader["numeroDocumento"].ToString(),
+                                MontoPago = Convert.ToDecimal(dataReader["MONTOPAGO"].ToString()),
+                                MontoCambio = Convert.ToDecimal(dataReader["Montocambio"].ToString()),
+                                MontoTotal = Convert.ToDecimal(dataReader["Montototal"].ToString()),
                                 FechaRegistro = dataReader["FechaRegistro"].ToString(),
 
 
@@ -207,7 +207,7 @@ namespace CapaDatos
                 {
                     conexion.Open();
                     StringBuilder query = new StringBuilder();
-                    query.AppendLine("select p.NOMBRE,dv.PRECIO_VENTA,dv.CANTIDAD,dv.SUB_TOTAL");
+                    query.AppendLine("select p.NOMBRE,dv.PRECIOVENTA,dv.CANTIDAD,dv.SUBTOTAL");
                     query.AppendLine("from DETALLE_VENTA dv");  
                     query.AppendLine("inner join PRODUCTO p on p.ID_PRODUCTO =dv.PRODUCTO");
                     query.AppendLine("where dv.VENTA = @idVenta");
@@ -223,9 +223,9 @@ namespace CapaDatos
                             oLista.Add(new DetalleVenta()
                             {
                                 oProducto = new Producto() { Nombre = dataReader["Nombre"].ToString() },
-                                PrecioVenta = Convert.ToDecimal(dataReader["PRECIO_VENTA"].ToString()),
+                                PrecioVenta = Convert.ToDecimal(dataReader["PRECIOVENTA"].ToString()),
                                 Cantidad = Convert.ToInt32(dataReader["CANTIDAD"].ToString()),
-                                SubTotal = Convert.ToDecimal(dataReader["SUB_TOTAL"].ToString()),
+                                SubTotal = Convert.ToDecimal(dataReader["SUBTOTAL"].ToString()),
 
                             });
                         }

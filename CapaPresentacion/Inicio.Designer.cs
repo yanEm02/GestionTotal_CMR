@@ -32,6 +32,7 @@
             this.menuVenta = new FontAwesome.Sharp.IconMenuItem();
             this.subMenuRegistrarVenta = new System.Windows.Forms.ToolStripMenuItem();
             this.subMenuVerDetalleVenta = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuProcedimiento = new FontAwesome.Sharp.IconMenuItem();
             this.menuCompra = new FontAwesome.Sharp.IconMenuItem();
             this.subMenuRegistrarCompra = new System.Windows.Forms.ToolStripMenuItem();
             this.subMenuVerDetalleCompra = new System.Windows.Forms.ToolStripMenuItem();
@@ -45,7 +46,6 @@
             this.menuUsuario = new FontAwesome.Sharp.IconMenuItem();
             this.menuMantenedor = new FontAwesome.Sharp.IconMenuItem();
             this.menuAcercaDe = new FontAwesome.Sharp.IconMenuItem();
-            this.menuProcedimiento = new FontAwesome.Sharp.IconMenuItem();
             this.contenedor = new System.Windows.Forms.Panel();
             this.menu.SuspendLayout();
             this.SuspendLayout();
@@ -55,8 +55,8 @@
             this.menu.BackColor = System.Drawing.Color.SandyBrown;
             this.menu.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.menuVenta,
             this.menuProcedimiento,
+            this.menuVenta,
             this.menuCompra,
             this.menuCliente,
             this.menuProveedor,
@@ -100,6 +100,19 @@
             this.subMenuVerDetalleVenta.Size = new System.Drawing.Size(165, 26);
             this.subMenuVerDetalleVenta.Text = "Ver Detalle";
             this.subMenuVerDetalleVenta.Click += new System.EventHandler(this.subMenuVerDetalleVenta_Click);
+            // 
+            // menuProcedimiento
+            // 
+            this.menuProcedimiento.IconChar = FontAwesome.Sharp.IconChar.FileMedicalAlt;
+            this.menuProcedimiento.IconColor = System.Drawing.Color.Black;
+            this.menuProcedimiento.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.menuProcedimiento.IconSize = 50;
+            this.menuProcedimiento.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.menuProcedimiento.Name = "menuProcedimiento";
+            this.menuProcedimiento.Size = new System.Drawing.Size(126, 74);
+            this.menuProcedimiento.Text = "Procedimientos";
+            this.menuProcedimiento.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.menuProcedimiento.Click += new System.EventHandler(this.menuProcedimiento_Click);
             // 
             // menuCompra
             // 
@@ -174,7 +187,7 @@
             // subMenuCategoria
             // 
             this.subMenuCategoria.Name = "subMenuCategoria";
-            this.subMenuCategoria.Size = new System.Drawing.Size(157, 26);
+            this.subMenuCategoria.Size = new System.Drawing.Size(224, 26);
             this.subMenuCategoria.Text = "Categoria";
             this.subMenuCategoria.Click += new System.EventHandler(this.categoriaToolStripMenuItem_Click);
             // 
@@ -245,19 +258,6 @@
             this.menuAcercaDe.Text = "Acerca de";
             this.menuAcercaDe.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.menuAcercaDe.Click += new System.EventHandler(this.menuAcercaDe_Click);
-            // 
-            // menuProcedimiento
-            // 
-            this.menuProcedimiento.IconChar = FontAwesome.Sharp.IconChar.FileMedicalAlt;
-            this.menuProcedimiento.IconColor = System.Drawing.Color.Black;
-            this.menuProcedimiento.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.menuProcedimiento.IconSize = 50;
-            this.menuProcedimiento.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.menuProcedimiento.Name = "menuProcedimiento";
-            this.menuProcedimiento.Size = new System.Drawing.Size(126, 74);
-            this.menuProcedimiento.Text = "Procedimientos";
-            this.menuProcedimiento.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.menuProcedimiento.Click += new System.EventHandler(this.menuProcedimiento_Click);
             // 
             // contenedor
             // 

@@ -181,6 +181,7 @@ namespace CapaPresentacion
                     if (respuesta) //luego eliminamos del data grid view
                     {
                         dgvData.Rows.RemoveAt(Convert.ToInt32(txtIndice.Text));
+                        Limpiar(); // <-- Añadir esta línea
                     }
                     else
                     {

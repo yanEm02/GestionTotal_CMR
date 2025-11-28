@@ -52,14 +52,14 @@ namespace CapaPresentacion
                 // Si el usuario es estándar (rol 2), muestra solo los activos
                 if (rolUsuario == 1 || rolUsuario == 0)
                 {
-                    dgvData.Rows.Add(new object[] { "", item.IdProveedor, item.Documento, item.RazonSocial, item.Correo, item.Telefono,
+                    dgvData.Rows.Add(new object[] { "", item.IdProveedor, item.Documento, item.RazonSocial, item.Telefono,
                     item.Estado == true ? 1 : 0,
                     item.Estado == true ? "Activo" : "No Activo",
             });
                 }
                 else if (rolUsuario == 2 && item.Estado == true)
                 {
-                    dgvData.Rows.Add(new object[] { "", item.IdProveedor, item.Documento, item.RazonSocial, item.Correo, item.Telefono,
+                    dgvData.Rows.Add(new object[] { "", item.IdProveedor, item.Documento, item.RazonSocial, item.Telefono,
                 1, "Activo"
             });
                 }
@@ -87,19 +87,11 @@ namespace CapaPresentacion
         {
             string mensaje = string.Empty;
 
-            if (!EsCorreoValido(txtCorreo.Text))
-            {
-                MessageBox.Show("Por favor, ingrese un correo electrónico válido.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtCorreo.Focus();
-                return;
-            }
-
             Proveedor obj = new Proveedor()
             {
                 IdProveedor = Convert.ToInt32(txtid.Text),
                 Documento = txtDocumento.Text,
                 RazonSocial = txtRazonSocial.Text,
-                Correo = txtCorreo.Text,
                 Telefono = txtTelefono.Text,
                 Estado = Convert.ToInt32(((OpcionCombo)cboEstado.SelectedItem).Valor) == 1 ? true : false,
             };
@@ -112,7 +104,7 @@ namespace CapaPresentacion
                 if (idGenerado != 0)
                 {
                     //aqui agremos lo que este en el textbox del formulario para agregarse a la data grid view
-                    dgvData.Rows.Add(new object[] { "", idGenerado, txtDocumento.Text, txtRazonSocial.Text, txtCorreo.Text, txtTelefono.Text,
+                    dgvData.Rows.Add(new object[] { "", idGenerado, txtDocumento.Text, txtRazonSocial.Text, txtTelefono.Text,
                     ((OpcionCombo)cboEstado.SelectedItem).Valor.ToString(), //para obtener el estado de la base de datos
                     ((OpcionCombo)cboEstado.SelectedItem).Texto.ToString(),
                     });
@@ -134,7 +126,6 @@ namespace CapaPresentacion
                     row.Cells["Id"].Value = txtid.Text;
                     row.Cells["Documento"].Value = txtDocumento.Text;
                     row.Cells["RazonSocial"].Value = txtRazonSocial.Text;
-                    row.Cells["Correo"].Value = txtCorreo.Text;
                     row.Cells["Telefono"].Value = txtTelefono.Text;
                     row.Cells["EstadoValor"].Value = ((OpcionCombo)cboEstado.SelectedItem).Valor.ToString();
                     row.Cells["Estado"].Value = ((OpcionCombo)cboEstado.SelectedItem).Texto.ToString();
@@ -154,7 +145,6 @@ namespace CapaPresentacion
             txtid.Text = "0";
             txtDocumento.Text = "";
             txtRazonSocial.Text = "";
-            txtCorreo.Text = "";
             txtTelefono.Text = "";
             cboEstado.SelectedIndex = 0;
 
@@ -237,7 +227,6 @@ namespace CapaPresentacion
                     txtid.Text = dgvData.Rows[indice].Cells["Id"].Value.ToString();
                     txtDocumento.Text = dgvData.Rows[indice].Cells["Documento"].Value.ToString();
                     txtRazonSocial.Text = dgvData.Rows[indice].Cells["RazonSocial"].Value.ToString();
-                    txtCorreo.Text = dgvData.Rows[indice].Cells["Correo"].Value.ToString();
                     txtTelefono.Text = dgvData.Rows[indice].Cells["Telefono"].Value.ToString();
 
                     //agregamos los combox
@@ -274,13 +263,5 @@ namespace CapaPresentacion
             }
         }
 
-        private bool EsCorreoValido(string correo) //para confirmar si el correo es valido
-        {
-            // Expresión regular básica para validar correo electrónico
-            return System.Text.RegularExpressions.Regex.IsMatch(
-                correo,
-                @"^[^@\s]+@[^@\s]+\.[^@\s]+$"
-            );
-        }
     }
 }

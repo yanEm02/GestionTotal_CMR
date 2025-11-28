@@ -91,13 +91,13 @@ namespace CapaDatos
                     StringBuilder query = new StringBuilder();
                     query.AppendLine("select c.ID_COMPRA,");
                     query.AppendLine("u.NombreCompleto, p.DOCUMENTO,");
-                    query.AppendLine("p.RAZON_SOCIAL, c.TIPO_DOCUMENTO,");
-                    query.AppendLine("c.NUMERO_DOCUMENTO, c.MONTO_TOTAL,");
-                    query.AppendLine("CONVERT(char(10),c.FECHA_REGISTRO,103)[FechaRegistro]");
+                    query.AppendLine("p.Nombre, c.TIPODOCUMENTO,");
+                    query.AppendLine("c.NUMERODOCUMENTO, c.MONTOTOTAL,");
+                    query.AppendLine("CONVERT(char(10),c.FECHAREGISTRO,103)[FechaRegistro]");
                     query.AppendLine("from COMPRA c");
                     query.AppendLine("inner join USUARIO u on u.ID_usuario = c.USUARIO");
                     query.AppendLine("inner join PROVEEDOR p on p.ID_PROVEEDOR = c.PROVEEDOR");
-                    query.AppendLine("where c.NUMERO_DOCUMENTO = @numero");
+                    query.AppendLine("where c.NumeroDocumento = @numero");
 
 
                     SqlCommand cmd = new SqlCommand(query.ToString(), oconexion);
@@ -115,10 +115,10 @@ namespace CapaDatos
                             {
                                 IdCompra = Convert.ToInt32(dr["ID_COMPRA"]),
                                 oUsuario = new Usuario() { Nombre = dr["NombreCompleto"].ToString() },
-                                oProveedor = new Proveedor() { Documento = dr["DOCUMENTO"].ToString(), RazonSocial = dr["RAZON_SOCIAL"].ToString() },
-                                TipoDocumento = dr["TIPO_DOCUMENTO"].ToString(),
-                                NumeroDocumento = dr["NUMERO_DOCUMENTO"].ToString(),
-                                MontoTotal = Convert.ToDecimal(dr["MONTO_TOTAL"].ToString()),
+                                oProveedor = new Proveedor() { Documento = dr["DOCUMENTO"].ToString(), RazonSocial = dr["Nombre"].ToString() },
+                                TipoDocumento = dr["TIPODOCUMENTO"].ToString(),
+                                NumeroDocumento = dr["NUMERODOCUMENTO"].ToString(),
+                                MontoTotal = Convert.ToDecimal(dr["MONTOTOTAL"].ToString()),
                                 FechaRegistro = dr["FechaRegistro"].ToString()
 
                             };
@@ -146,7 +146,7 @@ namespace CapaDatos
                     oconexion.Open();
                     StringBuilder query = new StringBuilder();
 
-                    query.AppendLine("select p.NOMBRE, dc.PRECIO_COMPRA, dc.CANTIDAD, dc.MONTO_TOTAL");
+                    query.AppendLine("select p.NOMBRE, dc.PRECIOCOMPRA, dc.CANTIDAD, dc.MONTOTOTAL");
                     query.AppendLine("from DETALLE_COMPRA dc");
                     query.AppendLine("inner join PRODUCTO p on p.ID_PRODUCTO = dc.PRODUCTO");
                     query.AppendLine("where dc.COMPRA = @idCompra");
@@ -162,9 +162,9 @@ namespace CapaDatos
                             oLista.Add(new DetalleCompra()
                             {
                                 oProducto = new Producto() { Nombre = dr["Nombre"].ToString() },
-                                PrecioCompra = Convert.ToDecimal(dr["PRECIO_COMPRA"].ToString()),
+                                PrecioCompra = Convert.ToDecimal(dr["PRECIOCOMPRA"].ToString()),
                                 Cantidad = Convert.ToInt32(dr["cantidad"].ToString()),
-                                MontoTotal = Convert.ToDecimal(dr["MONTO_TOTAL"].ToString()),
+                                MontoTotal = Convert.ToDecimal(dr["MONTOTOTAL"].ToString()),
                             });
                         }
                     }
