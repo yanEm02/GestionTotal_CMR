@@ -30,6 +30,8 @@
         {
             this.menu = new System.Windows.Forms.MenuStrip();
             this.menuProcedimiento = new FontAwesome.Sharp.IconMenuItem();
+            this.registrarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.verDetalleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuVenta = new FontAwesome.Sharp.IconMenuItem();
             this.subMenuRegistrarVenta = new System.Windows.Forms.ToolStripMenuItem();
             this.subMenuVerDetalleVenta = new System.Windows.Forms.ToolStripMenuItem();
@@ -47,8 +49,7 @@
             this.menuMantenedor = new FontAwesome.Sharp.IconMenuItem();
             this.menuAcercaDe = new FontAwesome.Sharp.IconMenuItem();
             this.contenedor = new System.Windows.Forms.Panel();
-            this.registrarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.verDetalleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reportePToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -90,6 +91,20 @@
             this.menuProcedimiento.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.menuProcedimiento.Click += new System.EventHandler(this.menuProcedimiento_Click);
             // 
+            // registrarToolStripMenuItem
+            // 
+            this.registrarToolStripMenuItem.Name = "registrarToolStripMenuItem";
+            this.registrarToolStripMenuItem.Size = new System.Drawing.Size(165, 26);
+            this.registrarToolStripMenuItem.Text = "Registrar";
+            this.registrarToolStripMenuItem.Click += new System.EventHandler(this.registrarToolStripMenuItem_Click);
+            // 
+            // verDetalleToolStripMenuItem
+            // 
+            this.verDetalleToolStripMenuItem.Name = "verDetalleToolStripMenuItem";
+            this.verDetalleToolStripMenuItem.Size = new System.Drawing.Size(165, 26);
+            this.verDetalleToolStripMenuItem.Text = "Ver Detalle";
+            this.verDetalleToolStripMenuItem.Click += new System.EventHandler(this.verDetalleToolStripMenuItem_Click);
+            // 
             // menuVenta
             // 
             this.menuVenta.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -108,14 +123,14 @@
             // subMenuRegistrarVenta
             // 
             this.subMenuRegistrarVenta.Name = "subMenuRegistrarVenta";
-            this.subMenuRegistrarVenta.Size = new System.Drawing.Size(224, 26);
+            this.subMenuRegistrarVenta.Size = new System.Drawing.Size(165, 26);
             this.subMenuRegistrarVenta.Text = "Registrar";
             this.subMenuRegistrarVenta.Click += new System.EventHandler(this.subMenuRegistrarVenta_Click);
             // 
             // subMenuVerDetalleVenta
             // 
             this.subMenuVerDetalleVenta.Name = "subMenuVerDetalleVenta";
-            this.subMenuVerDetalleVenta.Size = new System.Drawing.Size(224, 26);
+            this.subMenuVerDetalleVenta.Size = new System.Drawing.Size(165, 26);
             this.subMenuVerDetalleVenta.Text = "Ver Detalle";
             this.subMenuVerDetalleVenta.Click += new System.EventHandler(this.subMenuVerDetalleVenta_Click);
             // 
@@ -200,7 +215,8 @@
             // 
             this.menuReporte.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.subMenuReporteCompra,
-            this.subMenuReporteVenta});
+            this.subMenuReporteVenta,
+            this.reportePToolStripMenuItem});
             this.menuReporte.IconChar = FontAwesome.Sharp.IconChar.BarChart;
             this.menuReporte.IconColor = System.Drawing.Color.Black;
             this.menuReporte.IconFont = FontAwesome.Sharp.IconFont.Auto;
@@ -214,14 +230,14 @@
             // subMenuReporteCompra
             // 
             this.subMenuReporteCompra.Name = "subMenuReporteCompra";
-            this.subMenuReporteCompra.Size = new System.Drawing.Size(208, 26);
+            this.subMenuReporteCompra.Size = new System.Drawing.Size(224, 26);
             this.subMenuReporteCompra.Text = "Reporte Compras";
             this.subMenuReporteCompra.Click += new System.EventHandler(this.subMenuReporteCompra_Click);
             // 
             // subMenuReporteVenta
             // 
             this.subMenuReporteVenta.Name = "subMenuReporteVenta";
-            this.subMenuReporteVenta.Size = new System.Drawing.Size(208, 26);
+            this.subMenuReporteVenta.Size = new System.Drawing.Size(224, 26);
             this.subMenuReporteVenta.Text = "Reporte Ventas";
             this.subMenuReporteVenta.Click += new System.EventHandler(this.subMenuReporteVenta_Click);
             // 
@@ -274,19 +290,11 @@
             this.contenedor.Size = new System.Drawing.Size(1129, 599);
             this.contenedor.TabIndex = 3;
             // 
-            // registrarToolStripMenuItem
+            // reportePToolStripMenuItem
             // 
-            this.registrarToolStripMenuItem.Name = "registrarToolStripMenuItem";
-            this.registrarToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.registrarToolStripMenuItem.Text = "Registrar";
-            this.registrarToolStripMenuItem.Click += new System.EventHandler(this.registrarToolStripMenuItem_Click);
-            // 
-            // verDetalleToolStripMenuItem
-            // 
-            this.verDetalleToolStripMenuItem.Name = "verDetalleToolStripMenuItem";
-            this.verDetalleToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.verDetalleToolStripMenuItem.Text = "Ver Detalle";
-            this.verDetalleToolStripMenuItem.Click += new System.EventHandler(this.verDetalleToolStripMenuItem_Click);
+            this.reportePToolStripMenuItem.Name = "reportePToolStripMenuItem";
+            this.reportePToolStripMenuItem.Size = new System.Drawing.Size(252, 26);
+            this.reportePToolStripMenuItem.Text = "Reporte Procedimientos";
             // 
             // Inicio
             // 
@@ -331,6 +339,7 @@
         private FontAwesome.Sharp.IconMenuItem menuProcedimiento;
         private System.Windows.Forms.ToolStripMenuItem registrarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem verDetalleToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem reportePToolStripMenuItem;
     }
 }
 
