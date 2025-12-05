@@ -145,9 +145,20 @@ namespace CapaPresentacion
         {
             AbrirFormulario(menuVenta, new frmDetalleVenta());
         }
+
+        //==========PROCEDIMIENTOS===
+
         private void menuProcedimiento_Click(object sender, EventArgs e)
         {
-            AbrirFormulario(menuProcedimiento, new frmProcedimientos()); 
+        }
+        private void registrarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario(menuProcedimiento, new frmVentasProcedimientos(usuarioActual));
+        }
+
+        private void verDetalleToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario(menuProcedimiento, new frmDetalleVentaProcedimiento());
         }
 
 

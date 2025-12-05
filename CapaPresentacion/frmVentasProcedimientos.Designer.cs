@@ -1,6 +1,6 @@
 ﻿namespace CapaPresentacion
 {
-    partial class frmProcedimientos
+    partial class frmVentasProcedimientos
     {
         /// <summary>
         /// Required designer variable.
@@ -256,6 +256,7 @@
             this.btnCrearVenta.Text = "Registrar";
             this.btnCrearVenta.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.btnCrearVenta.UseVisualStyleBackColor = true;
+            this.btnCrearVenta.Click += new System.EventHandler(this.btnCrearVenta_Click);
             // 
             // txtProcedimiento
             // 

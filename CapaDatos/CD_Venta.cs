@@ -191,9 +191,6 @@ namespace CapaDatos
                     obj = new Venta();
                 }
             }
-
-
-
             return obj;
         }
 

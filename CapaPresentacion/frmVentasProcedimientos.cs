@@ -2,6 +2,7 @@
 using CapaNegocio;
 using CapaPresentacion.Sub_Forms;
 using CapaPresentacion.Utilidades;
+using Org.BouncyCastle.Utilities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,17 +15,15 @@ using System.Windows.Forms;
 
 namespace CapaPresentacion
 {
-    public partial class frmProcedimientos : Form
+    public partial class frmVentasProcedimientos : Form
     {
 
-        private static Usuario usuarioActualFor; //almacenamos el usuario que se ha logeado
-        public frmProcedimientos(Usuario usuarioActual)
+        private Usuario usuarioActualFor; //almacenamos el usuario que se ha logeado
+        private Cliente clienteSeleccionado; // para almacenar el objeto del cliente completo
+
+        public frmVentasProcedimientos(Usuario oUsuario)
         {
-            usuarioActualFor = usuarioActual;
-            InitializeComponent();
-        }
-        public frmProcedimientos()
-        {
+            usuarioActualFor = oUsuario;
             InitializeComponent();
         }
 
@@ -82,8 +81,12 @@ namespace CapaPresentacion
 
                 if (result == DialogResult.OK)
                 {
-                    txtDocumentoCliente.Text = subForm._Cliente.Documento.ToString();
-                    txtNombre.Text = subForm._Cliente.Nombre;
+                    //almacenamos el objeto Cliente completo
+                    clienteSeleccionado = subForm._Cliente;
+
+                    // Actualiza los campos de texto como antes
+                    txtDocumentoCliente.Text = clienteSeleccionado.Documento.ToString();
+                    txtNombre.Text = clienteSeleccionado.Nombre;
                 }
                 else
                 {
@@ -257,6 +260,75 @@ namespace CapaPresentacion
             }
         }
 
+        private void btnCrearVenta_Click(object sender, EventArgs e)
+        {
+            // Valida usando el objeto en lugar del texto
+            if (clienteSeleccionado == null) 
+            {
+                MessageBox.Show("Debe Seleccionar un Cliente", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (dgvData.Rows.Count < 1)
+            {
+                MessageBox.Show("Debe seleccionar un procedimiento", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (Convert.ToDecimal(txtPagaCon.Text) < Convert.ToDecimal(txtTotalPagar.Text))
+            {
+                MessageBox.Show("El monto con el que paga el cliente no puede ser menor al total a pagar", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
+            DataTable detalleVentaProcedimiento = new DataTable();
+
+            detalleVentaProcedimiento.Columns.Add("IdProcedimiento", typeof(int));
+            detalleVentaProcedimiento.Columns.Add("PrecioVenta", typeof(decimal));
+
+            foreach (DataGridViewRow row in dgvData.Rows)
+            { //agregamos los valores dentro del datatable
+                detalleVentaProcedimiento.Rows.Add(new object[]{
+                    Convert.ToInt32(row.Cells["IdProcedimiento"].Value.ToString()),
+                    row.Cells["Precio"].Value.ToString(),
+                });
+            }
+
+            int idCorrelativo = new CN_Venta_Procedimiento().ObtenerCorrelativo(); //generamos el numero de compra aleatorio
+            string numeroDocumento = string.Format("{0:00000}", idCorrelativo);
+
+            calcularCambio();
+
+            VentaProcedimiento objVenta = new VentaProcedimiento()
+            {
+                oUsuario = new Usuario() { IdUsuario = usuarioActualFor.IdUsuario },
+                TipoDocumento = ((OpcionCombo)cmbTipoDocumento.SelectedItem).Valor.ToString(),
+                NumeroDocumento = numeroDocumento,
+                // Asigna directamente el objeto Cliente que ya tienes
+                oCliente = this.clienteSeleccionado, 
+                MontoPago = Convert.ToDecimal(txtPagaCon.Text),
+                MontoCambio = Convert.ToDecimal(txtCambio.Text),
+                MontoTotal = Convert.ToDecimal(txtTotalPagar.Text),
+            };
+
+            string mensaje = string.Empty;
+            bool respuesta = new CN_Venta_Procedimiento().Registrar(objVenta, detalleVentaProcedimiento, out mensaje);
+
+            if (respuesta)
+            {
+                MessageBox.Show("Venta realizada exitosamente", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                LimpiarProducto();
+                dgvData.Rows.Clear();
+                txtDocumentoCliente.Text = "";
+                txtNombre.Text = "";
+                txtPagaCon.Text = "";
+                txtCambio.Text = "";
+                txtTotalPagar.Text = "";
+                clienteSeleccionado = null; // <-- Limpia el cliente seleccionado
+            }
+            else
+            {
+                MessageBox.Show(mensaje, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+
+        }
     }
 }

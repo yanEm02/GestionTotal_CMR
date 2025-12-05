@@ -17,7 +17,9 @@ namespace CapaPresentacion.Sub_Forms
 {
     public partial class SubFormCliente : Form
     {
-        public Cliente _Cliente {  get; set; }  
+        public Cliente _Cliente {  get; set; }
+        private List<Cliente> listaClientes;
+
         public SubFormCliente()
         {
             InitializeComponent();
@@ -41,9 +43,11 @@ namespace CapaPresentacion.Sub_Forms
             cboBusqueda.ValueMember = "Valor";
             cboBusqueda.SelectedIndex = 0;
 
-            List<Cliente> lista = new CN_Cliente().Listar();
+            // Carga la lista de clientes en el campo de la clase
+            listaClientes = new CN_Cliente().Listar();
 
-            foreach (Cliente item in lista)
+            // Itera sobre la lista para poblar el DataGridView
+            foreach (Cliente item in listaClientes)
             {
                 if(item.Estado)
                     dgvData.Rows.Add(new object[] {item.Documento, item.Nombre, item.Edad, item.Sexo, item.Telefono });
@@ -57,13 +61,18 @@ namespace CapaPresentacion.Sub_Forms
 
             if(iRow >= 0 && iColumn >= 0)
             {
-                _Cliente = new Cliente()
+                // Obtiene el número de documento de la fila seleccionada
+                string documentoSeleccionado = dgvData.Rows[iRow].Cells["Documento"].Value.ToString();
+
+                // Busca el cliente completo en la lista por su documento
+                _Cliente = listaClientes.FirstOrDefault(c => c.Documento == documentoSeleccionado);
+
+                // Cierra el formulario si se encontró el cliente
+                if (_Cliente != null)
                 {
-                    Documento = dgvData.Rows[iRow].Cells["Documento"].Value.ToString(),
-                    Nombre = dgvData.Rows[iRow].Cells["NombreCompleto"].Value.ToString()
-                };
-                this.DialogResult = DialogResult.OK;
-                this.Close();
+                    this.DialogResult = DialogResult.OK;
+                    this.Close();
+                }
             }
         }
 
@@ -136,13 +145,7 @@ namespace CapaPresentacion.Sub_Forms
             }
 
 
-            //_Cliente = new Cliente()
-            //{
-            //    Documento = dgvData.Rows[iRow].Cells["Documento"].Value.ToString(),
-            //    Nombre = dgvData.Rows[iRow].Cells["NombreCompleto"].Value.ToString()
-            //};
-            //this.DialogResult = DialogResult.OK;
-            //this.Close();
+       
         }
 
         private void Limpiar()
