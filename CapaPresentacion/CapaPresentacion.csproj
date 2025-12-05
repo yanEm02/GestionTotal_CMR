@@ -241,17 +241,23 @@
     <Compile Include="frmDetalleVenta.Designer.cs">
       <DependentUpon>frmDetalleVenta.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmDetalleVentaProcedimiento.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmDetalleVentaProcedimiento.Designer.cs">
+      <DependentUpon>frmDetalleVentaProcedimiento.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmNegocio.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmNegocio.Designer.cs">
       <DependentUpon>frmNegocio.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmProcedimientos.cs">
+    <Compile Include="frmVentasProcedimientos.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmProcedimientos.Designer.cs">
-      <DependentUpon>frmProcedimientos.cs</DependentUpon>
+    <Compile Include="frmVentasProcedimientos.Designer.cs">
+      <DependentUpon>frmVentasProcedimientos.cs</DependentUpon>
     </Compile>
     <Compile Include="frmProducto.cs">
       <SubType>Form</SubType>
@@ -355,11 +361,14 @@
     <EmbeddedResource Include="frmDetalleVenta.resx">
       <DependentUpon>frmDetalleVenta.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmDetalleVentaProcedimiento.resx">
+      <DependentUpon>frmDetalleVentaProcedimiento.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmNegocio.resx">
       <DependentUpon>frmNegocio.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmProcedimientos.resx">
-      <DependentUpon>frmProcedimientos.cs</DependentUpon>
+    <EmbeddedResource Include="frmVentasProcedimientos.resx">
+      <DependentUpon>frmVentasProcedimientos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmProducto.resx">
       <DependentUpon>frmProducto.cs</DependentUpon>

@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.menu = new System.Windows.Forms.MenuStrip();
+            this.menuProcedimiento = new FontAwesome.Sharp.IconMenuItem();
             this.menuVenta = new FontAwesome.Sharp.IconMenuItem();
             this.subMenuRegistrarVenta = new System.Windows.Forms.ToolStripMenuItem();
             this.subMenuVerDetalleVenta = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuProcedimiento = new FontAwesome.Sharp.IconMenuItem();
             this.menuCompra = new FontAwesome.Sharp.IconMenuItem();
             this.subMenuRegistrarCompra = new System.Windows.Forms.ToolStripMenuItem();
             this.subMenuVerDetalleCompra = new System.Windows.Forms.ToolStripMenuItem();
@@ -47,6 +47,8 @@
             this.menuMantenedor = new FontAwesome.Sharp.IconMenuItem();
             this.menuAcercaDe = new FontAwesome.Sharp.IconMenuItem();
             this.contenedor = new System.Windows.Forms.Panel();
+            this.registrarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.verDetalleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -72,6 +74,22 @@
             this.menu.TabIndex = 0;
             this.menu.Text = "menuStrip1";
             // 
+            // menuProcedimiento
+            // 
+            this.menuProcedimiento.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.registrarToolStripMenuItem,
+            this.verDetalleToolStripMenuItem});
+            this.menuProcedimiento.IconChar = FontAwesome.Sharp.IconChar.FileMedicalAlt;
+            this.menuProcedimiento.IconColor = System.Drawing.Color.Black;
+            this.menuProcedimiento.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.menuProcedimiento.IconSize = 50;
+            this.menuProcedimiento.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.menuProcedimiento.Name = "menuProcedimiento";
+            this.menuProcedimiento.Size = new System.Drawing.Size(126, 74);
+            this.menuProcedimiento.Text = "Procedimientos";
+            this.menuProcedimiento.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.menuProcedimiento.Click += new System.EventHandler(this.menuProcedimiento_Click);
+            // 
             // menuVenta
             // 
             this.menuVenta.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -90,29 +108,16 @@
             // subMenuRegistrarVenta
             // 
             this.subMenuRegistrarVenta.Name = "subMenuRegistrarVenta";
-            this.subMenuRegistrarVenta.Size = new System.Drawing.Size(165, 26);
+            this.subMenuRegistrarVenta.Size = new System.Drawing.Size(224, 26);
             this.subMenuRegistrarVenta.Text = "Registrar";
             this.subMenuRegistrarVenta.Click += new System.EventHandler(this.subMenuRegistrarVenta_Click);
             // 
             // subMenuVerDetalleVenta
             // 
             this.subMenuVerDetalleVenta.Name = "subMenuVerDetalleVenta";
-            this.subMenuVerDetalleVenta.Size = new System.Drawing.Size(165, 26);
+            this.subMenuVerDetalleVenta.Size = new System.Drawing.Size(224, 26);
             this.subMenuVerDetalleVenta.Text = "Ver Detalle";
             this.subMenuVerDetalleVenta.Click += new System.EventHandler(this.subMenuVerDetalleVenta_Click);
-            // 
-            // menuProcedimiento
-            // 
-            this.menuProcedimiento.IconChar = FontAwesome.Sharp.IconChar.FileMedicalAlt;
-            this.menuProcedimiento.IconColor = System.Drawing.Color.Black;
-            this.menuProcedimiento.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.menuProcedimiento.IconSize = 50;
-            this.menuProcedimiento.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.menuProcedimiento.Name = "menuProcedimiento";
-            this.menuProcedimiento.Size = new System.Drawing.Size(126, 74);
-            this.menuProcedimiento.Text = "Procedimientos";
-            this.menuProcedimiento.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.menuProcedimiento.Click += new System.EventHandler(this.menuProcedimiento_Click);
             // 
             // menuCompra
             // 
@@ -187,7 +192,7 @@
             // subMenuCategoria
             // 
             this.subMenuCategoria.Name = "subMenuCategoria";
-            this.subMenuCategoria.Size = new System.Drawing.Size(224, 26);
+            this.subMenuCategoria.Size = new System.Drawing.Size(157, 26);
             this.subMenuCategoria.Text = "Categoria";
             this.subMenuCategoria.Click += new System.EventHandler(this.categoriaToolStripMenuItem_Click);
             // 
@@ -269,6 +274,20 @@
             this.contenedor.Size = new System.Drawing.Size(1129, 599);
             this.contenedor.TabIndex = 3;
             // 
+            // registrarToolStripMenuItem
+            // 
+            this.registrarToolStripMenuItem.Name = "registrarToolStripMenuItem";
+            this.registrarToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.registrarToolStripMenuItem.Text = "Registrar";
+            this.registrarToolStripMenuItem.Click += new System.EventHandler(this.registrarToolStripMenuItem_Click);
+            // 
+            // verDetalleToolStripMenuItem
+            // 
+            this.verDetalleToolStripMenuItem.Name = "verDetalleToolStripMenuItem";
+            this.verDetalleToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.verDetalleToolStripMenuItem.Text = "Ver Detalle";
+            this.verDetalleToolStripMenuItem.Click += new System.EventHandler(this.verDetalleToolStripMenuItem_Click);
+            // 
             // Inicio
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
@@ -310,6 +329,8 @@
         private FontAwesome.Sharp.IconMenuItem menuInventario;
         private System.Windows.Forms.ToolStripMenuItem subMenuCategoria;
         private FontAwesome.Sharp.IconMenuItem menuProcedimiento;
+        private System.Windows.Forms.ToolStripMenuItem registrarToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem verDetalleToolStripMenuItem;
     }
 }
 
