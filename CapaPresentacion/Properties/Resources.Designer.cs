@@ -91,6 +91,16 @@ namespace CapaPresentacion.Properties {
         }
         
         /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap LogoCMR {
+            get {
+                object obj = ResourceManager.GetObject("LogoCMR", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a &lt;!DOCTYPE html&gt;
         ///&lt;html&gt;
         ///&lt;head&gt;
@@ -151,6 +161,41 @@ namespace CapaPresentacion.Properties {
         internal static string PlantillaVenta {
             get {
                 return ResourceManager.GetString("PlantillaVenta", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a &lt;!DOCTYPE html&gt;
+        ///&lt;html&gt;
+        ///&lt;head&gt;
+        ///    &lt;title&gt;Recibo de Venta&lt;/title&gt;
+        ///    &lt;style&gt;
+        ///        body {
+        ///            font-family: &apos;Courier New&apos;, Courier, monospace;
+        ///            font-size: 10px;
+        ///            width: 100%;
+        ///        }
+        ///
+        ///        .center {
+        ///            text-align: center;
+        ///        }
+        ///
+        ///        .left {
+        ///            text-align: left;
+        ///        }
+        ///
+        ///        .right {
+        ///            text-align: right;
+        ///        }
+        ///
+        ///        .line {
+        ///            border-top: 1px dashed black;
+        ///            margin: 5px 0;
+        ///        [resto de la cadena truncado]&quot;;.
+        /// </summary>
+        internal static string PlantillaVentaProcedimiento {
+            get {
+                return ResourceManager.GetString("PlantillaVentaProcedimiento", resourceCulture);
             }
         }
     }

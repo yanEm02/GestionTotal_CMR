@@ -66,7 +66,7 @@
             this.label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(1245, 716);
+            this.label1.Size = new System.Drawing.Size(858, 716);
             this.label1.TabIndex = 0;
             // 
             // label2
@@ -91,10 +91,10 @@
             this.btnLimpiarBuscador.IconColor = System.Drawing.Color.Black;
             this.btnLimpiarBuscador.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnLimpiarBuscador.IconSize = 16;
-            this.btnLimpiarBuscador.Location = new System.Drawing.Point(1151, 48);
-            this.btnLimpiarBuscador.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnLimpiarBuscador.Location = new System.Drawing.Point(786, 41);
+            this.btnLimpiarBuscador.Margin = new System.Windows.Forms.Padding(4);
             this.btnLimpiarBuscador.Name = "btnLimpiarBuscador";
-            this.btnLimpiarBuscador.Size = new System.Drawing.Size(77, 34);
+            this.btnLimpiarBuscador.Size = new System.Drawing.Size(56, 34);
             this.btnLimpiarBuscador.TabIndex = 63;
             this.btnLimpiarBuscador.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnLimpiarBuscador.UseVisualStyleBackColor = false;
@@ -111,10 +111,10 @@
             this.btnBuscar.IconColor = System.Drawing.Color.Black;
             this.btnBuscar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnBuscar.IconSize = 16;
-            this.btnBuscar.Location = new System.Drawing.Point(1060, 48);
-            this.btnBuscar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnBuscar.Location = new System.Drawing.Point(706, 41);
+            this.btnBuscar.Margin = new System.Windows.Forms.Padding(4);
             this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(77, 34);
+            this.btnBuscar.Size = new System.Drawing.Size(61, 34);
             this.btnBuscar.TabIndex = 62;
             this.btnBuscar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnBuscar.UseVisualStyleBackColor = false;
@@ -122,8 +122,8 @@
             // 
             // txtBusqueda
             // 
-            this.txtBusqueda.Location = new System.Drawing.Point(897, 54);
-            this.txtBusqueda.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtBusqueda.Location = new System.Drawing.Point(543, 47);
+            this.txtBusqueda.Margin = new System.Windows.Forms.Padding(4);
             this.txtBusqueda.Name = "txtBusqueda";
             this.txtBusqueda.Size = new System.Drawing.Size(153, 22);
             this.txtBusqueda.TabIndex = 61;
@@ -133,7 +133,7 @@
             this.label8.AutoSize = true;
             this.label8.BackColor = System.Drawing.Color.White;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(673, 58);
+            this.label8.Location = new System.Drawing.Point(363, 49);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(159, 20);
@@ -151,10 +151,10 @@
             this.groupBoxInfoCompra.Controls.Add(this.txtFecha);
             this.groupBoxInfoCompra.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBoxInfoCompra.Location = new System.Drawing.Point(45, 101);
-            this.groupBoxInfoCompra.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBoxInfoCompra.Margin = new System.Windows.Forms.Padding(4);
             this.groupBoxInfoCompra.Name = "groupBoxInfoCompra";
-            this.groupBoxInfoCompra.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.groupBoxInfoCompra.Size = new System.Drawing.Size(1185, 92);
+            this.groupBoxInfoCompra.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBoxInfoCompra.Size = new System.Drawing.Size(797, 92);
             this.groupBoxInfoCompra.TabIndex = 64;
             this.groupBoxInfoCompra.TabStop = false;
             this.groupBoxInfoCompra.Text = "Informacion Compra";
@@ -164,7 +164,7 @@
             this.txtUsuario.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtUsuario.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtUsuario.Location = new System.Drawing.Point(445, 44);
-            this.txtUsuario.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtUsuario.Margin = new System.Windows.Forms.Padding(4);
             this.txtUsuario.Name = "txtUsuario";
             this.txtUsuario.Size = new System.Drawing.Size(166, 28);
             this.txtUsuario.TabIndex = 30;
@@ -200,7 +200,7 @@
             this.txtTipoDocumento.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtTipoDocumento.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTipoDocumento.Location = new System.Drawing.Point(229, 46);
-            this.txtTipoDocumento.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtTipoDocumento.Margin = new System.Windows.Forms.Padding(4);
             this.txtTipoDocumento.Name = "txtTipoDocumento";
             this.txtTipoDocumento.Size = new System.Drawing.Size(166, 28);
             this.txtTipoDocumento.TabIndex = 27;
@@ -223,7 +223,7 @@
             this.txtFecha.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtFecha.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtFecha.Location = new System.Drawing.Point(12, 44);
-            this.txtFecha.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtFecha.Margin = new System.Windows.Forms.Padding(4);
             this.txtFecha.Name = "txtFecha";
             this.txtFecha.Size = new System.Drawing.Size(157, 28);
             this.txtFecha.TabIndex = 25;
@@ -238,18 +238,18 @@
             this.groupBox1.Controls.Add(this.txtDocProveedor);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(44, 201);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.groupBox1.Size = new System.Drawing.Size(1187, 107);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox1.Size = new System.Drawing.Size(798, 107);
             this.groupBox1.TabIndex = 65;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Informacion Proveedor";
             // 
             // txtNumeroDocumento
             // 
-            this.txtNumeroDocumento.Location = new System.Drawing.Point(803, 48);
-            this.txtNumeroDocumento.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtNumeroDocumento.Location = new System.Drawing.Point(446, 25);
+            this.txtNumeroDocumento.Margin = new System.Windows.Forms.Padding(4);
             this.txtNumeroDocumento.Name = "txtNumeroDocumento";
             this.txtNumeroDocumento.Size = new System.Drawing.Size(67, 27);
             this.txtNumeroDocumento.TabIndex = 31;
@@ -273,7 +273,7 @@
             this.txtRazonSocial.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtRazonSocial.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRazonSocial.Location = new System.Drawing.Point(229, 59);
-            this.txtRazonSocial.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtRazonSocial.Margin = new System.Windows.Forms.Padding(4);
             this.txtRazonSocial.Name = "txtRazonSocial";
             this.txtRazonSocial.Size = new System.Drawing.Size(183, 28);
             this.txtRazonSocial.TabIndex = 27;
@@ -296,7 +296,7 @@
             this.txtDocProveedor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtDocProveedor.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDocProveedor.Location = new System.Drawing.Point(12, 59);
-            this.txtDocProveedor.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtDocProveedor.Margin = new System.Windows.Forms.Padding(4);
             this.txtDocProveedor.Name = "txtDocProveedor";
             this.txtDocProveedor.Size = new System.Drawing.Size(197, 28);
             this.txtDocProveedor.TabIndex = 25;
@@ -312,11 +312,11 @@
             this.Cantidad,
             this.SubTotal});
             this.dgvData.Location = new System.Drawing.Point(45, 313);
-            this.dgvData.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dgvData.Margin = new System.Windows.Forms.Padding(4);
             this.dgvData.Name = "dgvData";
             this.dgvData.ReadOnly = true;
             this.dgvData.RowHeadersWidth = 51;
-            this.dgvData.Size = new System.Drawing.Size(1185, 319);
+            this.dgvData.Size = new System.Drawing.Size(797, 319);
             this.dgvData.TabIndex = 66;
             // 
             // Producto
@@ -367,7 +367,7 @@
             this.txtMontoTotal.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtMontoTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtMontoTotal.Location = new System.Drawing.Point(245, 657);
-            this.txtMontoTotal.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtMontoTotal.Margin = new System.Windows.Forms.Padding(4);
             this.txtMontoTotal.Name = "txtMontoTotal";
             this.txtMontoTotal.Size = new System.Drawing.Size(183, 28);
             this.txtMontoTotal.TabIndex = 32;
@@ -379,7 +379,7 @@
             this.btnDescargarExcel.IconColor = System.Drawing.Color.Orange;
             this.btnDescargarExcel.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnDescargarExcel.IconSize = 24;
-            this.btnDescargarExcel.Location = new System.Drawing.Point(1019, 651);
+            this.btnDescargarExcel.Location = new System.Drawing.Point(630, 644);
             this.btnDescargarExcel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnDescargarExcel.Name = "btnDescargarExcel";
             this.btnDescargarExcel.Size = new System.Drawing.Size(212, 52);
@@ -393,7 +393,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(1270, 739);
+            this.ClientSize = new System.Drawing.Size(892, 739);
             this.Controls.Add(this.btnDescargarExcel);
             this.Controls.Add(this.txtMontoTotal);
             this.Controls.Add(this.label6);

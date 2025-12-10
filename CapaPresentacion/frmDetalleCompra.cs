@@ -23,6 +23,11 @@ namespace CapaPresentacion
             InitializeComponent();
         }
 
+        private void frmDetalleCompra_Load(object sender, EventArgs e)
+        {
+
+        }
+
         private void btnBuscar_Click(object sender, EventArgs e)
         {
             Compra oCompra = new CN_Compra().ObtenerCompra(txtBusqueda.Text);
@@ -42,15 +47,16 @@ namespace CapaPresentacion
                 txtDocProveedor.Text = oCompra.oProveedor.Documento;
                 txtRazonSocial.Text = oCompra.oProveedor.RazonSocial;
 
+                dgvData.Rows.Clear();
+                foreach (DetalleCompra dc in oCompra.oDetalleCompra)
+                {
+                    dgvData.Rows.Add(new object[] { dc.oProducto.Nombre, dc.PrecioCompra, dc.Cantidad, dc.MontoTotal });
+                }
+
+                txtMontoTotal.Text = oCompra.MontoTotal.ToString("0.00");
+
             }
 
-            dgvData.Rows.Clear();
-            foreach (DetalleCompra dc in oCompra.oDetalleCompra)
-            {
-                dgvData.Rows.Add(new object[] {dc.oProducto.Nombre,dc.PrecioCompra,dc.Cantidad,dc.MontoTotal});
-            }
-
-            txtMontoTotal.Text = oCompra.MontoTotal.ToString("0.00");
         }
 
         private void btnLimpiarBuscador_Click(object sender, EventArgs e)
@@ -74,18 +80,22 @@ namespace CapaPresentacion
             }
 
             string textoHtml = Properties.Resources.PlantillaCompra.ToString();
-            Negocio oDatos = new CN_Negocio().ObtenerDatos(); 
+            Negocio oDatos = new CN_Negocio().ObtenerDatos();
+            Compra oCompra = new CN_Compra().ObtenerCompra(txtBusqueda.Text);
+
 
             //ACA REEMPLAZAMOS EL TEXTO DE LA PLANTILLA HTML CON INFO DEL FORMULARIO DE LA COMPRA
             textoHtml = textoHtml.Replace("@nombrenegocio", oDatos.Nombre.ToUpper());
             textoHtml = textoHtml.Replace("@docnegocio", oDatos.Rnc);
             textoHtml = textoHtml.Replace("@direcnegocio", oDatos.Direccion);
+            textoHtml = textoHtml.Replace("@telefonoEmpresa", oDatos.Telefono);
 
             textoHtml = textoHtml.Replace("@tipodocumento", txtTipoDocumento.Text.ToUpper());
             textoHtml = textoHtml.Replace("@numerodocumento", txtNumeroDocumento.Text);
 
             textoHtml = textoHtml.Replace("@docproveedor", txtDocProveedor.Text);
             textoHtml = textoHtml.Replace("@nombreproveedor", txtRazonSocial.Text);
+            textoHtml = textoHtml.Replace("@telefonoProveedor", oCompra.oProveedor.Telefono);
             textoHtml = textoHtml.Replace("@fecharegistro", txtFecha.Text);
             textoHtml = textoHtml.Replace("@usuarioregistro", txtUsuario.Text);
 
@@ -101,6 +111,7 @@ namespace CapaPresentacion
 
 
             }
+
             textoHtml = textoHtml.Replace("@filas", filas);
             textoHtml = textoHtml.Replace("@montototal", txtMontoTotal.Text);
 
@@ -108,24 +119,25 @@ namespace CapaPresentacion
             saveFile.FileName = string.Format("Compra_{0}.pdf", txtNumeroDocumento.Text);
             saveFile.Filter = "Pdf Files|*.pdf";
 
-            if(saveFile.ShowDialog() == DialogResult.OK)
+            if (saveFile.ShowDialog() == DialogResult.OK)
             {
                 using (FileStream stream = new FileStream(saveFile.FileName, FileMode.Create))
                 {
-                    Document pdfDoc = new Document(PageSize.A4,25,25,25,25);
+                    // Definimos solo el ancho del recibo y márgenes pequeños.
+                    var anchoRecibo = Utilities.MillimetersToPoints(80);
+                    Document pdfDoc = new Document(new iTextSharp.text.Rectangle(0, 0, anchoRecibo, 842), 10, 10, 10, 10);
 
-                    PdfWriter writer = PdfWriter.GetInstance(pdfDoc,stream); //creamos el pdf con el pdfwriter
+                    PdfWriter writer = PdfWriter.GetInstance(pdfDoc, stream); //creamos el pdf con el pdfwriter
                     pdfDoc.Open();
 
                     bool obtenido = true;
                     byte[] byteImage = new CN_Negocio().ObtenerLogo(out obtenido);
 
-                    if (obtenido) 
+                    if (obtenido)
                     {
                         iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance(byteImage);
-                        img.ScaleToFit(60, 60);
-                        img.Alignment = iTextSharp.text.Image.UNDERLYING;
-                        img.SetAbsolutePosition(pdfDoc.Left, pdfDoc.GetTop(51));
+                        img.ScaleToFit(40, 40); // Ajustar tamaño del logo
+                        img.Alignment = Element.ALIGN_CENTER; // Centrar el logo
                         pdfDoc.Add(img);
                     }
 
@@ -135,14 +147,9 @@ namespace CapaPresentacion
                     }
                     pdfDoc.Close();
                     stream.Close(); //cerramos pdf y archivo de memoria
-                    MessageBox.Show("Factura Generada","Mensaje",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                    MessageBox.Show("Factura Generada", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
-
-        }
-
-        private void frmDetalleCompra_Load(object sender, EventArgs e)
-        {
 
         }
     }

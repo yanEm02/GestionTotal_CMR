@@ -22,7 +22,7 @@ namespace CapaDatos
                 using (SqlConnection conexion = new SqlConnection(Conexion.cadena))
                 {
                     conexion.Open();
-                    string query = "select IdNegocio,Nombre,RNC,Direccion from NEGOCIO";
+                    string query = "select IdNegocio,Nombre,RNC,Direccion,Telefono from NEGOCIO";
                     SqlCommand cmd = new SqlCommand(query, conexion);
                     cmd.CommandType = CommandType.Text;
 
@@ -35,7 +35,8 @@ namespace CapaDatos
                                 IdNegocio = int.Parse(dr["IdNegocio"].ToString()),
                                 Nombre = dr["Nombre"].ToString(),
                                 Rnc = dr["RNC"].ToString(),
-                                Direccion = dr["Direccion"].ToString()
+                                Direccion = dr["Direccion"].ToString(),
+                                Telefono = dr["Telefono"].ToString()
                             };
                         }
                     }
@@ -63,13 +64,15 @@ namespace CapaDatos
                     StringBuilder query = new StringBuilder();
                     query.AppendLine("UPDATE NEGOCIO SET NOMBRE = @nombre,");
                     query.AppendLine("RNC = @RNC,");
-                    query.AppendLine("DIRECCION = @DIRECCION");
+                    query.AppendLine("DIRECCION = @DIRECCION,");
+                    query.AppendLine("Telefono = @Telefono");
                     query.AppendLine("WHERE IDNEGOCIO = 1");
 
                     SqlCommand cmd = new SqlCommand(query.ToString(), conexion);
                     cmd.Parameters.AddWithValue("@nombre",objeto.Nombre);
                     cmd.Parameters.AddWithValue("@rnc",objeto.Rnc);
                     cmd.Parameters.AddWithValue("@direccion",objeto.Direccion);
+                    cmd.Parameters.AddWithValue("@telefono",objeto.Telefono);
                     cmd.CommandType = CommandType.Text;
 
                     if(cmd.ExecuteNonQuery() <  1) 

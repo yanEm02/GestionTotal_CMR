@@ -91,7 +91,7 @@ namespace CapaDatos
                     StringBuilder query = new StringBuilder();
                     query.AppendLine("select c.ID_COMPRA,");
                     query.AppendLine("u.NombreCompleto, p.DOCUMENTO,");
-                    query.AppendLine("p.Nombre, c.TIPODOCUMENTO,");
+                    query.AppendLine("p.Nombre, p.Telefono, c.TIPODOCUMENTO,");
                     query.AppendLine("c.NUMERODOCUMENTO, c.MONTOTOTAL,");
                     query.AppendLine("CONVERT(char(10),c.FECHAREGISTRO,103)[FechaRegistro]");
                     query.AppendLine("from COMPRA c");
@@ -115,7 +115,7 @@ namespace CapaDatos
                             {
                                 IdCompra = Convert.ToInt32(dr["ID_COMPRA"]),
                                 oUsuario = new Usuario() { Nombre = dr["NombreCompleto"].ToString() },
-                                oProveedor = new Proveedor() { Documento = dr["DOCUMENTO"].ToString(), RazonSocial = dr["Nombre"].ToString() },
+                                oProveedor = new Proveedor() { Documento = dr["DOCUMENTO"].ToString(), RazonSocial = dr["Nombre"].ToString(), Telefono = dr["Telefono"].ToString() },
                                 TipoDocumento = dr["TIPODOCUMENTO"].ToString(),
                                 NumeroDocumento = dr["NUMERODOCUMENTO"].ToString(),
                                 MontoTotal = Convert.ToDecimal(dr["MONTOTOTAL"].ToString()),

@@ -19,6 +19,7 @@ namespace CapaPresentacion
 {
     public partial class frmDetalleVenta : Form
     {
+        private Venta oVenta;
         public frmDetalleVenta()
         {
             InitializeComponent();
@@ -88,12 +89,14 @@ namespace CapaPresentacion
             textoHtml = textoHtml.Replace("@nombrenegocio", oDatos.Nombre.ToUpper());
             textoHtml = textoHtml.Replace("@docnegocio", oDatos.Rnc);
             textoHtml = textoHtml.Replace("@direcnegocio", oDatos.Direccion);
+            textoHtml = textoHtml.Replace("@telefonoEmpresa", oDatos.Telefono);
 
             textoHtml = textoHtml.Replace("@tipodocumento", txtTipoDocumento.Text.ToUpper());
             textoHtml = textoHtml.Replace("@numerodocumento", txtNumeroDocumento.Text);
 
             textoHtml = textoHtml.Replace("@doccliente", txtNumDocumento.Text);
             textoHtml = textoHtml.Replace("@nombrecliente", txtNombreCliente.Text);
+            //textoHtml = textoHtml.Replace("@telefonoCliente", oVenta.oCliente.Telefono);
             textoHtml = textoHtml.Replace("@fecharegistro", txtFecha.Text);
             textoHtml = textoHtml.Replace("@usuarioregistro", txtUsuario.Text);
 
@@ -102,7 +105,7 @@ namespace CapaPresentacion
             {
                 filas += "<tr>";
                 filas += "<td>" + row.Cells["Producto"].Value.ToString() + "</td>";
-                filas += "<td>" + row.Cells["PrecioCompra"].Value.ToString() + "</td>";
+                filas += "<td>" + row.Cells["PrecioVenta"].Value.ToString() + "</td>";
                 filas += "<td>" + row.Cells["Cantidad"].Value.ToString() + "</td>";
                 filas += "<td>" + row.Cells["SubTotal"].Value.ToString() + "</td>";
                 filas += "</tr>";
@@ -120,7 +123,9 @@ namespace CapaPresentacion
             {
                 using (FileStream stream = new FileStream(saveFile.FileName, FileMode.Create))
                 {
-                    Document pdfDoc = new Document(PageSize.A4, 25, 25, 25, 25);
+                    // Definimos solo el ancho del recibo y márgenes pequeños.
+                    var anchoRecibo = Utilities.MillimetersToPoints(80);
+                    Document pdfDoc = new Document(new iTextSharp.text.Rectangle(0, 0, anchoRecibo, 842), 10, 10, 10, 10);
 
                     PdfWriter writer = PdfWriter.GetInstance(pdfDoc, stream); //creamos el pdf con el pdfwriter
                     pdfDoc.Open();
@@ -131,9 +136,8 @@ namespace CapaPresentacion
                     if (obtenido)
                     {
                         iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance(byteImage);
-                        img.ScaleToFit(60, 60);
-                        img.Alignment = iTextSharp.text.Image.UNDERLYING;
-                        img.SetAbsolutePosition(pdfDoc.Left, pdfDoc.GetTop(51));
+                        img.ScaleToFit(40, 40); // Ajustar tamaño del logo
+                        img.Alignment = Element.ALIGN_CENTER; // Centrar el logo
                         pdfDoc.Add(img);
                     }
 
@@ -148,6 +152,6 @@ namespace CapaPresentacion
             }
 
         }
-    }
-    
+
+    }  
 }

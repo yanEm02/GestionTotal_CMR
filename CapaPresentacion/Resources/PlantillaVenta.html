@@ -1,107 +1,86 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Web Page Design</title>
+    <title>Recibo de Venta</title>
     <style>
-        table.border {
-            border-collapse: collapse;
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 10px;
+            width: 100%;
         }
 
-            table.border th {
-                text-align: center;
-                padding: 5px;
-                border: 1px solid black;
-            }
+        .center {
+            text-align: center;
+        }
 
-            table.border td {
-                text-align: center;
-                padding: 5px;
-                border: 1px solid black;
-            }
+        .left {
+            text-align: left;
+        }
+
+        .right {
+            text-align: right;
+        }
+
+        .line {
+            border-top: 1px dashed black;
+            margin: 5px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 10px;
+        }
+
+        th, td {
+            padding: 2px;
+        }
     </style>
 </head>
 <body>
-    <table border="0" style="width:100%">
-        <tr>
-
-            <td style="width:15%" valign="top"></td>
-            <td style="width:60%" valign="top" align="center">
-
-                <label style="font-size:20px;font-weight:bold;margin-bottom:10px">@nombrenegocio</label><br />
-                <div style="height:12px !important"></div>
-                <label style="font-size:11px;">RUC: @docnegocio</label><br />
-                <label style="font-size:11px;">Dirección: @direcnegocio</label><br />
-            </td>
-            <td style="width:25%;" align="right" valign="top">
-                <table style="width:100%" class="border">
-                    <tr>
-                        <td align="center" style="background-color:#CACACA">
-                            <label style="font-size:15px;font-weight:bold">@tipodocumento</label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="center">
-                            <label style="font-size:15px;font-weight:bold">@numerodocumento</label>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-    </table>
-    <div style="height:15px !important"></div>
-    <hr />
-
-    <table border="0" style="width:100%">
-        <tr>
-            <td style="width:20%"><label style="font-size:12px;font-weight:bold">Documento Cliente:</label></td>
-			<td style="width:20%"><label style="font-size:12px;">@doccliente</label></td>
-        </tr>
-		<tr>
-			<td style="width:20%"><label style="font-size:12px;font-weight:bold">Nombre Cliente:</label></td>
-			<td style="width:20%"><label style="font-size:12px;">@nombrecliente</label></td>
-		</tr>
-		<tr>
-			<td style="width:20%"><label style="font-size:12px;font-weight:bold">Fecha Registro:</label></td>
-            <td style="width:20%"><label style="font-size:12px;">@fecharegistro</label></td>
-        </tr>
-        <tr>
-            <td style="width:20%"><label style="font-size:12px;font-weight:bold">Usuario Registro:</label></td>
-            <td style="width:20%"><label style="font-size:12px;">@usuarioregistro</label></td>
-        </tr>
-
-
-    </table>
-    <div style="height:15px !important"></div>
-    <table style="width:100%;font-size:12px;" class="border">
+    <div class="center">
+        <p>
+            <strong>@nombrenegocio</strong><br />
+            RNC: @docnegocio<br />
+            @telefonoEmpresa<br />
+            Empleado: @usuarioregistro
+        </p>
+    </div>
+    <div class="line"></div>
+    <p class="center">
+        <strong>Factura de Venta</strong><br />
+        <strong>@numerodocumento</strong><br />
+    </p>
+    <div class="line"></div>
+    <div>
+        Nombre: @nombrecliente<br />
+        <!--Telefono: @telefonoCliente<br />-->
+        Fecha: @fecharegistro
+    </div>
+    <div class="line"></div><br />
+    <table>
         <thead>
-            <tr style="background-color:#CACACA">
-                <th>Producto</th>
-				<th>Precio</th>
-                <th>Cantidad</th>
-                <th>Sub Total</th>
+            <tr>
+                <th class="left">Producto</th>
+                <th class="left">PrecioVenta</th>
+                <th class="left">Cantidad</th>
+                <th class="right">SubTotal</th>
             </tr>
         </thead>
         <tbody>
             @filas
         </tbody>
     </table>
-
-    <div style="height:15px !important"></div>
-    <table style="width:35%;font-size:12px;" class="border">
-        <thead>
-            <tr style="background-color:#CACACA">
-                <th>Monto Total</th>
-                <th>Pago Con</th>
-                <th>Cambio</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>@montototal</td>
-                <td>@pagocon</td>
-                <td>@cambio</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="line"></div>
+    <div>
+        <p class="right"><br /><br /><br />
+            Monto Total: @montototal<br />
+            Pago Con: @pagocon<br />
+            Cambio: @cambio<br />
+            Forma de Pago: @tipodocumento<br />
+        </p>
+    </div>
+    <div class="line"></div><br />
+    <p class="center">Gracias Por Su Compra!</p>
 </body>
 </html>

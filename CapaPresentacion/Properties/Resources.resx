@@ -133,4 +133,10 @@
   <data name="ComerciaPlus Logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ComerciaPlus Logo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="LogoCMR" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\LogoCMR.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PlantillaVentaProcedimiento" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PlantillaVentaProcedimiento.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
 </root>

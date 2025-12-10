@@ -49,24 +49,24 @@
     </div>
     <div class="line"></div>
     <p class="center">
-        <strong>Factura de Compra</strong><br />
+        <strong>Factura Paciente</strong><br />
         <strong>@numerodocumento</strong><br />
     </p>
     <div class="line"></div>
     <div>
-        Proveedor: @nombreproveedor<br />
-        RNC: @docproveedor<br />
-        Telefono: @telefonoProveedor<br />
+        Nombre: @nombreCliente<br />
+        Edad: @edadCliente<br />
+        Sexo: @sexoCliente<br />
+        Telefono: @telefonoCliente<br />
+        Direccion: @direccionCliente<br />
         Fecha: @fecharegistro
     </div>
     <div class="line"></div><br />
     <table>
         <thead>
             <tr>
-                <th class="left">Producto</th>
-                <th class="left">PrecioCompra</th>
-                <th class="left">Cantidad</th>
-                <th class="right">SubTotal</th>
+                <th class="left">Procedimiento</th>
+                <th class="right">Precio</th>
             </tr>
         </thead>
         <tbody>
@@ -77,10 +77,14 @@
     <div>
         <p class="right"><br /><br /><br />
             Monto Total: @montototal<br />
+            Pago Con: @pagocon<br />
+            Cambio: @cambio<br />
             Forma de Pago: @tipodocumento<br />
         </p>
     </div>
     <div class="line"></div><br />
-    <p class="center">Gracias Por Su Compra!</p>
+    <p class="center">Yo, autorizo Centro médico Renacer Sur a realizarme las Pruebas Seleccionadas.</p> <br /><br /><br /><br />
+    <p class="center">------------------------------------------</p>
+    <p class="center">Firma del Paciente</p>
 </body>
 </html>

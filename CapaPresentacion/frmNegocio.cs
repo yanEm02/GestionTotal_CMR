@@ -50,6 +50,7 @@ namespace CapaPresentacion
             txtNombre.Text = datos.Nombre;
             txtRNC.Text = datos.Rnc;
             txtDireccion.Text = datos.Direccion;
+            txtTelefono.Text = datos.Telefono;
         }
 
         //configuramos el metodo de subir la imagen
@@ -85,6 +86,7 @@ namespace CapaPresentacion
                 Nombre = txtNombre.Text,
                 Rnc = txtRNC.Text, 
                 Direccion = txtDireccion.Text,
+                Telefono = txtTelefono.Text
             };
 
             bool respuesta = new CN_Negocio().GuardarDatos(obj, out mensaje);

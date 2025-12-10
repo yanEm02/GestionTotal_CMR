@@ -98,7 +98,7 @@ namespace CapaDatos
                     conexion.Open();
                     StringBuilder query = new StringBuilder();
 
-                    query.AppendLine("select v.ID_VENTA,u.NombreCompleto as NombreUsuario,c.NombreCompleto as NombreCliente,");
+                    query.AppendLine("select v.ID_VENTA,u.NombreCompleto as NombreUsuario,c.NombreCompleto as NombreCliente, c.Edad, c.Sexo, c.Telefono, c.Direccion,");
                     query.AppendLine("c.Documento,v.TipoDocumento,v.numeroDocumento,");
                     query.AppendLine("v.MONTOPAGO,v.Montocambio,v.Montototal,");
                     query.AppendLine("CONVERT(char(10),v.FECHAREGISTRO,103)[FechaRegistro]");
@@ -125,7 +125,11 @@ namespace CapaDatos
                                 oCliente = new Cliente()
                                 {
                                     Documento = dataReader["Documento"].ToString(),
-                                    Nombre = dataReader["NombreCliente"].ToString()
+                                    Nombre = dataReader["NombreCliente"].ToString(),
+                                    Edad = int.Parse(dataReader["Edad"].ToString()),
+                                    Sexo = dataReader["Sexo"].ToString(),
+                                    Telefono = dataReader["Telefono"].ToString(),
+                                    Direccion = dataReader["Direccion"].ToString()
                                 },
                                 MontoPago = Convert.ToDecimal(dataReader["MONTOPAGO"].ToString()),
                                 MontoCambio = Convert.ToDecimal(dataReader["Montocambio"].ToString()),
