@@ -215,6 +215,10 @@ namespace CapaPresentacion
         {
             AbrirFormulario(menuMantenedor, new frmCategoria());
         }
+        private void procedimientoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario(menuMantenedor, new frmProcedimiento());
+        }
 
         //==========CONFIGURACIOKN/MANTENEDOR ===
 
@@ -302,7 +306,5 @@ namespace CapaPresentacion
             menu.Items.Add(toolStripLblUsuario);
             menu.Items.Add(toolStripLblTextoUsuario);
         }
-
-      
     }
 }

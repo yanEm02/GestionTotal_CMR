@@ -42,6 +42,7 @@
             this.menuProveedor = new FontAwesome.Sharp.IconMenuItem();
             this.menuInventario = new FontAwesome.Sharp.IconMenuItem();
             this.subMenuCategoria = new System.Windows.Forms.ToolStripMenuItem();
+            this.procedimientoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuReporte = new FontAwesome.Sharp.IconMenuItem();
             this.subMenuReporteCompra = new System.Windows.Forms.ToolStripMenuItem();
             this.subMenuReporteVenta = new System.Windows.Forms.ToolStripMenuItem();
@@ -192,7 +193,8 @@
             // menuInventario
             // 
             this.menuInventario.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.subMenuCategoria});
+            this.subMenuCategoria,
+            this.procedimientoToolStripMenuItem});
             this.menuInventario.IconChar = FontAwesome.Sharp.IconChar.BoxesPacking;
             this.menuInventario.IconColor = System.Drawing.Color.Black;
             this.menuInventario.IconFont = FontAwesome.Sharp.IconFont.Auto;
@@ -207,9 +209,16 @@
             // subMenuCategoria
             // 
             this.subMenuCategoria.Name = "subMenuCategoria";
-            this.subMenuCategoria.Size = new System.Drawing.Size(157, 26);
+            this.subMenuCategoria.Size = new System.Drawing.Size(224, 26);
             this.subMenuCategoria.Text = "Categoria";
             this.subMenuCategoria.Click += new System.EventHandler(this.categoriaToolStripMenuItem_Click);
+            // 
+            // procedimientoToolStripMenuItem
+            // 
+            this.procedimientoToolStripMenuItem.Name = "procedimientoToolStripMenuItem";
+            this.procedimientoToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.procedimientoToolStripMenuItem.Text = "Procedimiento";
+            this.procedimientoToolStripMenuItem.Click += new System.EventHandler(this.procedimientoToolStripMenuItem_Click);
             // 
             // menuReporte
             // 
@@ -341,6 +350,7 @@
         private System.Windows.Forms.ToolStripMenuItem registrarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem verDetalleToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem reportePToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem procedimientoToolStripMenuItem;
     }
 }
 

@@ -62,6 +62,113 @@ namespace CapaDatos
             return lista;
         }
 
+        public int Registrar(Procedimiento obj, out string Mensaje)
+        {
+            int idProductoGenerado = 0;
+            Mensaje = string.Empty;
+            try
+            {
+                using (SqlConnection oconexion = new SqlConnection(Conexion.cadena))
+                {
+                    SqlCommand cmd = new SqlCommand("SP_REGISTRAR_PROCEDIMIENTO", oconexion);
+                    cmd.Parameters.AddWithValue("Codigo", obj.Codigo);
+                    cmd.Parameters.AddWithValue("Nombre", obj.Nombre);
+                    cmd.Parameters.AddWithValue("IdCategoria", obj.oCategoria.IdCategoria);
+                    cmd.Parameters.AddWithValue("PrecioVenta", obj.PrecioVenta);
+                    cmd.Parameters.AddWithValue("PrecioVenta_asegurado", obj.PrecioVentaAsegurado);
+                    cmd.Parameters.AddWithValue("Estado", obj.Estado);
+                    cmd.Parameters.Add("Resultado", SqlDbType.Int).Direction = ParameterDirection.Output;
+                    cmd.Parameters.Add("Mensaje", SqlDbType.VarChar, 500).Direction = ParameterDirection.Output;
+                    cmd.CommandType = CommandType.StoredProcedure; //para declararr el tipo de comando ya que es un proc almacenado
+
+                    oconexion.Open();//abrir cadena de conexion
+
+                    cmd.ExecuteNonQuery();
+
+                    idProductoGenerado = Convert.ToInt32(cmd.Parameters["Resultado"].Value);
+                    Mensaje = cmd.Parameters["Mensaje"].Value.ToString();
+                }
+
+            }
+            catch (Exception e)
+            {
+                idProductoGenerado = 0;
+                Mensaje = e.Message;
+            }
+            return idProductoGenerado;
+        }
+
+        public bool Editar(Procedimiento obj, out string Mensaje)
+        {
+            bool respuesta = false;
+            Mensaje = string.Empty;
+
+            try
+            {
+                using (SqlConnection oconexion = new SqlConnection(Conexion.cadena))
+                {
+                    SqlCommand cmd = new SqlCommand("SP_EDITAR_PROCEDIMIENTO", oconexion);
+                    cmd.Parameters.AddWithValue("ID_procedimiento", obj.ID_Procedimiento);
+                    cmd.Parameters.AddWithValue("Codigo", obj.Codigo);
+                    cmd.Parameters.AddWithValue("Nombre", obj.Nombre);
+                    cmd.Parameters.AddWithValue("IdCategoria", obj.oCategoria.IdCategoria);
+                    cmd.Parameters.AddWithValue("PrecioVenta", obj.PrecioVenta);
+                    cmd.Parameters.AddWithValue("PrecioVenta_asegurado", obj.PrecioVentaAsegurado);
+                    cmd.Parameters.AddWithValue("Estado", obj.Estado);
+                    cmd.Parameters.Add("Resultado", SqlDbType.Int).Direction = ParameterDirection.Output;
+                    cmd.Parameters.Add("Mensaje", SqlDbType.VarChar, 500).Direction = ParameterDirection.Output;
+                    cmd.CommandType = CommandType.StoredProcedure; //para declararr el tipo de comando ya que es un proc almacenado
+
+                    oconexion.Open();//abrir cadena de conexion
+
+                    cmd.ExecuteNonQuery(); //ejecutamos el prco
+
+                    respuesta = Convert.ToBoolean(cmd.Parameters["Resultado"].Value);
+                    Mensaje = cmd.Parameters["Mensaje"].Value.ToString();
+                }
+
+            }
+            catch (Exception e)
+            {
+                respuesta = false;
+                Mensaje = e.Message;
+            }
+            return respuesta;
+        }
+
+        public bool Eliminar(Procedimiento obj, out string Mensaje)
+        {
+            bool respuesta = false;
+            Mensaje = string.Empty;
+
+            try
+            {
+                using (SqlConnection oconexion = new SqlConnection(Conexion.cadena))
+                {
+                    SqlCommand cmd = new SqlCommand("SP_ELIMINAR_PROCEDIMIENTO", oconexion);
+                    cmd.Parameters.AddWithValue("ID_procedimiento", obj.ID_Procedimiento);
+                    cmd.Parameters.Add("Respuesta", SqlDbType.Int).Direction = ParameterDirection.Output;
+                    cmd.Parameters.Add("mensaje", SqlDbType.VarChar, 500).Direction = ParameterDirection.Output;
+                    cmd.CommandType = CommandType.StoredProcedure; //para declararr el tipo de comando ya que es un proc almacenado
+
+                    oconexion.Open();//abrir cadena de conexion
+
+                    cmd.ExecuteNonQuery(); //ejecutamos el prco
+
+                    respuesta = Convert.ToBoolean(cmd.Parameters["Respuesta"].Value);
+                    Mensaje = cmd.Parameters["mensaje"].Value.ToString();
+                }
+
+            }
+            catch (Exception e)
+            {
+                respuesta = false;
+                Mensaje = e.Message;
+            }
+
+
+            return respuesta;
+        }
 
 
 
