@@ -199,7 +199,10 @@ namespace CapaPresentacion
         {
             AbrirFormulario(menuReporte, new frmReporteVenta());
         }
-
+        private void reportePToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario(menuReporte, new frmReporteProcedimiento());
+        }
 
         //=========INVENTARIO===
 
@@ -300,6 +303,6 @@ namespace CapaPresentacion
             menu.Items.Add(toolStripLblTextoUsuario);
         }
 
-       
+      
     }
 }

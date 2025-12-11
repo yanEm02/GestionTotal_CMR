@@ -1,4 +1,8 @@
-﻿using System;
+﻿using CapaEntidad;
+using CapaNegocio;
+using CapaPresentacion.Utilidades;
+using ClosedXML.Excel;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,23 +11,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using CapaEntidad;
-using CapaNegocio;
-using CapaPresentacion.Utilidades;
-using ClosedXML.Excel;
 
 namespace CapaPresentacion
 {
-    public partial class frmReporteVenta : Form
+    public partial class frmReporteProcedimiento : Form
     {
-        public frmReporteVenta()
+        public frmReporteProcedimiento()
         {
             InitializeComponent();
         }
 
-        private void frmReporteVenta_Load(object sender, EventArgs e)
+        private void frmReporteProcedimiento_Load(object sender, EventArgs e)
         {
-
             foreach (DataGridViewColumn columna in dgvData.Columns)
             {
                 cmbFiltro.Items.Add(new OpcionCombo() { Valor = columna.Name, Texto = columna.HeaderText });
@@ -33,32 +32,28 @@ namespace CapaPresentacion
             cmbFiltro.SelectedIndex = 0;
         }
 
-        private void btnBuscar_Click(object sender, EventArgs e)
+        private void iconButton1_Click(object sender, EventArgs e)
         {
-            List<ReporteVenta> lista = new List<ReporteVenta>();
+            List<ReporteProcedimiento> lista = new List<ReporteProcedimiento>();
 
-            lista = new CN_Reporte().Venta(txtFechaInicio.Value.ToString(), txtFechaFin.Value.ToString());
+            lista = new CN_Reporte().Procedimiento(txtFechaInicio.Value.ToString(), txtFechaFin.Value.ToString());
 
             dgvData.Rows.Clear();
-            foreach (ReporteVenta item in lista)
+            foreach (ReporteProcedimiento item in lista)
             {
                 dgvData.Rows.Add(new object[] {
                     item.FechaRegistro,
                     item.TipoDocumento,
                     item.NumeroDocumento,
-                    item.MontoTotal,
                     item.UsuarioRegistro,
-                    item.DocumentoCliente,
                     item.NombreCliente,
-                    item.CodigoProducto,
-                    item.NombreProducto,
+                    item.CodigoProcedimiento,
+                    item.NombreProcedimiento,
                     item.Categoria,
                     item.PrecioVenta,
-                    item.Cantidad,
-                    item.SubTotal
+                    item.MontoTotal,
                 });
             }
-
         }
 
         private void btnBuscarPor_Click(object sender, EventArgs e)
@@ -112,7 +107,6 @@ namespace CapaPresentacion
                     {
                         dt.Rows.Add(new object[]
                         {
-
                             fila.Cells[0].Value.ToString(),
                             fila.Cells[1].Value.ToString(),
                             fila.Cells[2].Value.ToString(),
@@ -123,9 +117,6 @@ namespace CapaPresentacion
                             fila.Cells[7].Value.ToString(),
                             fila.Cells[8].Value.ToString(),
                             fila.Cells[9].Value.ToString(),
-                            fila.Cells[10].Value.ToString(),
-                            fila.Cells[11].Value.ToString(),
-                            fila.Cells[12].Value.ToString(),
                         });
                     }
                 }
