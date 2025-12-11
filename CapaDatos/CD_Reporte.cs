@@ -37,19 +37,19 @@ namespace CapaDatos
                             lista.Add(new ReporteCompra()
                             {
                                 FechaRegistro =dr["FechaRegistro"].ToString(),
-                                TipoDocumento =dr["Tipo_Documento"].ToString(),
-                                NumeroDocumento =dr["Numero_Documento"].ToString(),
-                                MontoTotal =dr["Monto_total"].ToString(),
+                                TipoDocumento =dr["TipoDocumento"].ToString(),
+                                NumeroDocumento =dr["NumeroDocumento"].ToString(),
+                                MontoTotal =dr["Montototal"].ToString(),
                                 UsuarioRegistro =dr["UsuarioRegistro"].ToString(),
                                 DocumentoProveedor =dr["DocumentoProveedor"].ToString(),
-                                RazonSocial =dr["Razon_Social"].ToString(),
+                                RazonSocial =dr["Nombre"].ToString(),
                                 CodigoProducto =dr["CodigoProducto"].ToString(),
                                 NombreProducto =dr["NombreProducto"].ToString(),
                                 Categoria =dr["Categoria"].ToString(),
-                                PrecioCompra =dr["Precio_Compra"].ToString(),
-                                PrecioVenta =dr["Precio_Venta"].ToString(),
+                                PrecioCompra =dr["PrecioCompra"].ToString(),
+                                PrecioVenta =dr["PrecioVenta"].ToString(),
                                 Cantidad = dr["Cantidad"].ToString(),
-                                SubTotal = dr["SubTotal"].ToString(),
+                                SubTotal = dr["MontoTotal"].ToString(),
                             });
 
                         }
@@ -91,18 +91,18 @@ namespace CapaDatos
                             lista.Add(new ReporteVenta()
                             {
                                 FechaRegistro = dr["FechaRegistro"].ToString(),
-                                TipoDocumento = dr["Tipo_Documento"].ToString(),
-                                NumeroDocumento = dr["Numero_Documento"].ToString(),
-                                MontoTotal = dr["Monto_total"].ToString(),
+                                TipoDocumento = dr["TipoDocumento"].ToString(),
+                                NumeroDocumento = dr["NumeroDocumento"].ToString(),
+                                MontoTotal = dr["Montototal"].ToString(),
                                 UsuarioRegistro = dr["UsuarioRegistro"].ToString(),
-                                DocumentoCliente = dr["Documento_Cliente"].ToString(),
+                                DocumentoCliente = dr["DocumentoCliente"].ToString(),
                                 NombreCliente = dr["CLIENTE"].ToString(),
                                 CodigoProducto = dr["CodigoProducto"].ToString(),
                                 NombreProducto = dr["NombreProducto"].ToString(),
                                 Categoria = dr["Categoria"].ToString(),
-                                PrecioVenta = dr["Precio_Venta"].ToString(),
+                                PrecioVenta = dr["PrecioVenta"].ToString(),
                                 Cantidad = dr["Cantidad"].ToString(),
-                                SubTotal = dr["Sub_Total"].ToString(),
+                                SubTotal = dr["SubTotal"].ToString(),
                             });
 
                         }
@@ -112,6 +112,54 @@ namespace CapaDatos
                 catch (Exception ex)
                 {
                     lista = new List<ReporteVenta>();
+                }
+            }
+
+            return lista;
+        }
+
+        public List<ReporteProcedimiento> VentaProcedimiento(string fechaInicio, string fechaFin)
+        {
+            List<ReporteProcedimiento> lista = new List<ReporteProcedimiento>();
+
+            using (SqlConnection oconexion = new SqlConnection(Conexion.cadena))
+            {
+                try
+                {
+                    StringBuilder query = new StringBuilder();
+                    SqlCommand cmd = new SqlCommand("SP_ReporteProcedimiento", oconexion);
+                    cmd.Parameters.AddWithValue("fechaInicio", DateTime.Parse(fechaInicio).ToString("yyyy-MM-dd"));
+                    cmd.Parameters.AddWithValue("fechaFin", DateTime.Parse(fechaFin).ToString("yyyy-MM-dd"));
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    oconexion.Open();
+
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        //mientras comando lea desde la cadena de base de datos entonces va a ir almacenando los datos 
+                        while (dr.Read())
+                        {
+                            lista.Add(new ReporteProcedimiento()
+                            {
+                                FechaRegistro = dr["FechaRegistro"].ToString(),
+                                TipoDocumento = dr["TipoDocumento"].ToString(),
+                                NumeroDocumento = dr["NumeroDocumento"].ToString(),
+                                MontoTotal = dr["Montototal"].ToString(),
+                                UsuarioRegistro = dr["UsuarioRegistro"].ToString(),
+                                NombreCliente = dr["NombreCompleto"].ToString(),
+                                CodigoProcedimiento = dr["CodigoProducto"].ToString(),
+                                NombreProcedimiento = dr["NombreProcedimiento"].ToString(),
+                                Categoria = dr["Categoria"].ToString(),
+                                PrecioVenta = dr["PrecioVenta"].ToString(),
+                            });
+
+                        }
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    lista = new List<ReporteProcedimiento>();
                 }
             }
 

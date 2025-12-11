@@ -120,6 +120,7 @@ namespace CapaPresentacion
                             fila.Cells[4].Value.ToString(),
                             fila.Cells[5].Value.ToString(),
                             fila.Cells[6].Value.ToString(),
+                            fila.Cells[7].Value.ToString(),
                             fila.Cells[8].Value.ToString(),
                             fila.Cells[9].Value.ToString(),
                             fila.Cells[10].Value.ToString(),

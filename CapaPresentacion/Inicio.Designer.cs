@@ -45,11 +45,11 @@
             this.menuReporte = new FontAwesome.Sharp.IconMenuItem();
             this.subMenuReporteCompra = new System.Windows.Forms.ToolStripMenuItem();
             this.subMenuReporteVenta = new System.Windows.Forms.ToolStripMenuItem();
+            this.reportePToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuUsuario = new FontAwesome.Sharp.IconMenuItem();
             this.menuMantenedor = new FontAwesome.Sharp.IconMenuItem();
             this.menuAcercaDe = new FontAwesome.Sharp.IconMenuItem();
             this.contenedor = new System.Windows.Forms.Panel();
-            this.reportePToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -230,16 +230,23 @@
             // subMenuReporteCompra
             // 
             this.subMenuReporteCompra.Name = "subMenuReporteCompra";
-            this.subMenuReporteCompra.Size = new System.Drawing.Size(224, 26);
+            this.subMenuReporteCompra.Size = new System.Drawing.Size(252, 26);
             this.subMenuReporteCompra.Text = "Reporte Compras";
             this.subMenuReporteCompra.Click += new System.EventHandler(this.subMenuReporteCompra_Click);
             // 
             // subMenuReporteVenta
             // 
             this.subMenuReporteVenta.Name = "subMenuReporteVenta";
-            this.subMenuReporteVenta.Size = new System.Drawing.Size(224, 26);
+            this.subMenuReporteVenta.Size = new System.Drawing.Size(252, 26);
             this.subMenuReporteVenta.Text = "Reporte Ventas";
             this.subMenuReporteVenta.Click += new System.EventHandler(this.subMenuReporteVenta_Click);
+            // 
+            // reportePToolStripMenuItem
+            // 
+            this.reportePToolStripMenuItem.Name = "reportePToolStripMenuItem";
+            this.reportePToolStripMenuItem.Size = new System.Drawing.Size(252, 26);
+            this.reportePToolStripMenuItem.Text = "Reporte Procedimientos";
+            this.reportePToolStripMenuItem.Click += new System.EventHandler(this.reportePToolStripMenuItem_Click);
             // 
             // menuUsuario
             // 
@@ -289,12 +296,6 @@
             this.contenedor.Name = "contenedor";
             this.contenedor.Size = new System.Drawing.Size(1129, 599);
             this.contenedor.TabIndex = 3;
-            // 
-            // reportePToolStripMenuItem
-            // 
-            this.reportePToolStripMenuItem.Name = "reportePToolStripMenuItem";
-            this.reportePToolStripMenuItem.Size = new System.Drawing.Size(252, 26);
-            this.reportePToolStripMenuItem.Text = "Reporte Procedimientos";
             // 
             // Inicio
             // 

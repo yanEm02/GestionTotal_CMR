@@ -175,6 +175,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Proveedor.cs" />
     <Compile Include="ReporteCompra.cs" />
+    <Compile Include="ReporteProcedimiento.cs" />
     <Compile Include="ReporteVenta.cs" />
     <Compile Include="Rol.cs" />
     <Compile Include="Usuario.cs" />

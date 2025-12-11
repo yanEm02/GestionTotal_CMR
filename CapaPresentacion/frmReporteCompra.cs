@@ -22,11 +22,6 @@ namespace CapaPresentacion
             InitializeComponent();
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void frmReporteCompra_Load(object sender, EventArgs e)
         {
             List<Proveedor> lista = new CN_Proveedor().Listar();
@@ -117,6 +112,7 @@ namespace CapaPresentacion
                             fila.Cells[4].Value.ToString(),
                             fila.Cells[5].Value.ToString(),
                             fila.Cells[6].Value.ToString(),
+                            fila.Cells[7].Value.ToString(),
                             fila.Cells[8].Value.ToString(),
                             fila.Cells[9].Value.ToString(),
                             fila.Cells[10].Value.ToString(),

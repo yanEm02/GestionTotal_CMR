@@ -21,5 +21,10 @@ namespace CapaNegocio
         {
             return objcd_reporte.Venta(fechaInicio, fechaFin);
         }
+
+        public List<ReporteProcedimiento> Procedimiento(string fechaInicio, string fechaFin)
+        {
+            return objcd_reporte.VentaProcedimiento(fechaInicio, fechaFin);
+        }
     }
 }

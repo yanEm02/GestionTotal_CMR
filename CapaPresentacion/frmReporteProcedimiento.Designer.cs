@@ -29,19 +29,6 @@
         private void InitializeComponent()
         {
             this.dgvData = new System.Windows.Forms.DataGridView();
-            this.FechaRegistro = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Tipo_documento = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Numero_Documento = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Monto_Total = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.UsuarioRegistro = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DocumentoProveedor = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Razon_social = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CodigoProducto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NombreProducto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Categoria = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Precio_Venta = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Subtotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.txtBusqueda = new System.Windows.Forms.TextBox();
             this.btnLimpiar = new FontAwesome.Sharp.IconButton();
             this.btnBuscarPor = new FontAwesome.Sharp.IconButton();
@@ -56,6 +43,17 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.btnBuscar = new FontAwesome.Sharp.IconButton();
+            this.FechaRegistro = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Tipodocumento = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NumeroDocumento = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.UsuarioRegistro = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Razon_social = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CodigoProducto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NombreProcedimiento = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Categoria = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Precio_Venta = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MontoTotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.iconButton1 = new FontAwesome.Sharp.IconButton();
             ((System.ComponentModel.ISupportInitialize)(this.dgvData)).BeginInit();
             this.SuspendLayout();
             // 
@@ -66,18 +64,15 @@
             this.dgvData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvData.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.FechaRegistro,
-            this.Tipo_documento,
-            this.Numero_Documento,
-            this.Monto_Total,
+            this.Tipodocumento,
+            this.NumeroDocumento,
             this.UsuarioRegistro,
-            this.DocumentoProveedor,
             this.Razon_social,
             this.CodigoProducto,
-            this.NombreProducto,
+            this.NombreProcedimiento,
             this.Categoria,
             this.Precio_Venta,
-            this.Cantidad,
-            this.Subtotal});
+            this.MontoTotal});
             this.dgvData.Location = new System.Drawing.Point(26, 183);
             this.dgvData.Margin = new System.Windows.Forms.Padding(4);
             this.dgvData.Name = "dgvData";
@@ -85,110 +80,6 @@
             this.dgvData.RowHeadersWidth = 51;
             this.dgvData.Size = new System.Drawing.Size(1779, 722);
             this.dgvData.TabIndex = 34;
-            // 
-            // FechaRegistro
-            // 
-            this.FechaRegistro.HeaderText = "Fecha Registro";
-            this.FechaRegistro.MinimumWidth = 6;
-            this.FechaRegistro.Name = "FechaRegistro";
-            this.FechaRegistro.ReadOnly = true;
-            this.FechaRegistro.Width = 125;
-            // 
-            // Tipo_documento
-            // 
-            this.Tipo_documento.HeaderText = "Forma de Pago";
-            this.Tipo_documento.MinimumWidth = 6;
-            this.Tipo_documento.Name = "Tipo_documento";
-            this.Tipo_documento.ReadOnly = true;
-            this.Tipo_documento.Width = 125;
-            // 
-            // Numero_Documento
-            // 
-            this.Numero_Documento.HeaderText = "Numero Documento";
-            this.Numero_Documento.MinimumWidth = 6;
-            this.Numero_Documento.Name = "Numero_Documento";
-            this.Numero_Documento.ReadOnly = true;
-            this.Numero_Documento.Width = 125;
-            // 
-            // Monto_Total
-            // 
-            this.Monto_Total.HeaderText = "Monto Total";
-            this.Monto_Total.MinimumWidth = 6;
-            this.Monto_Total.Name = "Monto_Total";
-            this.Monto_Total.ReadOnly = true;
-            this.Monto_Total.Width = 125;
-            // 
-            // UsuarioRegistro
-            // 
-            this.UsuarioRegistro.HeaderText = "Usuario Registro";
-            this.UsuarioRegistro.MinimumWidth = 6;
-            this.UsuarioRegistro.Name = "UsuarioRegistro";
-            this.UsuarioRegistro.ReadOnly = true;
-            this.UsuarioRegistro.Width = 125;
-            // 
-            // DocumentoProveedor
-            // 
-            this.DocumentoProveedor.HeaderText = "Documento Cliente";
-            this.DocumentoProveedor.MinimumWidth = 6;
-            this.DocumentoProveedor.Name = "DocumentoProveedor";
-            this.DocumentoProveedor.ReadOnly = true;
-            this.DocumentoProveedor.Width = 125;
-            // 
-            // Razon_social
-            // 
-            this.Razon_social.HeaderText = "Nombre Cliente";
-            this.Razon_social.MinimumWidth = 6;
-            this.Razon_social.Name = "Razon_social";
-            this.Razon_social.ReadOnly = true;
-            this.Razon_social.Width = 125;
-            // 
-            // CodigoProducto
-            // 
-            this.CodigoProducto.HeaderText = "Codigo Producto";
-            this.CodigoProducto.MinimumWidth = 6;
-            this.CodigoProducto.Name = "CodigoProducto";
-            this.CodigoProducto.ReadOnly = true;
-            this.CodigoProducto.Width = 125;
-            // 
-            // NombreProducto
-            // 
-            this.NombreProducto.HeaderText = "Nombre Producto";
-            this.NombreProducto.MinimumWidth = 6;
-            this.NombreProducto.Name = "NombreProducto";
-            this.NombreProducto.ReadOnly = true;
-            this.NombreProducto.Width = 125;
-            // 
-            // Categoria
-            // 
-            this.Categoria.HeaderText = "Categoria";
-            this.Categoria.MinimumWidth = 6;
-            this.Categoria.Name = "Categoria";
-            this.Categoria.ReadOnly = true;
-            this.Categoria.Width = 125;
-            // 
-            // Precio_Venta
-            // 
-            this.Precio_Venta.HeaderText = "Precio Venta";
-            this.Precio_Venta.MinimumWidth = 6;
-            this.Precio_Venta.Name = "Precio_Venta";
-            this.Precio_Venta.ReadOnly = true;
-            this.Precio_Venta.Width = 125;
-            // 
-            // Cantidad
-            // 
-            this.Cantidad.HeaderText = "Cantidad";
-            this.Cantidad.MinimumWidth = 6;
-            this.Cantidad.Name = "Cantidad";
-            this.Cantidad.ReadOnly = true;
-            this.Cantidad.Width = 125;
-            // 
-            // Subtotal
-            // 
-            this.Subtotal.HeaderText = "Subtotal";
-            this.Subtotal.MinimumWidth = 6;
-            this.Subtotal.Name = "Subtotal";
-            this.Subtotal.ReadOnly = true;
-            this.Subtotal.Width = 125;
             // 
             // txtBusqueda
             // 
@@ -231,6 +122,7 @@
             this.btnBuscarPor.TabIndex = 39;
             this.btnBuscarPor.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnBuscarPor.UseVisualStyleBackColor = false;
+            this.btnBuscarPor.Click += new System.EventHandler(this.btnBuscarPor_Click);
             // 
             // cmbFiltro
             // 
@@ -273,6 +165,7 @@
             this.btnDescargarExcel.Text = "Descargar Excel";
             this.btnDescargarExcel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnDescargarExcel.UseVisualStyleBackColor = false;
+            this.btnDescargarExcel.Click += new System.EventHandler(this.btnDescargarExcel_Click);
             // 
             // label6
             // 
@@ -366,11 +259,109 @@
             this.btnBuscar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnBuscar.UseVisualStyleBackColor = true;
             // 
+            // FechaRegistro
+            // 
+            this.FechaRegistro.HeaderText = "Fecha Registro";
+            this.FechaRegistro.MinimumWidth = 6;
+            this.FechaRegistro.Name = "FechaRegistro";
+            this.FechaRegistro.ReadOnly = true;
+            this.FechaRegistro.Width = 125;
+            // 
+            // Tipodocumento
+            // 
+            this.Tipodocumento.HeaderText = "Forma de Pago";
+            this.Tipodocumento.MinimumWidth = 6;
+            this.Tipodocumento.Name = "Tipodocumento";
+            this.Tipodocumento.ReadOnly = true;
+            this.Tipodocumento.Width = 125;
+            // 
+            // NumeroDocumento
+            // 
+            this.NumeroDocumento.HeaderText = "Numero Documento";
+            this.NumeroDocumento.MinimumWidth = 6;
+            this.NumeroDocumento.Name = "NumeroDocumento";
+            this.NumeroDocumento.ReadOnly = true;
+            this.NumeroDocumento.Width = 125;
+            // 
+            // UsuarioRegistro
+            // 
+            this.UsuarioRegistro.HeaderText = "Usuario Registro";
+            this.UsuarioRegistro.MinimumWidth = 6;
+            this.UsuarioRegistro.Name = "UsuarioRegistro";
+            this.UsuarioRegistro.ReadOnly = true;
+            this.UsuarioRegistro.Width = 125;
+            // 
+            // Razon_social
+            // 
+            this.Razon_social.HeaderText = "Nombre Cliente";
+            this.Razon_social.MinimumWidth = 6;
+            this.Razon_social.Name = "Razon_social";
+            this.Razon_social.ReadOnly = true;
+            this.Razon_social.Width = 125;
+            // 
+            // CodigoProducto
+            // 
+            this.CodigoProducto.HeaderText = "Codigo Procedimiento";
+            this.CodigoProducto.MinimumWidth = 6;
+            this.CodigoProducto.Name = "CodigoProducto";
+            this.CodigoProducto.ReadOnly = true;
+            this.CodigoProducto.Width = 125;
+            // 
+            // NombreProcedimiento
+            // 
+            this.NombreProcedimiento.HeaderText = "Procedimiento";
+            this.NombreProcedimiento.MinimumWidth = 6;
+            this.NombreProcedimiento.Name = "NombreProcedimiento";
+            this.NombreProcedimiento.ReadOnly = true;
+            this.NombreProcedimiento.Width = 125;
+            // 
+            // Categoria
+            // 
+            this.Categoria.HeaderText = "Categoria";
+            this.Categoria.MinimumWidth = 6;
+            this.Categoria.Name = "Categoria";
+            this.Categoria.ReadOnly = true;
+            this.Categoria.Width = 125;
+            // 
+            // Precio_Venta
+            // 
+            this.Precio_Venta.HeaderText = "Precio Venta";
+            this.Precio_Venta.MinimumWidth = 6;
+            this.Precio_Venta.Name = "Precio_Venta";
+            this.Precio_Venta.ReadOnly = true;
+            this.Precio_Venta.Width = 125;
+            // 
+            // MontoTotal
+            // 
+            this.MontoTotal.HeaderText = "Monto Total";
+            this.MontoTotal.MinimumWidth = 6;
+            this.MontoTotal.Name = "MontoTotal";
+            this.MontoTotal.ReadOnly = true;
+            this.MontoTotal.Width = 125;
+            // 
+            // iconButton1
+            // 
+            this.iconButton1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.iconButton1.IconChar = FontAwesome.Sharp.IconChar.MagnifyingGlass;
+            this.iconButton1.IconColor = System.Drawing.Color.Black;
+            this.iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.iconButton1.IconSize = 19;
+            this.iconButton1.Location = new System.Drawing.Point(1195, 40);
+            this.iconButton1.Margin = new System.Windows.Forms.Padding(4);
+            this.iconButton1.Name = "iconButton1";
+            this.iconButton1.Size = new System.Drawing.Size(125, 43);
+            this.iconButton1.TabIndex = 42;
+            this.iconButton1.Text = "Buscar";
+            this.iconButton1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.iconButton1.UseVisualStyleBackColor = true;
+            this.iconButton1.Click += new System.EventHandler(this.iconButton1_Click);
+            // 
             // frmReporteProcedimiento
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(1826, 940);
+            this.Controls.Add(this.iconButton1);
             this.Controls.Add(this.dgvData);
             this.Controls.Add(this.txtBusqueda);
             this.Controls.Add(this.btnLimpiar);
@@ -398,19 +389,6 @@
         #endregion
 
         private System.Windows.Forms.DataGridView dgvData;
-        private System.Windows.Forms.DataGridViewTextBoxColumn FechaRegistro;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Tipo_documento;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Numero_Documento;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Monto_Total;
-        private System.Windows.Forms.DataGridViewTextBoxColumn UsuarioRegistro;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DocumentoProveedor;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Razon_social;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CodigoProducto;
-        private System.Windows.Forms.DataGridViewTextBoxColumn NombreProducto;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Categoria;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Precio_Venta;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Cantidad;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Subtotal;
         private System.Windows.Forms.TextBox txtBusqueda;
         private FontAwesome.Sharp.IconButton btnLimpiar;
         private FontAwesome.Sharp.IconButton btnBuscarPor;
@@ -425,5 +403,16 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private FontAwesome.Sharp.IconButton btnBuscar;
+        private System.Windows.Forms.DataGridViewTextBoxColumn FechaRegistro;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Tipodocumento;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NumeroDocumento;
+        private System.Windows.Forms.DataGridViewTextBoxColumn UsuarioRegistro;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Razon_social;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CodigoProducto;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NombreProcedimiento;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Categoria;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Precio_Venta;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MontoTotal;
+        private FontAwesome.Sharp.IconButton iconButton1;
     }
 }
