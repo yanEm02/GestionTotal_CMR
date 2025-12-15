@@ -7,7 +7,7 @@
     <ProjectGuid>{F0E18601-BDAA-43B7-BFDF-BD776DC03CC2}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>CapaPresentacion</RootNamespace>
-    <AssemblyName>CapaPresentacion</AssemblyName>
+    <AssemblyName>GestionCMR</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -51,6 +51,9 @@
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>IconoCMR.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Azure.Core, Version=1.47.1.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
@@ -515,6 +518,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\PlantillaVenta.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="IconoCMR.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Data.SqlClient.SNI.6.0.2\build\net462\Microsoft.Data.SqlClient.SNI.targets" Condition="Exists('..\packages\Microsoft.Data.SqlClient.SNI.6.0.2\build\net462\Microsoft.Data.SqlClient.SNI.targets')" />
