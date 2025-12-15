@@ -31,6 +31,8 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.txtTelefono = new System.Windows.Forms.TextBox();
+            this.txtlabel = new System.Windows.Forms.Label();
             this.btnGuardar = new FontAwesome.Sharp.IconButton();
             this.txtDireccion = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -41,8 +43,6 @@
             this.btnSubir = new FontAwesome.Sharp.IconButton();
             this.label1 = new System.Windows.Forms.Label();
             this.picLogo = new System.Windows.Forms.PictureBox();
-            this.txtTelefono = new System.Windows.Forms.TextBox();
-            this.txtlabel = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picLogo)).BeginInit();
             this.SuspendLayout();
@@ -50,7 +50,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.BackColor = System.Drawing.Color.PeachPuff;
+            this.label6.BackColor = System.Drawing.Color.DeepSkyBlue;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 22F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.Location = new System.Drawing.Point(47, 19);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -61,7 +61,7 @@
             // 
             // label3
             // 
-            this.label3.BackColor = System.Drawing.Color.PeachPuff;
+            this.label3.BackColor = System.Drawing.Color.DeepSkyBlue;
             this.label3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label3.Location = new System.Drawing.Point(0, 0);
@@ -92,6 +92,26 @@
             this.groupBox1.Size = new System.Drawing.Size(1048, 508);
             this.groupBox1.TabIndex = 23;
             this.groupBox1.TabStop = false;
+            // 
+            // txtTelefono
+            // 
+            this.txtTelefono.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTelefono.Location = new System.Drawing.Point(363, 349);
+            this.txtTelefono.Margin = new System.Windows.Forms.Padding(4);
+            this.txtTelefono.Name = "txtTelefono";
+            this.txtTelefono.Size = new System.Drawing.Size(539, 38);
+            this.txtTelefono.TabIndex = 11;
+            // 
+            // txtlabel
+            // 
+            this.txtlabel.AutoSize = true;
+            this.txtlabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtlabel.Location = new System.Drawing.Point(359, 321);
+            this.txtlabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.txtlabel.Name = "txtlabel";
+            this.txtlabel.Size = new System.Drawing.Size(89, 25);
+            this.txtlabel.TabIndex = 10;
+            this.txtlabel.Text = "Telefono";
             // 
             // btnGuardar
             // 
@@ -209,26 +229,6 @@
             this.picLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picLogo.TabIndex = 0;
             this.picLogo.TabStop = false;
-            // 
-            // txtTelefono
-            // 
-            this.txtTelefono.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTelefono.Location = new System.Drawing.Point(363, 349);
-            this.txtTelefono.Margin = new System.Windows.Forms.Padding(4);
-            this.txtTelefono.Name = "txtTelefono";
-            this.txtTelefono.Size = new System.Drawing.Size(539, 38);
-            this.txtTelefono.TabIndex = 11;
-            // 
-            // txtlabel
-            // 
-            this.txtlabel.AutoSize = true;
-            this.txtlabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtlabel.Location = new System.Drawing.Point(359, 321);
-            this.txtlabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.txtlabel.Name = "txtlabel";
-            this.txtlabel.Size = new System.Drawing.Size(89, 25);
-            this.txtlabel.TabIndex = 10;
-            this.txtlabel.Text = "Telefono";
             // 
             // frmNegocio
             // 

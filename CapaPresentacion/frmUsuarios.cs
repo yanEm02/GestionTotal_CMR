@@ -74,7 +74,7 @@ namespace CapaPresentacion
         {
             string mensaje = string.Empty;
 
-            if (!EsCorreoValido(txtCorreo.Text))
+            if (!string.IsNullOrWhiteSpace(txtCorreo.Text) && !EsCorreoValido(txtCorreo.Text))
             {
                 MessageBox.Show("Por favor, ingrese un correo electrónico válido.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtCorreo.Focus();

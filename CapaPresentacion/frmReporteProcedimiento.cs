@@ -50,8 +50,8 @@ namespace CapaPresentacion
                     item.CodigoProcedimiento,
                     item.NombreProcedimiento,
                     item.Categoria,
-                    item.PrecioVenta,
-                    item.MontoTotal,
+                    Convert.ToDecimal(item.PrecioVenta).ToString("N2"),
+                    Convert.ToDecimal(item.MontoTotal).ToString("N2"),
                 });
             }
         }

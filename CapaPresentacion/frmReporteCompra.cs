@@ -67,17 +67,17 @@ namespace CapaPresentacion
                     rc.FechaRegistro,
                     rc.TipoDocumento,
                     rc.NumeroDocumento,
-                    rc.MontoTotal,
+                    Convert.ToDecimal(rc.MontoTotal).ToString("N2"),
                     rc.UsuarioRegistro,
                     rc.DocumentoProveedor,
                     rc.RazonSocial,
                     rc.CodigoProducto,
                     rc.NombreProducto,
                     rc.Categoria,
-                    rc.PrecioCompra,
-                    rc.PrecioVenta,
+                    Convert.ToDecimal(rc.PrecioCompra).ToString("N2"),
+                    Convert.ToDecimal(rc.PrecioVenta).ToString("N2"),
                     rc.Cantidad,
-                    rc.SubTotal
+                    Convert.ToDecimal(rc.SubTotal).ToString("N2")
                 });
             }
 

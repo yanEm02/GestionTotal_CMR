@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -57,11 +58,11 @@ namespace CapaPresentacion
                     txtCategoria.Text = subForm._procedimiento.oCategoria.Descripcion;
                     if (chkBoxAsegurado.Checked)
                     {
-                        txtPrecio.Text = subForm._procedimiento.PrecioVentaAsegurado.ToString("0.00");
+                        txtPrecio.Text = subForm._procedimiento.PrecioVentaAsegurado.ToString("N2");
                     }
                     else
                     {
-                        txtPrecio.Text = subForm._procedimiento.PrecioVenta.ToString("0.00");
+                        txtPrecio.Text = subForm._procedimiento.PrecioVenta.ToString("N2");
                     }
                 }
                 else
@@ -102,28 +103,29 @@ namespace CapaPresentacion
             {
                 foreach (DataGridViewRow row in dgvData.Rows)//recorremos los rows para sumar lossubtotal
                 {
-                    total += Convert.ToDecimal(row.Cells["Precio"].Value.ToString());
+                    total += Convert.ToDecimal(row.Cells["Precio"].Value, CultureInfo.CurrentCulture);
                 }
             }
-            txtTotalPagar.Text = total.ToString("0.00");
+            txtTotalPagar.Text = total.ToString("N2");
         }
 
         private void calcularCambio()
         {
-            if (txtTotalPagar.Text.Trim().Length == 0)
+            if (string.IsNullOrWhiteSpace(txtTotalPagar.Text))
             {
                 MessageBox.Show("No existen productos en la venta", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
 
             decimal pagaCon;
-            decimal total = Convert.ToDecimal(txtTotalPagar.Text);
+            decimal total = Convert.ToDecimal(txtTotalPagar.Text, CultureInfo.CurrentCulture);
 
-            if (txtPagaCon.Text.Trim() == "")
+            if (string.IsNullOrWhiteSpace(txtPagaCon.Text))
             {
                 txtPagaCon.Text = "0";
             }
-            if (decimal.TryParse(txtPagaCon.Text.Trim(), out pagaCon))
+
+            if (decimal.TryParse(txtPagaCon.Text.Trim(), NumberStyles.Currency, CultureInfo.CurrentCulture, out pagaCon))
             {
                 if (pagaCon < total)
                 {
@@ -132,7 +134,7 @@ namespace CapaPresentacion
                 else
                 {
                     decimal cambio = pagaCon - total;
-                    txtCambio.Text = cambio.ToString("0.00");
+                    txtCambio.Text = cambio.ToString("N2");
                 }
             }
         }
@@ -154,10 +156,10 @@ namespace CapaPresentacion
 
             if (int.Parse(txtIdProcedimiento.Text) == 0) //verificamos que haya un prod sleccionado anets de agreagr
             {
-                MessageBox.Show("Debe seleccionar un producto", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Debe seleccionar un procedimiento", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
-            if (!decimal.TryParse(txtPrecio.Text, out precio))
+            if (!decimal.TryParse(txtPrecio.Text, NumberStyles.Currency, CultureInfo.CurrentCulture, out precio))
             {
                 MessageBox.Show("Precio - Formato moneda Incorrecto", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 txtPrecio.Select();
@@ -165,7 +167,7 @@ namespace CapaPresentacion
             }
             foreach (DataGridViewRow fila in dgvData.Rows) //validamos si el producto ya existe
             {
-                if (fila.Cells["ID_Procedimiento"].Value.ToString() == txtIdProcedimiento.Text)
+                if (fila.Cells["IdProcedimiento"].Value.ToString() == txtIdProcedimiento.Text)
                 {
                     procedimientoExiste = true;
                     break;
@@ -179,7 +181,7 @@ namespace CapaPresentacion
                     txtCodigo.Text,
                     txtProcedimiento.Text,
                     txtCategoria.Text,
-                    precio.ToString("0.00"),
+                    precio.ToString("N2"),
                 });
 
                 CalcularTotal();
@@ -199,27 +201,24 @@ namespace CapaPresentacion
 
         private void txtPrecio_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (Char.IsDigit(e.KeyChar))
+            char separadorDecimal = Convert.ToChar(CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator);
+            char separadorMiles = Convert.ToChar(CultureInfo.CurrentCulture.NumberFormat.NumberGroupSeparator);
+
+            if (Char.IsDigit(e.KeyChar) || Char.IsControl(e.KeyChar))
+            {
+                e.Handled = false;
+            }
+            else if (e.KeyChar == separadorDecimal && txtPrecio.Text.IndexOf(separadorDecimal) == -1)
+            {
+                e.Handled = false;
+            }
+            else if (e.KeyChar == separadorMiles)
             {
                 e.Handled = false;
             }
             else
             {
-                if (txtPrecio.Text.Trim().Length == 0 && e.KeyChar.ToString() == ".")
-                {
-                    e.Handled = true;
-                }
-                else
-                {
-                    if (Char.IsControl(e.KeyChar) || e.KeyChar.ToString() == ".")
-                    {
-                        e.Handled = false;
-                    }
-                    else
-                    {
-                        e.Handled = true;
-                    }
-                }
+                e.Handled = true;
             }
         }
 
@@ -273,7 +272,11 @@ namespace CapaPresentacion
                 MessageBox.Show("Debe seleccionar un procedimiento", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            if (Convert.ToDecimal(txtPagaCon.Text) < Convert.ToDecimal(txtTotalPagar.Text))
+
+            decimal pagaCon = 0;
+            decimal.TryParse(txtPagaCon.Text, NumberStyles.Currency, CultureInfo.CurrentCulture, out pagaCon);
+
+            if (pagaCon < Convert.ToDecimal(txtTotalPagar.Text, CultureInfo.CurrentCulture))
             {
                 MessageBox.Show("El monto con el que paga el cliente no puede ser menor al total a pagar", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -288,7 +291,7 @@ namespace CapaPresentacion
             { //agregamos los valores dentro del datatable
                 detalleVentaProcedimiento.Rows.Add(new object[]{
                     Convert.ToInt32(row.Cells["IdProcedimiento"].Value.ToString()),
-                    row.Cells["Precio"].Value.ToString(),
+                    Convert.ToDecimal(row.Cells["Precio"].Value, CultureInfo.CurrentCulture),
                 });
             }
 
@@ -304,9 +307,9 @@ namespace CapaPresentacion
                 NumeroDocumento = numeroDocumento,
                 // Asigna directamente el objeto Cliente que ya tienes
                 oCliente = this.clienteSeleccionado, 
-                MontoPago = Convert.ToDecimal(txtPagaCon.Text),
-                MontoCambio = Convert.ToDecimal(txtCambio.Text),
-                MontoTotal = Convert.ToDecimal(txtTotalPagar.Text),
+                MontoPago = Convert.ToDecimal(txtPagaCon.Text, CultureInfo.CurrentCulture),
+                MontoCambio = Convert.ToDecimal(txtCambio.Text, CultureInfo.CurrentCulture),
+                MontoTotal = Convert.ToDecimal(txtTotalPagar.Text, CultureInfo.CurrentCulture),
             };
 
             string mensaje = string.Empty;
@@ -314,7 +317,11 @@ namespace CapaPresentacion
 
             if (respuesta)
             {
-                MessageBox.Show("Venta realizada exitosamente", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                var result = MessageBox.Show("Numero de venta generada:\n" + numeroDocumento + "\n\nDesea copiar al portapapeles?", "Mensaje", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                if (result == DialogResult.Yes)
+                {
+                    Clipboard.SetText(numeroDocumento);
+                }
                 LimpiarProducto();
                 dgvData.Rows.Clear();
                 txtDocumentoCliente.Text = "";

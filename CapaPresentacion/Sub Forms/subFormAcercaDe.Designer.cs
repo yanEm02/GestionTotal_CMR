@@ -38,12 +38,12 @@
             // label1
             // 
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(14, 53);
+            this.label1.Location = new System.Drawing.Point(14, 40);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(342, 132);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Sistema de Información para la Gestión de los Procesos de Compra y Venta de las M" +
-    "IPYMES";
+            this.label1.Text = "Sistema de Información para la Gestión de los Procesos de Compra y Venta de los P" +
+    "rocedimientos del Centro Medico Renacer Sur";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label2
@@ -58,8 +58,8 @@
             // 
             // imgCentral
             // 
-            this.imgCentral.Image = global::CapaPresentacion.Properties.Resources.ComerciaPlus_Logo;
-            this.imgCentral.Location = new System.Drawing.Point(53, 214);
+            this.imgCentral.Image = global::CapaPresentacion.Properties.Resources.LogoCMR;
+            this.imgCentral.Location = new System.Drawing.Point(57, 198);
             this.imgCentral.Margin = new System.Windows.Forms.Padding(4);
             this.imgCentral.Name = "imgCentral";
             this.imgCentral.Size = new System.Drawing.Size(266, 143);
@@ -89,7 +89,7 @@
             this.Controls.Add(this.label1);
             this.Name = "subFormAcercaDe";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "subFormAcercaDe";
+            this.Text = "CMR";
             ((System.ComponentModel.ISupportInitialize)(this.imgCentral)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

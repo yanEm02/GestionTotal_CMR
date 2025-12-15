@@ -39,65 +39,65 @@ namespace CapaDatos
             return idCorrelativo;
         }
 
-        public bool RestarStock(int idProducto, int cantidad)  //metodo para restar el stock cada vez que se seleccione un producto para la venta
-        {
-            bool respuesta = true;
+        //public bool RestarStock(int idProducto, int cantidad)  //metodo para restar el stock cada vez que se seleccione un producto para la venta
+        //{
+        //    bool respuesta = true;
 
-            using (SqlConnection oconexion = new SqlConnection(Conexion.cadena))
-            {
-                //capturador de errores en caso de algun problema con la base de datos
-                try
-                {
-                    StringBuilder query = new StringBuilder();
-                    query.AppendLine("update PRODUCTO set stock = stock - @cantidad where id_Producto = @idProducto");
+        //    using (SqlConnection oconexion = new SqlConnection(Conexion.cadena))
+        //    {
+        //        //capturador de errores en caso de algun problema con la base de datos
+        //        try
+        //        {
+        //            StringBuilder query = new StringBuilder();
+        //            query.AppendLine("update PRODUCTO set stock = stock - @cantidad where id_Producto = @idProducto");
 
-                    SqlCommand cmd = new SqlCommand(query.ToString(), oconexion);
-                    cmd.Parameters.AddWithValue("@cantidad", cantidad);
-                    cmd.Parameters.AddWithValue("@idProducto", idProducto);
-                    cmd.CommandType = CommandType.Text; //para declararr el tipo de comando ya que es una consulta con select
+        //            SqlCommand cmd = new SqlCommand(query.ToString(), oconexion);
+        //            cmd.Parameters.AddWithValue("@cantidad", cantidad);
+        //            cmd.Parameters.AddWithValue("@idProducto", idProducto);
+        //            cmd.CommandType = CommandType.Text; //para declararr el tipo de comando ya que es una consulta con select
 
-                    oconexion.Open();//abrir cadena de conexion
+        //            oconexion.Open();//abrir cadena de conexion
 
-                    respuesta = cmd.ExecuteNonQuery() > 0 ? true : false;
+        //            respuesta = cmd.ExecuteNonQuery() > 0 ? true : false;
 
-                }
-                catch (Exception ex)
-                {
-                    respuesta = false;
-                }
-            }
-            return respuesta;
-        }
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            respuesta = false;
+        //        }
+        //    }
+        //    return respuesta;
+        //}
 
-        public bool SumarStock(int idProducto, int cantidad)  //metodo para restar el stock cada vez que se seleccione un producto para la venta
-        {
-            bool respuesta = true;
+        //public bool SumarStock(int idProducto, int cantidad)  //metodo para restar el stock cada vez que se seleccione un producto para la venta
+        //{
+        //    bool respuesta = true;
 
-            using (SqlConnection oconexion = new SqlConnection(Conexion.cadena))
-            {
-                //capturador de errores en caso de algun problema con la base de datos
-                try
-                {
-                    StringBuilder query = new StringBuilder();
-                    query.AppendLine("update PRODUCTO set stock = stock + @cantidad where id_Producto = @idProducto");
+        //    using (SqlConnection oconexion = new SqlConnection(Conexion.cadena))
+        //    {
+        //        //capturador de errores en caso de algun problema con la base de datos
+        //        try
+        //        {
+        //            StringBuilder query = new StringBuilder();
+        //            query.AppendLine("update PRODUCTO set stock = stock + @cantidad where id_Producto = @idProducto");
 
-                    SqlCommand cmd = new SqlCommand(query.ToString(), oconexion);
-                    cmd.Parameters.AddWithValue("@cantidad", cantidad);
-                    cmd.Parameters.AddWithValue("@idProducto", idProducto);
-                    cmd.CommandType = CommandType.Text; //para declararr el tipo de comando ya que es una consulta con select
+        //            SqlCommand cmd = new SqlCommand(query.ToString(), oconexion);
+        //            cmd.Parameters.AddWithValue("@cantidad", cantidad);
+        //            cmd.Parameters.AddWithValue("@idProducto", idProducto);
+        //            cmd.CommandType = CommandType.Text; //para declararr el tipo de comando ya que es una consulta con select
 
-                    oconexion.Open();//abrir cadena de conexion
+        //            oconexion.Open();//abrir cadena de conexion
 
-                    respuesta = cmd.ExecuteNonQuery() > 0 ? true : false;
+        //            respuesta = cmd.ExecuteNonQuery() > 0 ? true : false;
 
-                }
-                catch (Exception ex)
-                {
-                    respuesta = false;
-                }
-            }
-            return respuesta;
-        }
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            respuesta = false;
+        //        }
+        //    }
+        //    return respuesta;
+        //}
 
         public bool Registrar(Venta obj, DataTable detalleVenta, out string mensaje) //Aca registramos la compra 
         {

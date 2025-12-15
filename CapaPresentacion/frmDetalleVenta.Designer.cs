@@ -48,6 +48,10 @@
             this.label9 = new System.Windows.Forms.Label();
             this.txtNumDocumento = new System.Windows.Forms.TextBox();
             this.dgvData = new System.Windows.Forms.DataGridView();
+            this.Producto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PrecioVenta = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SubTotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnDescargarExcel = new FontAwesome.Sharp.IconButton();
             this.txtMontoTotal = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -55,10 +59,6 @@
             this.label10 = new System.Windows.Forms.Label();
             this.txtMontoCambio = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.Producto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PrecioVenta = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SubTotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBoxInfoCompra.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvData)).BeginInit();
@@ -95,9 +95,9 @@
             this.btnLimpiarBuscador.IconColor = System.Drawing.Color.Black;
             this.btnLimpiarBuscador.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnLimpiarBuscador.IconSize = 16;
-            this.btnLimpiarBuscador.Location = new System.Drawing.Point(856, 35);
+            this.btnLimpiarBuscador.Location = new System.Drawing.Point(856, 19);
             this.btnLimpiarBuscador.Name = "btnLimpiarBuscador";
-            this.btnLimpiarBuscador.Size = new System.Drawing.Size(42, 23);
+            this.btnLimpiarBuscador.Size = new System.Drawing.Size(42, 39);
             this.btnLimpiarBuscador.TabIndex = 67;
             this.btnLimpiarBuscador.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnLimpiarBuscador.UseVisualStyleBackColor = false;
@@ -114,9 +114,9 @@
             this.btnBuscar.IconColor = System.Drawing.Color.Black;
             this.btnBuscar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnBuscar.IconSize = 16;
-            this.btnBuscar.Location = new System.Drawing.Point(808, 35);
+            this.btnBuscar.Location = new System.Drawing.Point(808, 19);
             this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(42, 23);
+            this.btnBuscar.Size = new System.Drawing.Size(42, 39);
             this.btnBuscar.TabIndex = 66;
             this.btnBuscar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnBuscar.UseVisualStyleBackColor = false;
@@ -126,17 +126,18 @@
             // 
             this.txtBusqueda.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtBusqueda.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBusqueda.Location = new System.Drawing.Point(641, 33);
+            this.txtBusqueda.Location = new System.Drawing.Point(641, 25);
             this.txtBusqueda.Name = "txtBusqueda";
             this.txtBusqueda.Size = new System.Drawing.Size(161, 27);
             this.txtBusqueda.TabIndex = 65;
+            this.txtBusqueda.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBusqueda_KeyDown);
             // 
             // label8
             // 
             this.label8.AutoSize = true;
             this.label8.BackColor = System.Drawing.Color.White;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(449, 36);
+            this.label8.Location = new System.Drawing.Point(453, 29);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(174, 22);
             this.label8.TabIndex = 64;
@@ -163,8 +164,9 @@
             // 
             this.txtUsuario.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtUsuario.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtUsuario.Location = new System.Drawing.Point(556, 47);
+            this.txtUsuario.Location = new System.Drawing.Point(463, 47);
             this.txtUsuario.Name = "txtUsuario";
+            this.txtUsuario.ReadOnly = true;
             this.txtUsuario.Size = new System.Drawing.Size(214, 27);
             this.txtUsuario.TabIndex = 30;
             // 
@@ -174,7 +176,7 @@
             this.label5.BackColor = System.Drawing.Color.White;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label5.Location = new System.Drawing.Point(552, 22);
+            this.label5.Location = new System.Drawing.Point(459, 22);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(72, 22);
             this.label5.TabIndex = 29;
@@ -186,7 +188,7 @@
             this.label4.BackColor = System.Drawing.Color.White;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label4.Location = new System.Drawing.Point(284, 22);
+            this.label4.Location = new System.Drawing.Point(226, 22);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(133, 22);
             this.label4.TabIndex = 28;
@@ -196,9 +198,10 @@
             // 
             this.txtTipoDocumento.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtTipoDocumento.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTipoDocumento.Location = new System.Drawing.Point(288, 47);
+            this.txtTipoDocumento.Location = new System.Drawing.Point(230, 47);
             this.txtTipoDocumento.Name = "txtTipoDocumento";
-            this.txtTipoDocumento.Size = new System.Drawing.Size(233, 27);
+            this.txtTipoDocumento.ReadOnly = true;
+            this.txtTipoDocumento.Size = new System.Drawing.Size(198, 27);
             this.txtTipoDocumento.TabIndex = 27;
             // 
             // label3
@@ -219,6 +222,7 @@
             this.txtFecha.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtFecha.Location = new System.Drawing.Point(19, 47);
             this.txtFecha.Name = "txtFecha";
+            this.txtFecha.ReadOnly = true;
             this.txtFecha.Size = new System.Drawing.Size(181, 27);
             this.txtFecha.TabIndex = 25;
             // 
@@ -264,6 +268,7 @@
             this.txtNombreCliente.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNombreCliente.Location = new System.Drawing.Point(378, 54);
             this.txtNombreCliente.Name = "txtNombreCliente";
+            this.txtNombreCliente.ReadOnly = true;
             this.txtNombreCliente.Size = new System.Drawing.Size(241, 27);
             this.txtNombreCliente.TabIndex = 27;
             // 
@@ -285,12 +290,14 @@
             this.txtNumDocumento.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNumDocumento.Location = new System.Drawing.Point(19, 54);
             this.txtNumDocumento.Name = "txtNumDocumento";
-            this.txtNumDocumento.Size = new System.Drawing.Size(254, 27);
+            this.txtNumDocumento.ReadOnly = true;
+            this.txtNumDocumento.Size = new System.Drawing.Size(233, 27);
             this.txtNumDocumento.TabIndex = 25;
             // 
             // dgvData
             // 
             this.dgvData.AllowUserToAddRows = false;
+            this.dgvData.AllowUserToDeleteRows = false;
             this.dgvData.BackgroundColor = System.Drawing.Color.White;
             this.dgvData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvData.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -304,82 +311,6 @@
             this.dgvData.RowHeadersWidth = 51;
             this.dgvData.Size = new System.Drawing.Size(849, 238);
             this.dgvData.TabIndex = 70;
-            // 
-            // btnDescargarExcel
-            // 
-            this.btnDescargarExcel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDescargarExcel.IconChar = FontAwesome.Sharp.IconChar.FilePdf;
-            this.btnDescargarExcel.IconColor = System.Drawing.Color.DarkOrange;
-            this.btnDescargarExcel.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnDescargarExcel.IconSize = 24;
-            this.btnDescargarExcel.Location = new System.Drawing.Point(736, 563);
-            this.btnDescargarExcel.Name = "btnDescargarExcel";
-            this.btnDescargarExcel.Size = new System.Drawing.Size(162, 29);
-            this.btnDescargarExcel.TabIndex = 73;
-            this.btnDescargarExcel.Text = "Descargar PDF";
-            this.btnDescargarExcel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnDescargarExcel.UseVisualStyleBackColor = true;
-            this.btnDescargarExcel.Click += new System.EventHandler(this.btnDescargarExcel_Click);
-            // 
-            // txtMontoTotal
-            // 
-            this.txtMontoTotal.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtMontoTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMontoTotal.Location = new System.Drawing.Point(158, 520);
-            this.txtMontoTotal.Name = "txtMontoTotal";
-            this.txtMontoTotal.Size = new System.Drawing.Size(121, 27);
-            this.txtMontoTotal.TabIndex = 71;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.BackColor = System.Drawing.Color.White;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(45, 522);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(110, 22);
-            this.label6.TabIndex = 72;
-            this.label6.Text = "Monto Total:";
-            // 
-            // txtMontoPago
-            // 
-            this.txtMontoPago.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtMontoPago.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMontoPago.Location = new System.Drawing.Point(456, 521);
-            this.txtMontoPago.Name = "txtMontoPago";
-            this.txtMontoPago.Size = new System.Drawing.Size(121, 27);
-            this.txtMontoPago.TabIndex = 74;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.BackColor = System.Drawing.Color.White;
-            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(342, 522);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(116, 22);
-            this.label10.TabIndex = 75;
-            this.label10.Text = "Monto Pago: ";
-            // 
-            // txtMontoCambio
-            // 
-            this.txtMontoCambio.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtMontoCambio.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMontoCambio.Location = new System.Drawing.Point(777, 520);
-            this.txtMontoCambio.Name = "txtMontoCambio";
-            this.txtMontoCambio.Size = new System.Drawing.Size(121, 27);
-            this.txtMontoCambio.TabIndex = 76;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.BackColor = System.Drawing.Color.White;
-            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(636, 523);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(135, 22);
-            this.label11.TabIndex = 77;
-            this.label11.Text = "Monto Cambio: ";
             // 
             // Producto
             // 
@@ -412,6 +343,85 @@
             this.SubTotal.Name = "SubTotal";
             this.SubTotal.ReadOnly = true;
             this.SubTotal.Width = 125;
+            // 
+            // btnDescargarExcel
+            // 
+            this.btnDescargarExcel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDescargarExcel.IconChar = FontAwesome.Sharp.IconChar.FilePdf;
+            this.btnDescargarExcel.IconColor = System.Drawing.Color.DarkOrange;
+            this.btnDescargarExcel.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnDescargarExcel.IconSize = 24;
+            this.btnDescargarExcel.Location = new System.Drawing.Point(736, 563);
+            this.btnDescargarExcel.Name = "btnDescargarExcel";
+            this.btnDescargarExcel.Size = new System.Drawing.Size(162, 29);
+            this.btnDescargarExcel.TabIndex = 73;
+            this.btnDescargarExcel.Text = "Descargar PDF";
+            this.btnDescargarExcel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnDescargarExcel.UseVisualStyleBackColor = true;
+            this.btnDescargarExcel.Click += new System.EventHandler(this.btnDescargarExcel_Click);
+            // 
+            // txtMontoTotal
+            // 
+            this.txtMontoTotal.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtMontoTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMontoTotal.Location = new System.Drawing.Point(158, 520);
+            this.txtMontoTotal.Name = "txtMontoTotal";
+            this.txtMontoTotal.ReadOnly = true;
+            this.txtMontoTotal.Size = new System.Drawing.Size(121, 27);
+            this.txtMontoTotal.TabIndex = 71;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.BackColor = System.Drawing.Color.White;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(45, 522);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(110, 22);
+            this.label6.TabIndex = 72;
+            this.label6.Text = "Monto Total:";
+            // 
+            // txtMontoPago
+            // 
+            this.txtMontoPago.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtMontoPago.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMontoPago.Location = new System.Drawing.Point(456, 521);
+            this.txtMontoPago.Name = "txtMontoPago";
+            this.txtMontoPago.ReadOnly = true;
+            this.txtMontoPago.Size = new System.Drawing.Size(121, 27);
+            this.txtMontoPago.TabIndex = 74;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.BackColor = System.Drawing.Color.White;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(342, 522);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(116, 22);
+            this.label10.TabIndex = 75;
+            this.label10.Text = "Monto Pago: ";
+            // 
+            // txtMontoCambio
+            // 
+            this.txtMontoCambio.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtMontoCambio.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMontoCambio.Location = new System.Drawing.Point(777, 520);
+            this.txtMontoCambio.Name = "txtMontoCambio";
+            this.txtMontoCambio.ReadOnly = true;
+            this.txtMontoCambio.Size = new System.Drawing.Size(121, 27);
+            this.txtMontoCambio.TabIndex = 76;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.BackColor = System.Drawing.Color.White;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(634, 522);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(135, 22);
+            this.label11.TabIndex = 77;
+            this.label11.Text = "Monto Cambio: ";
             // 
             // frmDetalleVenta
             // 

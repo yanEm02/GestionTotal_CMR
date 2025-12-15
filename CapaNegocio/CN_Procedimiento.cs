@@ -24,12 +24,12 @@ namespace CapaNegocio
 
             if (obj.Codigo == 0)
             {
-                Mensaje += "Es necesario el Codigo del Producto\n";
+                Mensaje += "Es necesario el codigo del procedimiento para poder registrar\n";
             }
 
             if (string.IsNullOrEmpty(obj.Nombre))
             {
-                Mensaje += "Es necesario el nombre del Producto\n";
+                Mensaje += "Es necesario el nombre del procedimiento para poder registrar\n";
             }
 
             if (Mensaje != string.Empty)
@@ -51,12 +51,12 @@ namespace CapaNegocio
 
              if (obj.Codigo == 0)
             {
-                Mensaje += "Es necesario el Codigo del Producto\n";
+                Mensaje += "Es necesario el codigo del procedimiento para poder registrar\n";
             }
 
             if (string.IsNullOrEmpty(obj.Nombre))
             {
-                Mensaje += "Es necesario el nombre del Producto\n";
+                Mensaje += "Es necesario el nombre del procedimiento para poder registrar\n";
             }
 
             if (Mensaje != string.Empty)

@@ -89,7 +89,7 @@
             this.label4.AutoSize = true;
             this.label4.BackColor = System.Drawing.Color.White;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(359, 71);
+            this.label4.Location = new System.Drawing.Point(345, 71);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(88, 20);
@@ -99,11 +99,12 @@
             // txtFechaFin
             // 
             this.txtFechaFin.CustomFormat = "dd/mm/yyyy";
+            this.txtFechaFin.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtFechaFin.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.txtFechaFin.Location = new System.Drawing.Point(491, 71);
+            this.txtFechaFin.Location = new System.Drawing.Point(441, 68);
             this.txtFechaFin.Margin = new System.Windows.Forms.Padding(4);
             this.txtFechaFin.Name = "txtFechaFin";
-            this.txtFechaFin.Size = new System.Drawing.Size(136, 22);
+            this.txtFechaFin.Size = new System.Drawing.Size(170, 27);
             this.txtFechaFin.TabIndex = 4;
             // 
             // label5
@@ -121,11 +122,12 @@
             // txtFechaInicio
             // 
             this.txtFechaInicio.CustomFormat = "dd/mm/yyyy";
+            this.txtFechaInicio.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtFechaInicio.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.txtFechaInicio.Location = new System.Drawing.Point(180, 71);
+            this.txtFechaInicio.Location = new System.Drawing.Point(144, 68);
             this.txtFechaInicio.Margin = new System.Windows.Forms.Padding(4);
             this.txtFechaInicio.Name = "txtFechaInicio";
-            this.txtFechaInicio.Size = new System.Drawing.Size(136, 22);
+            this.txtFechaInicio.Size = new System.Drawing.Size(170, 27);
             this.txtFechaInicio.TabIndex = 6;
             // 
             // label3
@@ -133,7 +135,7 @@
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.Color.White;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(1361, 55);
+            this.label3.Location = new System.Drawing.Point(1341, 59);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(90, 20);
@@ -145,7 +147,7 @@
             this.cmbProveedor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbProveedor.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbProveedor.FormattingEnabled = true;
-            this.cmbProveedor.Location = new System.Drawing.Point(1459, 52);
+            this.cmbProveedor.Location = new System.Drawing.Point(1451, 56);
             this.cmbProveedor.Margin = new System.Windows.Forms.Padding(4);
             this.cmbProveedor.Name = "cmbProveedor";
             this.cmbProveedor.Size = new System.Drawing.Size(180, 28);
@@ -153,16 +155,18 @@
             // 
             // btnBuscar
             // 
+            this.btnBuscar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBuscar.IconChar = FontAwesome.Sharp.IconChar.MagnifyingGlass;
             this.btnBuscar.IconColor = System.Drawing.Color.Black;
             this.btnBuscar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnBuscar.IconSize = 19;
-            this.btnBuscar.Location = new System.Drawing.Point(1647, 45);
+            this.btnBuscar.Location = new System.Drawing.Point(1639, 36);
             this.btnBuscar.Margin = new System.Windows.Forms.Padding(4);
             this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(116, 42);
+            this.btnBuscar.Size = new System.Drawing.Size(127, 59);
             this.btnBuscar.TabIndex = 10;
             this.btnBuscar.Text = "Buscar";
+            this.btnBuscar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnBuscar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnBuscar.UseVisualStyleBackColor = true;
             this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
@@ -170,6 +174,7 @@
             // dgvData
             // 
             this.dgvData.AllowUserToAddRows = false;
+            this.dgvData.AllowUserToDeleteRows = false;
             this.dgvData.BackgroundColor = System.Drawing.Color.White;
             this.dgvData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvData.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -341,7 +346,7 @@
             this.cmbFiltro.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbFiltro.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbFiltro.FormattingEnabled = true;
-            this.cmbFiltro.Location = new System.Drawing.Point(1294, 134);
+            this.cmbFiltro.Location = new System.Drawing.Point(1271, 139);
             this.cmbFiltro.Margin = new System.Windows.Forms.Padding(4);
             this.cmbFiltro.Name = "cmbFiltro";
             this.cmbFiltro.Size = new System.Drawing.Size(180, 28);
@@ -353,7 +358,7 @@
             this.label7.AutoSize = true;
             this.label7.BackColor = System.Drawing.Color.White;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(1175, 140);
+            this.label7.Location = new System.Drawing.Point(1164, 142);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(99, 20);
@@ -369,10 +374,10 @@
             this.btnBuscarPor.IconColor = System.Drawing.Color.Black;
             this.btnBuscarPor.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnBuscarPor.IconSize = 19;
-            this.btnBuscarPor.Location = new System.Drawing.Point(1676, 132);
+            this.btnBuscarPor.Location = new System.Drawing.Point(1653, 135);
             this.btnBuscarPor.Margin = new System.Windows.Forms.Padding(4);
             this.btnBuscarPor.Name = "btnBuscarPor";
-            this.btnBuscarPor.Size = new System.Drawing.Size(41, 28);
+            this.btnBuscarPor.Size = new System.Drawing.Size(46, 35);
             this.btnBuscarPor.TabIndex = 16;
             this.btnBuscarPor.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnBuscarPor.UseVisualStyleBackColor = false;
@@ -387,10 +392,10 @@
             this.btnLimpiar.IconColor = System.Drawing.Color.Black;
             this.btnLimpiar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnLimpiar.IconSize = 19;
-            this.btnLimpiar.Location = new System.Drawing.Point(1724, 132);
+            this.btnLimpiar.Location = new System.Drawing.Point(1709, 134);
             this.btnLimpiar.Margin = new System.Windows.Forms.Padding(4);
             this.btnLimpiar.Name = "btnLimpiar";
-            this.btnLimpiar.Size = new System.Drawing.Size(41, 28);
+            this.btnLimpiar.Size = new System.Drawing.Size(47, 36);
             this.btnLimpiar.TabIndex = 17;
             this.btnLimpiar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnLimpiar.UseVisualStyleBackColor = false;
@@ -399,7 +404,7 @@
             // txtBusqueda
             // 
             this.txtBusqueda.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBusqueda.Location = new System.Drawing.Point(1484, 134);
+            this.txtBusqueda.Location = new System.Drawing.Point(1459, 140);
             this.txtBusqueda.Margin = new System.Windows.Forms.Padding(4);
             this.txtBusqueda.Name = "txtBusqueda";
             this.txtBusqueda.Size = new System.Drawing.Size(183, 27);
@@ -410,7 +415,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(1779, 716);
+            this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.ClientSize = new System.Drawing.Size(1787, 721);
             this.Controls.Add(this.txtBusqueda);
             this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.btnBuscarPor);
@@ -428,6 +434,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label6);
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "frmReporteCompra";
             this.Text = "frmReporteCompra";

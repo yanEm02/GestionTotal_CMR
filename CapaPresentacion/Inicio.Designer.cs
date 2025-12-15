@@ -51,12 +51,15 @@
             this.menuMantenedor = new FontAwesome.Sharp.IconMenuItem();
             this.menuAcercaDe = new FontAwesome.Sharp.IconMenuItem();
             this.contenedor = new System.Windows.Forms.Panel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.menu.SuspendLayout();
+            this.contenedor.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // menu
             // 
-            this.menu.BackColor = System.Drawing.Color.SandyBrown;
+            this.menu.BackColor = System.Drawing.Color.YellowGreen;
             this.menu.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuProcedimiento,
@@ -95,14 +98,14 @@
             // registrarToolStripMenuItem
             // 
             this.registrarToolStripMenuItem.Name = "registrarToolStripMenuItem";
-            this.registrarToolStripMenuItem.Size = new System.Drawing.Size(165, 26);
+            this.registrarToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.registrarToolStripMenuItem.Text = "Registrar";
             this.registrarToolStripMenuItem.Click += new System.EventHandler(this.registrarToolStripMenuItem_Click);
             // 
             // verDetalleToolStripMenuItem
             // 
             this.verDetalleToolStripMenuItem.Name = "verDetalleToolStripMenuItem";
-            this.verDetalleToolStripMenuItem.Size = new System.Drawing.Size(165, 26);
+            this.verDetalleToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.verDetalleToolStripMenuItem.Text = "Ver Detalle";
             this.verDetalleToolStripMenuItem.Click += new System.EventHandler(this.verDetalleToolStripMenuItem_Click);
             // 
@@ -209,14 +212,14 @@
             // subMenuCategoria
             // 
             this.subMenuCategoria.Name = "subMenuCategoria";
-            this.subMenuCategoria.Size = new System.Drawing.Size(224, 26);
+            this.subMenuCategoria.Size = new System.Drawing.Size(189, 26);
             this.subMenuCategoria.Text = "Categoria";
             this.subMenuCategoria.Click += new System.EventHandler(this.categoriaToolStripMenuItem_Click);
             // 
             // procedimientoToolStripMenuItem
             // 
             this.procedimientoToolStripMenuItem.Name = "procedimientoToolStripMenuItem";
-            this.procedimientoToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.procedimientoToolStripMenuItem.Size = new System.Drawing.Size(189, 26);
             this.procedimientoToolStripMenuItem.Text = "Procedimiento";
             this.procedimientoToolStripMenuItem.Click += new System.EventHandler(this.procedimientoToolStripMenuItem_Click);
             // 
@@ -299,12 +302,23 @@
             // contenedor
             // 
             this.contenedor.BackColor = System.Drawing.Color.White;
+            this.contenedor.Controls.Add(this.pictureBox1);
             this.contenedor.Dock = System.Windows.Forms.DockStyle.Fill;
             this.contenedor.Location = new System.Drawing.Point(0, 78);
             this.contenedor.Margin = new System.Windows.Forms.Padding(4);
             this.contenedor.Name = "contenedor";
             this.contenedor.Size = new System.Drawing.Size(1129, 599);
             this.contenedor.TabIndex = 3;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::CapaPresentacion.Properties.Resources.LogoCMR;
+            this.pictureBox1.Location = new System.Drawing.Point(329, 137);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(457, 309);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
             // 
             // Inicio
             // 
@@ -317,10 +331,12 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Inicio";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "ComerciaPlus";
+            this.Text = "CMR Plus";
             this.Load += new System.EventHandler(this.Inicio_Load);
             this.menu.ResumeLayout(false);
             this.menu.PerformLayout();
+            this.contenedor.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -351,6 +367,7 @@
         private System.Windows.Forms.ToolStripMenuItem verDetalleToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem reportePToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem procedimientoToolStripMenuItem;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 

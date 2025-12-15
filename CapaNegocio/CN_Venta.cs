@@ -13,15 +13,15 @@ namespace CapaNegocio
     {
         private CD_Venta objcd_Venta = new CD_Venta();
 
-        public bool RestarStock(int idProducto, int cantidad)
-        {
-            return objcd_Venta.RestarStock(idProducto, cantidad);
-        }
+        //public bool RestarStock(int idProducto, int cantidad)
+        //{
+        //    return objcd_Venta.RestarStock(idProducto, cantidad);
+        //}
 
-        public bool SumarStock(int idProducto, int cantidad)
-        {
-            return objcd_Venta.SumarStock(idProducto, cantidad);
-        }
+        //public bool SumarStock(int idProducto, int cantidad)
+        //{
+        //    return objcd_Venta.SumarStock(idProducto, cantidad);
+        //}
 
         public int ObtenerCorrelativo()
         {

@@ -91,6 +91,7 @@
             // dgvData
             // 
             this.dgvData.AllowUserToAddRows = false;
+            this.dgvData.AllowUserToDeleteRows = false;
             this.dgvData.BackgroundColor = System.Drawing.Color.White;
             this.dgvData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvData.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -182,7 +183,7 @@
             this.txtPagaCon.Location = new System.Drawing.Point(1020, 451);
             this.txtPagaCon.Margin = new System.Windows.Forms.Padding(4);
             this.txtPagaCon.Name = "txtPagaCon";
-            this.txtPagaCon.Size = new System.Drawing.Size(111, 30);
+            this.txtPagaCon.Size = new System.Drawing.Size(141, 30);
             this.txtPagaCon.TabIndex = 57;
             this.txtPagaCon.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtPagaCon_KeyDown_1);
             // 
@@ -193,6 +194,7 @@
             this.txtCambio.Location = new System.Drawing.Point(1020, 524);
             this.txtCambio.Margin = new System.Windows.Forms.Padding(4);
             this.txtCambio.Name = "txtCambio";
+            this.txtCambio.ReadOnly = true;
             this.txtCambio.Size = new System.Drawing.Size(141, 30);
             this.txtCambio.TabIndex = 55;
             // 
@@ -216,7 +218,8 @@
             this.txtTotalPagar.Location = new System.Drawing.Point(1020, 383);
             this.txtTotalPagar.Margin = new System.Windows.Forms.Padding(4);
             this.txtTotalPagar.Name = "txtTotalPagar";
-            this.txtTotalPagar.Size = new System.Drawing.Size(111, 30);
+            this.txtTotalPagar.ReadOnly = true;
+            this.txtTotalPagar.Size = new System.Drawing.Size(141, 30);
             this.txtTotalPagar.TabIndex = 53;
             // 
             // label12
@@ -239,6 +242,7 @@
             this.txtPrecio.Location = new System.Drawing.Point(795, 48);
             this.txtPrecio.Margin = new System.Windows.Forms.Padding(4);
             this.txtPrecio.Name = "txtPrecio";
+            this.txtPrecio.ReadOnly = true;
             this.txtPrecio.Size = new System.Drawing.Size(133, 30);
             this.txtPrecio.TabIndex = 32;
             // 
@@ -265,6 +269,7 @@
             this.txtProcedimiento.Location = new System.Drawing.Point(391, 48);
             this.txtProcedimiento.Margin = new System.Windows.Forms.Padding(4);
             this.txtProcedimiento.Name = "txtProcedimiento";
+            this.txtProcedimiento.ReadOnly = true;
             this.txtProcedimiento.Size = new System.Drawing.Size(178, 30);
             this.txtProcedimiento.TabIndex = 30;
             // 
@@ -313,6 +318,7 @@
             // 
             // cmbTipoDocumento
             // 
+            this.cmbTipoDocumento.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbTipoDocumento.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbTipoDocumento.FormattingEnabled = true;
             this.cmbTipoDocumento.Location = new System.Drawing.Point(196, 54);
@@ -419,6 +425,7 @@
             this.txtNombre.Location = new System.Drawing.Point(312, 50);
             this.txtNombre.Margin = new System.Windows.Forms.Padding(4);
             this.txtNombre.Name = "txtNombre";
+            this.txtNombre.ReadOnly = true;
             this.txtNombre.Size = new System.Drawing.Size(165, 30);
             this.txtNombre.TabIndex = 27;
             // 
@@ -488,6 +495,7 @@
             this.txtCategoria.Location = new System.Drawing.Point(586, 49);
             this.txtCategoria.Margin = new System.Windows.Forms.Padding(4);
             this.txtCategoria.Name = "txtCategoria";
+            this.txtCategoria.ReadOnly = true;
             this.txtCategoria.Size = new System.Drawing.Size(178, 30);
             this.txtCategoria.TabIndex = 34;
             // 
@@ -582,7 +590,7 @@
             this.label14.TabIndex = 56;
             this.label14.Text = "Paga Con";
             // 
-            // frmProcedimientos
+            // frmVentasProcedimientos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
@@ -601,7 +609,7 @@
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.label14);
             this.Controls.Add(this.label1);
-            this.Name = "frmProcedimientos";
+            this.Name = "frmVentasProcedimientos";
             this.Text = "frmProcedimientos";
             this.Load += new System.EventHandler(this.frmProcedimientos_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvData)).EndInit();

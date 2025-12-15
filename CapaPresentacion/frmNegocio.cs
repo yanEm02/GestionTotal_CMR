@@ -24,12 +24,12 @@ namespace CapaPresentacion
         //metodo para convertir el array de bites en imagen
         public Image ByteToImage(byte[] imageBytes)
         {
-            MemoryStream ms = new MemoryStream(); //para guardar imagenes en memoria
+            MemoryStream ms = new MemoryStream(imageBytes); //para guardar imagenes en memoria
             ms.Write(imageBytes, 0, imageBytes.Length);
 
-            //Image imagen = new Bitmap(ms);//hacemos la conversion 
+            Image imagen = new Bitmap(ms);//hacemos la conversion 
 
-            return null;
+            return imagen;
         }
 
 

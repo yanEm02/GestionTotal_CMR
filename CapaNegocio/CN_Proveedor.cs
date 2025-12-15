@@ -24,12 +24,12 @@ namespace CapaNegocio
 
             if (obj.Documento == "")
             {
-                Mensaje += "Es necesario el documento del Proveedor\n";
+                Mensaje += "Es necesario el RNC del Proveedor\n";
             }
 
             if (obj.RazonSocial == "")
             {
-                Mensaje += "Es necesario la razon social del Proveedor\n";
+                Mensaje += "Es necesario el nombre del Proveedor\n";
             }
 
             if (obj.Telefono == "")

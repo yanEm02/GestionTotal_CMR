@@ -32,11 +32,6 @@ namespace CapaNegocio
                 Mensaje += "Es necesario el nombre del Cliente\n";
             }
 
-            if (obj.Telefono == "")
-            {
-                Mensaje += "Es necesario el Telefono del Cliente\n";
-            }
-
             if (Mensaje != string.Empty)
             {
                 return 0;

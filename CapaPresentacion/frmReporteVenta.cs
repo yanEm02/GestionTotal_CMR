@@ -46,16 +46,16 @@ namespace CapaPresentacion
                     item.FechaRegistro,
                     item.TipoDocumento,
                     item.NumeroDocumento,
-                    item.MontoTotal,
+                    Convert.ToDecimal(item.MontoTotal).ToString("N2"),
                     item.UsuarioRegistro,
                     item.DocumentoCliente,
                     item.NombreCliente,
                     item.CodigoProducto,
                     item.NombreProducto,
                     item.Categoria,
-                    item.PrecioVenta,
+                    Convert.ToDecimal(item.PrecioVenta).ToString("N2"),
                     item.Cantidad,
-                    item.SubTotal
+                    Convert.ToDecimal(item.SubTotal).ToString("N2")
                 });
             }
 

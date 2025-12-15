@@ -8,6 +8,7 @@ using DocumentFormat.OpenXml.Wordprocessing;
 using System;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 using Color = System.Drawing.Color;
@@ -70,7 +71,7 @@ namespace CapaPresentacion
                     txtIdProducto.Text = subForm._producto.IdProducto.ToString();
                     txtCodProducto.Text = subForm._producto.Codigo;
                     txtProducto.Text = subForm._producto.Nombre;
-                    txtPrecioCompra.Select();
+                    txtPrecioCompra.Select(); 
                 }
                 else
                 {
@@ -111,21 +112,25 @@ namespace CapaPresentacion
             decimal precioVenta = 0;
             bool productoExiste = false;
 
-            if (int.Parse(txtIdProducto.Text) == 0) //verificamos que haya un prod sleccionado anets de agreagr
+            int idProducto;
+            if (!int.TryParse(txtIdProducto.Text, out idProducto) || idProducto == 0) //verificamos que haya un prod seleccionado antes de agregar
             {
                 MessageBox.Show("Debe seleccionar un producto", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
             }
-            if (!decimal.TryParse(txtPrecioCompra.Text, out precioCompra))
+            if (!decimal.TryParse(txtPrecioCompra.Text, NumberStyles.Currency, CultureInfo.CurrentCulture, out precioCompra))
             {
                 MessageBox.Show("Precio Compra - Formato moneda Incorrecto", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 txtPrecioCompra.Select();
+                return; // <-- And this
             }
-            if (!decimal.TryParse(txtPrecioVenta.Text, out precioVenta))
+            if (!decimal.TryParse(txtPrecioVenta.Text, NumberStyles.Currency, CultureInfo.CurrentCulture, out precioVenta))
             {
                 MessageBox.Show("Precio Venta - Formato moneda Incorrecto", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 txtPrecioVenta.Select();
+                return; // <-- And this
             }
-            if (Convert.ToDecimal(txtPrecioVenta.Text) <= Convert.ToDecimal(txtPrecioCompra.Text))
+            if (precioVenta <= precioCompra)
             {
                 MessageBox.Show("El precio de venta debe ser mayor al precio de compra.", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -145,10 +150,10 @@ namespace CapaPresentacion
                 {
                     txtIdProducto.Text,
                     txtProducto.Text,
-                    precioCompra.ToString("0.00"),
-                    precioVenta.ToString("0.00"),
-                    txtCantidad.Value.ToString(),
-                    (txtCantidad.Value * precioCompra).ToString("0.00")
+                    precioCompra.ToString("N2"),
+                    precioVenta.ToString("N2"),
+                    txtCantidad.Value,
+                    (txtCantidad.Value * precioCompra).ToString("N2")
 
                 });
             }
@@ -160,7 +165,7 @@ namespace CapaPresentacion
 
         private void LimpiarProducto()
         {
-            txtIdProducto.Text = string.Empty;
+            txtIdProducto.Text = "0";
             txtCodProducto.Text = string.Empty;
             txtCodProducto.BackColor = Color.White;
             txtProducto.Text = string.Empty;
@@ -176,10 +181,10 @@ namespace CapaPresentacion
             {
                 foreach (DataGridViewRow row in dgvData.Rows)//recorremos los rows para sumar lossubtotal
                 {
-                    total += Convert.ToDecimal(row.Cells["subTotal"].Value.ToString());
+                    total += Convert.ToDecimal(row.Cells["subTotal"].Value, CultureInfo.CurrentCulture);
                 }
             }
-            txtTotalPagar.Text = total.ToString("0.00");
+            txtTotalPagar.Text = total.ToString("N2");
         }
 
         private void dgvData_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
@@ -219,53 +224,47 @@ namespace CapaPresentacion
 
         private void txtPrecioCompra_KeyPress(object sender, KeyPressEventArgs e) //ajustamos para poder controlar lo que introducimos en el campo de los precios 
         {
-            if (Char.IsDigit(e.KeyChar))
+            char separadorDecimal = Convert.ToChar(CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator);
+            char separadorMiles = Convert.ToChar(CultureInfo.CurrentCulture.NumberFormat.NumberGroupSeparator);
+
+            if (char.IsDigit(e.KeyChar) || char.IsControl(e.KeyChar))
+            {
+                e.Handled = false;
+            }
+            else if (e.KeyChar == separadorDecimal && txtPrecioCompra.Text.IndexOf(separadorDecimal) == -1)
+            {
+                e.Handled = false;
+            }
+            else if (e.KeyChar == separadorMiles)
             {
                 e.Handled = false;
             }
             else
             {
-                if (txtPrecioCompra.Text.Trim().Length == 0 && e.KeyChar.ToString() == ".")
-                {
-                    e.Handled = true;
-                }
-                else
-                {
-                    if (Char.IsControl(e.KeyChar) || e.KeyChar.ToString() == ".")
-                    {
-                        e.Handled = false;
-                    }
-                    else
-                    {
-                        e.Handled = true;
-                    }
-                }
+                e.Handled = true;
             }
         }
 
         private void txtPrecioVenta_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (Char.IsDigit(e.KeyChar))
+            char separadorDecimal = Convert.ToChar(CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator);
+            char separadorMiles = Convert.ToChar(CultureInfo.CurrentCulture.NumberFormat.NumberGroupSeparator);
+
+            if (char.IsDigit(e.KeyChar) || char.IsControl(e.KeyChar))
+            {
+                e.Handled = false;
+            }
+            else if (e.KeyChar == separadorDecimal && txtPrecioVenta.Text.IndexOf(separadorDecimal) == -1)
+            {
+                e.Handled = false;
+            }
+            else if (e.KeyChar == separadorMiles)
             {
                 e.Handled = false;
             }
             else
             {
-                if (txtPrecioVenta.Text.Trim().Length == 0 && e.KeyChar.ToString() == ".")
-                {
-                    e.Handled = true;
-                }
-                else
-                {
-                    if (Char.IsControl(e.KeyChar) || e.KeyChar.ToString() == ".")
-                    {
-                        e.Handled = false;
-                    }
-                    else
-                    {
-                        e.Handled = true;
-                    }
-                }
+                e.Handled = true;
             }
         }
 
@@ -276,14 +275,16 @@ namespace CapaPresentacion
             if (Convert.ToInt32(txtIdProveedor.Text) == 0) //primero haccemos las validaciones de que proveedor y que haya compras en registro
             {
                 MessageBox.Show("Debe Seleccionar un proveedor", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
             if (dgvData.Rows.Count < 1)
             {
                 MessageBox.Show("Debe ingresar los productos en la compra", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
 
             }
             decimal montoTotal;
-            if (string.IsNullOrWhiteSpace(txtTotalPagar.Text) || !decimal.TryParse(txtTotalPagar.Text, out montoTotal))
+            if (string.IsNullOrWhiteSpace(txtTotalPagar.Text) || !decimal.TryParse(txtTotalPagar.Text, NumberStyles.Currency, CultureInfo.CurrentCulture, out montoTotal))
             {
                 MessageBox.Show("El monto total debe ser un número válido.", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -303,11 +304,11 @@ namespace CapaPresentacion
                 detalle_compra.Rows.Add(
                 new object[]
                 {
-                    Convert.ToInt32(row.Cells["IdProducto"].Value.ToString()),
-                    row.Cells["PrecioCompra"].Value.ToString(),
-                    row.Cells["PrecioVenta"].Value.ToString(),
-                    row.Cells["Cantidad"].Value.ToString(),
-                    row.Cells["SubTotal"].Value.ToString(),
+                    Convert.ToInt32(row.Cells["IdProducto"].Value),
+                    Convert.ToDecimal(row.Cells["PrecioCompra"].Value, CultureInfo.CurrentCulture),
+                    Convert.ToDecimal(row.Cells["PrecioVenta"].Value, CultureInfo.CurrentCulture),
+                    Convert.ToInt32(row.Cells["Cantidad"].Value),
+                    Convert.ToDecimal(row.Cells["SubTotal"].Value, CultureInfo.CurrentCulture),
 
                 });
 
@@ -322,7 +323,7 @@ namespace CapaPresentacion
                 oProveedor = new Proveedor() { IdProveedor = Convert.ToInt32(txtIdProveedor.Text) },
                 TipoDocumento = ((OpcionCombo)cmbTipoDocumento.SelectedItem).Texto,
                 NumeroDocumento = numeroDocumento,
-                MontoTotal = Convert.ToDecimal(txtTotalPagar.Text),
+                MontoTotal = montoTotal,
             };
 
             string mensaje = string.Empty;

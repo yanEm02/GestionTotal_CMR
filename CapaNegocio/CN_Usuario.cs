@@ -23,10 +23,10 @@ namespace CapaNegocio
             //regla de validacion 
             Mensaje = string.Empty; 
 
-            if(obj.Documento == "")
-            {
-                Mensaje += "Es necesario el documento del usuario\n";
-            }
+            //if(obj.Documento == "")
+            //{
+            //    Mensaje += "Es necesario el documento del usuario\n";
+            //}
 
             if (obj.Nombre == "")
             {

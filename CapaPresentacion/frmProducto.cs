@@ -87,8 +87,8 @@ namespace CapaPresentacion
                     item.oCategoria.IdCategoria,
                     item.oCategoria.Descripcion,
                     item.Stock,
-                    item.PrecioCompra,
-                    item.PrecioVenta,
+                    item.PrecioCompra.ToString("N2"),
+                    item.PrecioVenta.ToString("N2"),
                     item.Estado == true ? 1 : 0,
                     item.Estado == true ? "Activo" : "No Activo",
                 });
@@ -377,6 +377,15 @@ namespace CapaPresentacion
         private void txtid_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void txtCodigo_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Permite solo números y teclas de control (como retroceso)
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
         }
     }
 }

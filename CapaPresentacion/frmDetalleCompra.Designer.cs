@@ -107,11 +107,11 @@
             this.btnBuscar.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.btnBuscar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBuscar.ForeColor = System.Drawing.Color.White;
-            this.btnBuscar.IconChar = FontAwesome.Sharp.IconChar.SearchDollar;
+            this.btnBuscar.IconChar = FontAwesome.Sharp.IconChar.MagnifyingGlass;
             this.btnBuscar.IconColor = System.Drawing.Color.Black;
             this.btnBuscar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnBuscar.IconSize = 16;
-            this.btnBuscar.Location = new System.Drawing.Point(706, 41);
+            this.btnBuscar.Location = new System.Drawing.Point(717, 41);
             this.btnBuscar.Margin = new System.Windows.Forms.Padding(4);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(61, 34);
@@ -122,23 +122,25 @@
             // 
             // txtBusqueda
             // 
-            this.txtBusqueda.Location = new System.Drawing.Point(543, 47);
+            this.txtBusqueda.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBusqueda.Location = new System.Drawing.Point(556, 46);
             this.txtBusqueda.Margin = new System.Windows.Forms.Padding(4);
             this.txtBusqueda.Name = "txtBusqueda";
-            this.txtBusqueda.Size = new System.Drawing.Size(153, 22);
+            this.txtBusqueda.Size = new System.Drawing.Size(153, 27);
             this.txtBusqueda.TabIndex = 61;
+            this.txtBusqueda.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBusqueda_KeyDown);
             // 
             // label8
             // 
             this.label8.AutoSize = true;
             this.label8.BackColor = System.Drawing.Color.White;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(363, 49);
+            this.label8.Location = new System.Drawing.Point(384, 49);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(159, 20);
+            this.label8.Size = new System.Drawing.Size(164, 20);
             this.label8.TabIndex = 59;
-            this.label8.Text = "Numero Documento";
+            this.label8.Text = "Numero Documento:";
             // 
             // groupBoxInfoCompra
             // 
@@ -166,6 +168,7 @@
             this.txtUsuario.Location = new System.Drawing.Point(445, 44);
             this.txtUsuario.Margin = new System.Windows.Forms.Padding(4);
             this.txtUsuario.Name = "txtUsuario";
+            this.txtUsuario.ReadOnly = true;
             this.txtUsuario.Size = new System.Drawing.Size(166, 28);
             this.txtUsuario.TabIndex = 30;
             // 
@@ -202,6 +205,7 @@
             this.txtTipoDocumento.Location = new System.Drawing.Point(229, 46);
             this.txtTipoDocumento.Margin = new System.Windows.Forms.Padding(4);
             this.txtTipoDocumento.Name = "txtTipoDocumento";
+            this.txtTipoDocumento.ReadOnly = true;
             this.txtTipoDocumento.Size = new System.Drawing.Size(166, 28);
             this.txtTipoDocumento.TabIndex = 27;
             // 
@@ -225,6 +229,7 @@
             this.txtFecha.Location = new System.Drawing.Point(12, 44);
             this.txtFecha.Margin = new System.Windows.Forms.Padding(4);
             this.txtFecha.Name = "txtFecha";
+            this.txtFecha.ReadOnly = true;
             this.txtFecha.Size = new System.Drawing.Size(157, 28);
             this.txtFecha.TabIndex = 25;
             // 
@@ -275,6 +280,7 @@
             this.txtRazonSocial.Location = new System.Drawing.Point(229, 59);
             this.txtRazonSocial.Margin = new System.Windows.Forms.Padding(4);
             this.txtRazonSocial.Name = "txtRazonSocial";
+            this.txtRazonSocial.ReadOnly = true;
             this.txtRazonSocial.Size = new System.Drawing.Size(183, 28);
             this.txtRazonSocial.TabIndex = 27;
             // 
@@ -298,12 +304,14 @@
             this.txtDocProveedor.Location = new System.Drawing.Point(12, 59);
             this.txtDocProveedor.Margin = new System.Windows.Forms.Padding(4);
             this.txtDocProveedor.Name = "txtDocProveedor";
+            this.txtDocProveedor.ReadOnly = true;
             this.txtDocProveedor.Size = new System.Drawing.Size(197, 28);
             this.txtDocProveedor.TabIndex = 25;
             // 
             // dgvData
             // 
             this.dgvData.AllowUserToAddRows = false;
+            this.dgvData.AllowUserToDeleteRows = false;
             this.dgvData.BackgroundColor = System.Drawing.Color.White;
             this.dgvData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvData.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {

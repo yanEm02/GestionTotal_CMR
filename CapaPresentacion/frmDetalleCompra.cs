@@ -50,11 +50,15 @@ namespace CapaPresentacion
                 dgvData.Rows.Clear();
                 foreach (DetalleCompra dc in oCompra.oDetalleCompra)
                 {
-                    dgvData.Rows.Add(new object[] { dc.oProducto.Nombre, dc.PrecioCompra, dc.Cantidad, dc.MontoTotal });
+                    dgvData.Rows.Add(new object[] { dc.oProducto.Nombre, dc.PrecioCompra.ToString("N2"), dc.Cantidad, dc.MontoTotal.ToString("N2") });
                 }
 
-                txtMontoTotal.Text = oCompra.MontoTotal.ToString("0.00");
+                txtMontoTotal.Text = oCompra.MontoTotal.ToString("N2");
 
+            }
+            else
+            {
+                MessageBox.Show("No se encontraron resuultados", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
 
         }
@@ -151,6 +155,14 @@ namespace CapaPresentacion
                 }
             }
 
+        }
+
+        private void txtBusqueda_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnBuscar_Click(sender, e);
+            }
         }
     }
 }

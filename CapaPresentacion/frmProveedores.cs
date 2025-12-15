@@ -110,6 +110,7 @@ namespace CapaPresentacion
                     });
 
                     Limpiar();
+                    txtDocumento.Text = "";
                 }
                 else
                 {
@@ -131,6 +132,7 @@ namespace CapaPresentacion
                     row.Cells["Estado"].Value = ((OpcionCombo)cboEstado.SelectedItem).Texto.ToString();
 
                     Limpiar();
+                    txtDocumento.Text = "";
                 }
                 else
                 {
@@ -263,5 +265,24 @@ namespace CapaPresentacion
             }
         }
 
+        private void txtDocumento_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtTelefono_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+            if ((sender as TextBox).Text.Length >= 10)
+            {
+                e.Handled = true;
+            }
+        }
     }
 }

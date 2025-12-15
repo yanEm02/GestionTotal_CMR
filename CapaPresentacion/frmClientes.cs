@@ -53,14 +53,6 @@ namespace CapaPresentacion
             cboBusqueda.ValueMember = "Valor";
             cboBusqueda.SelectedIndex = 0;
 
-            //foreach (Cliente item in lista)
-            //{
-            //    dgvData.Rows.Add(new object[] { "", item.IdCliente, item.Documento, item.Nombre, item.Correo, item.Telefono,
-            //      item.Estado == true ? 1 : 0,
-            //      item.Estado == true ? "Activo" : "No Activo",
-            //    });
-            //}
-
                 //mostrar todos los CLIENTES en el data grid view
             List<Cliente> lista = new CN_Cliente().Listar();
 
@@ -99,27 +91,7 @@ namespace CapaPresentacion
             if (rolUsuario == 1 || rolUsuario == 0)
             {
 
-            }
-
-
-            //foreach (Cliente item in lista)
-            //{
-            //    dgvData.Rows.Add(new object[] { "", item.IdCliente, item.Documento, item.Nombre, item.Correo, item.Telefono, });
-            //    if ( usuarioActual == null || Convert.ToInt32(usuarioActual.oRol) == 1 )
-            //    {
-            //        dgvData.Rows.Add(new object[] {  item.Estado == true ? 1 : 0,item.Estado == true ? "Activo" : "No Activo", });
-            //    }
-            //    else
-            //    {
-            //        if (item.Estado == true)
-            //        {
-            //            dgvData.Rows.Add(new object[] { item.Estado == true ? 1 : 0, item.Estado == true ? "Activo" : "No Activo", });
-            //        }
-            //    }
-            //}
-
-
-    
+            }    
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)
@@ -127,13 +99,18 @@ namespace CapaPresentacion
             string mensaje = string.Empty;
             OpcionCombo sexoSeleccionado = (OpcionCombo)cmbSexo.SelectedItem;
 
+            int edad;
+            int.TryParse(txtEdad.Text, out edad); // Si falla, edad será 0
+
+            int documento;
+            int.TryParse(txtDocumento.Text, out documento); // Si falla, documento será 0
 
             Cliente obj = new Cliente()
             {
                 IdCliente = Convert.ToInt32(txtid.Text),
-                Documento = txtDocumento.Text,
+                Documento = documento.ToString(),
                 Nombre = txtNombreCompleto.Text,
-                Edad = Convert.ToInt32(txtEdad.Text),
+                Edad = edad,
                 Sexo = sexoSeleccionado.Texto,
                 Direccion = txtDireccion.Text,
                 Telefono = txtTelefono.Text,
@@ -157,6 +134,7 @@ namespace CapaPresentacion
                     });
 
                     Limpiar();
+                    documento = 0;
                 }
                 else
                 {
@@ -182,6 +160,7 @@ namespace CapaPresentacion
                     row.Cells["Estado"].Value = ((OpcionCombo)cboEstado.SelectedItem).Texto.ToString();
 
                     Limpiar();
+                    documento = 0;
                 }
                 else
                 {
@@ -197,6 +176,8 @@ namespace CapaPresentacion
             txtid.Text = "0";
             txtDocumento.Text = "";
             txtTelefono.Text = "";
+            txtDireccion.Text = "";
+            txtEdad.Text = "";
             txtNombreCompleto.Text = "";
             cboEstado.SelectedIndex = 0;
 
@@ -328,6 +309,34 @@ namespace CapaPresentacion
         private void btnClientesInactivos_Click(object sender, EventArgs e)
         {
             new subFormClientesInactivos().ShowDialog();
+        }
+
+        private void txtEdad_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtTelefono_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+            if ((sender as TextBox).Text.Length >= 10)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtDocumento_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
         }
     }
 }

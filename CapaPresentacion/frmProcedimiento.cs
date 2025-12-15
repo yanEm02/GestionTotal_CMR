@@ -1,11 +1,13 @@
 ﻿using CapaEntidad;
 using CapaNegocio;
 using CapaPresentacion.Utilidades;
+using ClosedXML.Excel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -68,8 +70,8 @@ namespace CapaPresentacion
                     item.Nombre,
                     item.oCategoria.IdCategoria,
                     item.oCategoria.Descripcion,
-                    item.PrecioVenta,
-                    item.PrecioVentaAsegurado,
+                    item.PrecioVenta.ToString("N2"),
+                    item.PrecioVentaAsegurado.ToString("N2"),
                     item.Estado == true ? 1 : 0,
                     item.Estado == true ? "Activo" : "No Activo",
                 });
@@ -82,14 +84,31 @@ namespace CapaPresentacion
         {
             string mensaje = string.Empty;
 
+            int codigo;
+            if (!int.TryParse(txtCodigo.Text, out codigo))
+            {
+                MessageBox.Show("Por favor, ingrese un código válido.");
+                return;
+            }
+
+            decimal precioVenta = 0;
+            decimal precioVentaAsegurado = 0;
+
+            // Intentamos convertir el precio de venta. Si está vacío o es inválido, precioVenta será 0.
+            decimal.TryParse(txtPrecioVenta.Text, NumberStyles.AllowDecimalPoint, CultureInfo.CurrentCulture, out precioVenta);
+
+            // Intentamos convertir el precio de venta asegurado. Si está vacío o es inválido, precioVentaAsegurado será 0.
+            decimal.TryParse(txtPrecioVentaAsegurado.Text, NumberStyles.AllowDecimalPoint, CultureInfo.CurrentCulture, out precioVentaAsegurado);
+
+
             Procedimiento obj = new Procedimiento()
             {
                 ID_Procedimiento = Convert.ToInt32(txtid.Text),
-                Codigo = Convert.ToInt32(txtCodigo.Text),
+                Codigo = codigo,
                 Nombre = txtNombre.Text,
                 oCategoria = new Categoria() { IdCategoria = Convert.ToInt32(((OpcionCombo)cboCategoria.SelectedItem).Valor) },
-                PrecioVenta = Convert.ToDecimal(txtPrecioVenta.Text),
-                PrecioVentaAsegurado = Convert.ToDecimal(txtPrecioVentaAsegurado.Text),
+                PrecioVenta = precioVenta,
+                PrecioVentaAsegurado = precioVentaAsegurado,
                 Estado = Convert.ToInt32(((OpcionCombo)cboEstado.SelectedItem).Valor) == 1 ? true : false,
             };
 
@@ -107,13 +126,14 @@ namespace CapaPresentacion
                         txtNombre.Text,
                         ((OpcionCombo)cboCategoria.SelectedItem).Valor.ToString(), //para obtener el estado de la base de datos
                         ((OpcionCombo)cboCategoria.SelectedItem).Texto.ToString(),
-                        txtPrecioVenta.Text,
-                        txtPrecioVentaAsegurado.Text,
+                        precioVenta.ToString("N2"), // CAMBIO AQUÍ
+                        precioVentaAsegurado.ToString("N2"), // CAMBIO AQUÍ
                         ((OpcionCombo)cboEstado.SelectedItem).Valor.ToString(), //para obtener el estado de la base de datos
                         ((OpcionCombo)cboEstado.SelectedItem).Texto.ToString(),
                     });
 
                     Limpiar();
+                    codigo = 0;
                 }
                 else
                 {
@@ -132,12 +152,13 @@ namespace CapaPresentacion
                     row.Cells["Nombre"].Value = txtNombre.Text;
                     row.Cells["Id_Categoria"].Value = ((OpcionCombo)cboCategoria.SelectedItem).Valor.ToString();
                     row.Cells["Categoria"].Value = ((OpcionCombo)cboCategoria.SelectedItem).Texto.ToString();
-                    row.Cells["PrecioVenta"].Value = txtPrecioVenta.Text;
-                    row.Cells["PrecioVentaAsegurado"].Value = txtPrecioVentaAsegurado.Text;
+                    row.Cells["PrecioVenta"].Value = precioVenta.ToString("N2"); // CAMBIO AQUÍ
+                    row.Cells["PrecioVentaAsegurado"].Value = precioVentaAsegurado.ToString("N2"); // CAMBIO AQUÍ
                     row.Cells["EstadoValor"].Value = ((OpcionCombo)cboEstado.SelectedItem).Valor.ToString();
                     row.Cells["Estado"].Value = ((OpcionCombo)cboEstado.SelectedItem).Texto.ToString();
 
                     Limpiar();
+                    codigo = 0;
                 }
                 else
                 {
@@ -182,9 +203,9 @@ namespace CapaPresentacion
             txtid.Text = "0";
             txtCodigo.Text = "";
             txtNombre.Text = "";
+            txtPrecioVenta.Text = "";
+            txtPrecioVentaAsegurado.Text = "";
             cboCategoria.SelectedIndex = 0;
-            txtPrecioVenta.Text = "0";
-            txtPrecioVentaAsegurado.Text = "0";
             cboEstado.SelectedIndex = 0;
 
             txtCodigo.Select();
@@ -228,8 +249,6 @@ namespace CapaPresentacion
             txtCodigo.Text = "";
             txtNombre.Text = "";
             cboCategoria.SelectedIndex = 0;
-            txtPrecioVenta.Text = "0";
-            txtPrecioVentaAsegurado.Text = "0";
             cboEstado.SelectedIndex = 0;
 
             txtCodigo.Select();
@@ -267,8 +286,12 @@ namespace CapaPresentacion
                     txtid.Text = dgvData.Rows[indice].Cells["Id"].Value.ToString();
                     txtCodigo.Text = dgvData.Rows[indice].Cells["Codigo"].Value.ToString();
                     txtNombre.Text = dgvData.Rows[indice].Cells["Nombre"].Value.ToString();
-                    txtPrecioVenta.Text = dgvData.Rows[indice].Cells["PrecioVenta"].Value.ToString();
-                    txtPrecioVentaAsegurado.Text = dgvData.Rows[indice].Cells["PrecioVentaAsegurado"].Value.ToString();
+
+                    decimal precioVenta = Convert.ToDecimal(dgvData.Rows[indice].Cells["PrecioVenta"].Value);
+                    decimal precioVentaAsegurado = Convert.ToDecimal(dgvData.Rows[indice].Cells["PrecioVentaAsegurado"].Value);
+
+                    txtPrecioVenta.Text = precioVenta.ToString("N2");
+                    txtPrecioVentaAsegurado.Text = precioVentaAsegurado.ToString("N2");
 
                     //agreagamos los combobox
                     foreach (OpcionCombo oc in cboCategoria.Items)
@@ -294,6 +317,107 @@ namespace CapaPresentacion
             }
         }
 
-        
+        private void txtCodigo_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Permite solo números y teclas de control (como retroceso)
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtPrecioVenta_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char separadorDecimal = Convert.ToChar(CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator);
+            // Permite solo números, teclas de control (como retroceso) y el separador decimal de la cultura actual.
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != separadorDecimal))
+            {
+                e.Handled = true;
+            }
+
+            // Permite solo un separador decimal
+            if ((e.KeyChar == separadorDecimal) && ((sender as TextBox).Text.IndexOf(separadorDecimal) > -1))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtPrecioVentaAsegurado_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char separadorDecimal = Convert.ToChar(CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator);
+            // Permite solo números, teclas de control (como retroceso) y el separador decimal de la cultura actual.
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != separadorDecimal))
+            {
+                e.Handled = true;
+            }
+
+            // Permite solo un separador decimal
+            if ((e.KeyChar == separadorDecimal) && ((sender as TextBox).Text.IndexOf(separadorDecimal) > -1))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void btnExportar_Click(object sender, EventArgs e)
+        {
+            if (dgvData.Rows.Count < 1) //VALIDAMOS QUE HAY DATOS QUE EXPORTAR
+            {
+                MessageBox.Show("No hay datos para exportar", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            else
+            {
+                DataTable dt = new DataTable();
+
+                foreach (DataGridViewColumn columna in dgvData.Columns) //agregamos las columnas
+                {
+                    if (columna.HeaderText != "" && columna.Visible)
+                    {
+                        dt.Columns.Add(columna.HeaderText, typeof(string));
+                    }
+                }
+
+                foreach (DataGridViewRow fila in dgvData.Rows)//agregamos las filas
+                {
+                    if (fila.Visible)
+                    {
+                        dt.Rows.Add(new object[]
+                        {
+
+                            fila.Cells[2].Value.ToString(),
+                            fila.Cells[3].Value.ToString(),
+                            fila.Cells[5].Value.ToString(),
+                            fila.Cells[6].Value.ToString(),
+                            fila.Cells[8].Value.ToString(),
+                        });
+                    }
+                }
+
+                //creamos la ventana de dialogo para guardar el archivo
+                SaveFileDialog saveFile = new SaveFileDialog();
+                saveFile.FileName = string.Format("ReporteProducto_{0}.xlsx", DateTime.Now.ToString("ddMMyyyyHHmmss"));
+                saveFile.Filter = "Excel Files | *.xlsx";
+
+                if (saveFile.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    { //crfeamos el archivo excel y agregamos los datos
+                        XLWorkbook wb = new XLWorkbook();
+
+                        var hoja = wb.Worksheets.Add(dt, "Informe");
+
+                        hoja.ColumnsUsed().AdjustToContents();
+                        wb.SaveAs(saveFile.FileName);
+
+                        MessageBox.Show("Reporte Generado", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error al general el reporte", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    }
+                }
+
+            }
+        }
     }
 }

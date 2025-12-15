@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -62,13 +63,16 @@ namespace CapaPresentacion
                 dgvData.Rows.Clear();
                 foreach (DetalleVentaProcedimiento dv in oVenta.oDetalleVentaProcedimiento)
                 {
-                    dgvData.Rows.Add(new object[] { dv.oProcedimiento.Codigo,dv.oProcedimiento.Nombre,dv.oProcedimiento.oCategoria.Descripcion, dv.PrecioVenta });
+                    dgvData.Rows.Add(new object[] { dv.oProcedimiento.Codigo,dv.oProcedimiento.Nombre,dv.oProcedimiento.oCategoria.Descripcion, dv.PrecioVenta.ToString("N2") });
                 }
 
-                txtMontoTotal.Text = oVenta.MontoTotal.ToString("0.00");
-                txtMontoPago.Text = oVenta.MontoPago.ToString("0.00");
-                txtMontoCambio.Text = oVenta.MontoCambio.ToString("0.00");
-
+                txtMontoTotal.Text = oVenta.MontoTotal.ToString("N2");
+                txtMontoPago.Text = oVenta.MontoPago.ToString("N2");
+                txtMontoCambio.Text = oVenta.MontoCambio.ToString("N2");
+            }
+            else
+            {
+                MessageBox.Show("No se encontraron resuultados", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
 
@@ -147,6 +151,14 @@ namespace CapaPresentacion
                     stream.Close(); //cerramos pdf y archivo de memoria
                     MessageBox.Show("Factura Generada", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
+            }
+        }
+
+        private void txtBusqueda_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnBuscar_Click(sender, e);
             }
         }
     }

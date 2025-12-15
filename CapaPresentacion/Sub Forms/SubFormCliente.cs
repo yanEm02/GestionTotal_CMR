@@ -130,6 +130,10 @@ namespace CapaPresentacion.Sub_Forms
 
             if (idGenerado != 0)
             {
+                // Asignar el ID generado al objeto y agregarlo a la lista
+                obj.IdCliente = idGenerado;
+                listaClientes.Add(obj);
+
                 //aqui agremos lo que este en el textbox del formulario para agregarse a la data grid view
                 dgvData.Rows.Add(new object[] {txtDocumento.Text, txtNombreCompleto.Text, txtEdad.Text,
                     //((OpcionCombo)cmbSexo.SelectedItem).Valor.ToString(),
@@ -150,17 +154,33 @@ namespace CapaPresentacion.Sub_Forms
 
         private void Limpiar()
         {
-            //txtIndice.Text = "-1";
+            
             txtid.Text = "0";
             txtDocumento.Text = "";
             txtTelefono.Text = "";
             txtNombreCompleto.Text = "";
-            //cboEstado.SelectedIndex = 0;
+            txtEdad.Text = "";
+            txtDireccion.Text = "";
 
             txtDocumento.Select();
         }
 
+        private void txtDocumento_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Permite solo números y teclas de control (como retroceso)
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
 
-
+        private void txtEdad_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Permite solo números y teclas de control (como retroceso)
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
     }
 }
