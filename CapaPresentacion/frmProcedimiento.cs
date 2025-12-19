@@ -250,6 +250,8 @@ namespace CapaPresentacion
             txtNombre.Text = "";
             cboCategoria.SelectedIndex = 0;
             cboEstado.SelectedIndex = 0;
+            txtPrecioVenta.Text = "";
+            txtPrecioVentaAsegurado.Text = "";
 
             txtCodigo.Select();
         }

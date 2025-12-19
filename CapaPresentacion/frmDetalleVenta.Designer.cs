@@ -59,6 +59,7 @@
             this.label10 = new System.Windows.Forms.Label();
             this.txtMontoCambio = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
+            this.btnEliminarRegistro = new FontAwesome.Sharp.IconButton();
             this.groupBoxInfoCompra.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvData)).BeginInit();
@@ -423,11 +424,29 @@
             this.label11.TabIndex = 77;
             this.label11.Text = "Monto Cambio: ";
             // 
+            // btnEliminarRegistro
+            // 
+            this.btnEliminarRegistro.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEliminarRegistro.IconChar = FontAwesome.Sharp.IconChar.TrashAlt;
+            this.btnEliminarRegistro.IconColor = System.Drawing.Color.Red;
+            this.btnEliminarRegistro.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnEliminarRegistro.IconSize = 24;
+            this.btnEliminarRegistro.Location = new System.Drawing.Point(551, 564);
+            this.btnEliminarRegistro.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnEliminarRegistro.Name = "btnEliminarRegistro";
+            this.btnEliminarRegistro.Size = new System.Drawing.Size(175, 28);
+            this.btnEliminarRegistro.TabIndex = 78;
+            this.btnEliminarRegistro.Text = "Eliminar Registro";
+            this.btnEliminarRegistro.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnEliminarRegistro.UseVisualStyleBackColor = true;
+            this.btnEliminarRegistro.Click += new System.EventHandler(this.btnEliminarRegistro_Click);
+            // 
             // frmDetalleVenta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(947, 614);
+            this.Controls.Add(this.btnEliminarRegistro);
             this.Controls.Add(this.txtMontoCambio);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.txtMontoPago);
@@ -490,5 +509,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn PrecioVenta;
         private System.Windows.Forms.DataGridViewTextBoxColumn Cantidad;
         private System.Windows.Forms.DataGridViewTextBoxColumn SubTotal;
+        private FontAwesome.Sharp.IconButton btnEliminarRegistro;
     }
 }

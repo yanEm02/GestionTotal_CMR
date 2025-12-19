@@ -58,30 +58,66 @@ namespace CapaPresentacion
                 idProveedor
             );
 
-            dgvData.Rows.Clear(); 
-            
-            foreach(ReporteCompra rc in lista)
+            dgvData.Rows.Clear();
+
+            foreach (ReporteCompra rc in lista)
             {
                 dgvData.Rows.Add(new object[]
                 {
                     rc.FechaRegistro,
                     rc.TipoDocumento,
                     rc.NumeroDocumento,
-                    Convert.ToDecimal(rc.MontoTotal).ToString("N2"),
+                    rc.MontoTotal,
                     rc.UsuarioRegistro,
                     rc.DocumentoProveedor,
                     rc.RazonSocial,
                     rc.CodigoProducto,
                     rc.NombreProducto,
                     rc.Categoria,
-                    Convert.ToDecimal(rc.PrecioCompra).ToString("N2"),
-                    Convert.ToDecimal(rc.PrecioVenta).ToString("N2"),
+                    rc.PrecioCompra,
+                    rc.PrecioVenta,
                     rc.Cantidad,
-                    Convert.ToDecimal(rc.SubTotal).ToString("N2")
+                    rc.SubTotal
                 });
             }
 
+            // Formatear las celdas de moneda después de agregar los datos
+            dgvData.Columns["Monto_Total"].DefaultCellStyle.Format = "N2";
+            dgvData.Columns["Precio_Compra"].DefaultCellStyle.Format = "N2";
+            dgvData.Columns["Precio_Venta"].DefaultCellStyle.Format = "N2";
+            dgvData.Columns["SubTotal"].DefaultCellStyle.Format = "N2";
+
+            CalcularYMostrarTotales();
         }
+
+        private void CalcularYMostrarTotales()
+        {
+            // Usamos un HashSet para no contar compras duplicadas
+            var comprasUnicas = new HashSet<string>();
+            decimal montoTotalGeneral = 0;
+
+            foreach (DataGridViewRow row in dgvData.Rows)
+            {
+                if (row.Visible)
+                {
+                    // Obtenemos el número de documento de la celda correspondiente
+                    string numeroDocumento = row.Cells["Numero_Documento"].Value.ToString();
+
+                    // Si es la primera vez que vemos esta compra, la contamos y sumamos su monto
+                    if (comprasUnicas.Add(numeroDocumento))
+                    {
+                        montoTotalGeneral += Convert.ToDecimal(row.Cells["Monto_Total"].Value);
+                    }
+                }
+            }
+
+            int totalCompras = comprasUnicas.Count;
+
+            // Asumiendo que tienes dos TextBox llamados txtTotalCompras y txtMontoTotalGeneral
+            txtTotalCompras.Text = totalCompras.ToString();
+            txtMontoTotalGeneral.Text = montoTotalGeneral.ToString("N2");
+        }
+
 
         private void btnDescargarExcel_Click(object sender, EventArgs e)
         {
@@ -108,17 +144,17 @@ namespace CapaPresentacion
                             fila.Cells[0].Value.ToString(),
                             fila.Cells[1].Value.ToString(),
                             fila.Cells[2].Value.ToString(),
-                            fila.Cells[3].Value.ToString(),
+                            Convert.ToDecimal(fila.Cells[3].Value).ToString("N2"),
                             fila.Cells[4].Value.ToString(),
                             fila.Cells[5].Value.ToString(),
                             fila.Cells[6].Value.ToString(),
                             fila.Cells[7].Value.ToString(),
                             fila.Cells[8].Value.ToString(),
                             fila.Cells[9].Value.ToString(),
-                            fila.Cells[10].Value.ToString(),
-                            fila.Cells[11].Value.ToString(),
+                            Convert.ToDecimal(fila.Cells[10].Value).ToString("N2"),
+                            Convert.ToDecimal(fila.Cells[11].Value).ToString("N2"),
                             fila.Cells[12].Value.ToString(),
-                            fila.Cells[13].Value.ToString(),
+                            Convert.ToDecimal(fila.Cells[13].Value).ToString("N2"),
                         });
                     }
                 }
@@ -142,10 +178,8 @@ namespace CapaPresentacion
                     {
                         MessageBox.Show("No se ha seleccionado un archivo", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 
-                    }
-                    
+                    }  
                 }
-                
             }
         }
 
@@ -168,6 +202,7 @@ namespace CapaPresentacion
                     }
                 }
             }
+            CalcularYMostrarTotales(); // Volvemos a calcular los totales después de filtrar
         }
 
         private void btnLimpiar_Click(object sender, EventArgs e)
@@ -177,6 +212,7 @@ namespace CapaPresentacion
             {
                 row.Visible = true;
             }
+            CalcularYMostrarTotales(); // Volvemos a calcular los totales al limpiar el filtro
         }
 
         private void cmbFiltro_SelectedIndexChanged(object sender, EventArgs e)

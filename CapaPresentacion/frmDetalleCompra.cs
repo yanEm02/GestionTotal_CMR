@@ -18,14 +18,23 @@ namespace CapaPresentacion
 {
     public partial class frmDetalleCompra : Form
     {
-        public frmDetalleCompra()
+        private static Usuario usuarioActualFor;
+        public frmDetalleCompra(Usuario usuarioActual)
         {
             InitializeComponent();
+            usuarioActualFor = usuarioActual;
+
         }
 
         private void frmDetalleCompra_Load(object sender, EventArgs e)
         {
+            txtBusqueda.Focus();
 
+            int rolUsuario = usuarioActualFor == null ? 1 : usuarioActualFor?.oRol?.IdRol ?? 1;
+            if (rolUsuario == 2)
+            {
+                btnEliminarRegistro.Visible = false; // Oculta el botón Eliminar para usuarios estándar
+            }
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
@@ -58,7 +67,8 @@ namespace CapaPresentacion
             }
             else
             {
-                MessageBox.Show("No se encontraron resuultados", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("No se encontraron resultados", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                txtBusqueda.Focus();
             }
 
         }
@@ -73,13 +83,15 @@ namespace CapaPresentacion
 
             dgvData.Rows.Clear();
             txtMontoTotal.Text = "0.00";
+            txtBusqueda.Text = "";
+            txtBusqueda.Focus();
         }
 
         private void btnDescargarExcel_Click(object sender, EventArgs e)
         {
             if(txtTipoDocumento.Text == "")
             {
-                MessageBox.Show("No se encontraron resuultados","Mensaje",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
+                MessageBox.Show("No se encontraron resultados","Mensaje",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
                 return;
             }
 
@@ -162,6 +174,32 @@ namespace CapaPresentacion
             if (e.KeyCode == Keys.Enter)
             {
                 btnBuscar_Click(sender, e);
+            }
+        }
+
+        private void btnEliminarRegistro_Click(object sender, EventArgs e)
+        {
+            if(txtNumeroDocumento.Text == "")
+            {
+                MessageBox.Show("No hay ningun registro para eliminar", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+            else
+            {
+                if (MessageBox.Show("Desea Eliminar el registro de compra?", "Mensaje", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    bool respuesta = new CN_Compra().EliminarCompra(txtNumeroDocumento.Text, out string mensaje);
+                    if (respuesta)
+                    {
+                        MessageBox.Show("Registro eliminado", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        txtBusqueda.Text = "";
+                        btnLimpiarBuscador_Click(sender, e);
+                    }
+                    else
+                    {
+                        MessageBox.Show(mensaje, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    }
+                }
             }
         }
     }

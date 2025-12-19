@@ -59,6 +59,10 @@
             this.btnBuscarPor = new FontAwesome.Sharp.IconButton();
             this.btnLimpiar = new FontAwesome.Sharp.IconButton();
             this.txtBusqueda = new System.Windows.Forms.TextBox();
+            this.txtTotalCompras = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.txtMontoTotalGeneral = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvData)).BeginInit();
             this.SuspendLayout();
             // 
@@ -411,12 +415,60 @@
             this.txtBusqueda.TabIndex = 18;
             this.txtBusqueda.TextChanged += new System.EventHandler(this.txtBusqueda_TextChanged);
             // 
+            // txtTotalCompras
+            // 
+            this.txtTotalCompras.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTotalCompras.Location = new System.Drawing.Point(271, 723);
+            this.txtTotalCompras.Margin = new System.Windows.Forms.Padding(4);
+            this.txtTotalCompras.Name = "txtTotalCompras";
+            this.txtTotalCompras.ReadOnly = true;
+            this.txtTotalCompras.Size = new System.Drawing.Size(89, 27);
+            this.txtTotalCompras.TabIndex = 20;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(21, 723);
+            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(316, 31);
+            this.label8.TabIndex = 19;
+            this.label8.Text = "Total Numero de Compras: \r\n";
+            // 
+            // txtMontoTotalGeneral
+            // 
+            this.txtMontoTotalGeneral.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMontoTotalGeneral.Location = new System.Drawing.Point(515, 722);
+            this.txtMontoTotalGeneral.Margin = new System.Windows.Forms.Padding(4);
+            this.txtMontoTotalGeneral.Name = "txtMontoTotalGeneral";
+            this.txtMontoTotalGeneral.ReadOnly = true;
+            this.txtMontoTotalGeneral.Size = new System.Drawing.Size(99, 27);
+            this.txtMontoTotalGeneral.TabIndex = 22;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(386, 723);
+            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(159, 31);
+            this.label9.TabIndex = 21;
+            this.label9.Text = "Monto Total: ";
+            // 
             // frmReporteCompra
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.ClientSize = new System.Drawing.Size(1787, 721);
+            this.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.ClientSize = new System.Drawing.Size(1787, 766);
+            this.Controls.Add(this.txtMontoTotalGeneral);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.txtTotalCompras);
+            this.Controls.Add(this.label8);
             this.Controls.Add(this.txtBusqueda);
             this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.btnBuscarPor);
@@ -477,5 +529,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Precio_Venta;
         private System.Windows.Forms.DataGridViewTextBoxColumn Cantidad;
         private System.Windows.Forms.DataGridViewTextBoxColumn Subtotal;
+        private System.Windows.Forms.TextBox txtTotalCompras;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox txtMontoTotalGeneral;
+        private System.Windows.Forms.Label label9;
     }
 }

@@ -81,7 +81,7 @@ namespace CapaPresentacion
             FormularioActivo = formulario;
             formulario.TopLevel = false;
             formulario.FormBorderStyle = FormBorderStyle.None;
-            formulario.BackColor = Color.Linen;
+            formulario.BackColor = Color.LightSteelBlue;
 
             // --- INICIO DE LA MODIFICACIÓN ---
             // 1. Forzar la creación del handle del subformulario.
@@ -143,7 +143,7 @@ namespace CapaPresentacion
 
         private void subMenuVerDetalleVenta_Click(object sender, EventArgs e)
         {
-            AbrirFormulario(menuVenta, new frmDetalleVenta());
+            AbrirFormulario(menuVenta, new frmDetalleVenta(usuarioActual));
         }
 
         //==========PROCEDIMIENTOS===
@@ -158,7 +158,7 @@ namespace CapaPresentacion
 
         private void verDetalleToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AbrirFormulario(menuProcedimiento, new frmDetalleVentaProcedimiento());
+            AbrirFormulario(menuProcedimiento, new frmDetalleVentaProcedimiento(usuarioActual));
         }
 
 
@@ -171,7 +171,7 @@ namespace CapaPresentacion
 
         private void subMenuVerDetalleCompra_Click(object sender, EventArgs e)
         {
-            AbrirFormulario(menuCompra, new frmDetalleCompra());
+            AbrirFormulario(menuCompra, new frmDetalleCompra(usuarioActual));
         }
 
         //==========CLIENTES===

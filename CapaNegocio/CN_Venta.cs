@@ -47,5 +47,10 @@ namespace CapaNegocio
             return oVenta;
         }
 
+        public bool EliminarVenta(string numeroDocumento, out string Mensaje)
+        {
+            return objcd_Venta.EliminarVenta(numeroDocumento, out Mensaje);
+        }
+
     }
 }

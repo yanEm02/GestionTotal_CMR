@@ -53,6 +53,10 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.iconButton1 = new FontAwesome.Sharp.IconButton();
+            this.txtMontoTotalGeneral = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.txtTotalVentaProcedimiento = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvData)).BeginInit();
             this.SuspendLayout();
             // 
@@ -78,7 +82,7 @@
             this.dgvData.Name = "dgvData";
             this.dgvData.ReadOnly = true;
             this.dgvData.RowHeadersWidth = 51;
-            this.dgvData.Size = new System.Drawing.Size(1492, 722);
+            this.dgvData.Size = new System.Drawing.Size(1492, 464);
             this.dgvData.TabIndex = 34;
             // 
             // FechaRegistro
@@ -254,7 +258,7 @@
             this.label6.Location = new System.Drawing.Point(7, 114);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(1523, 798);
+            this.label6.Size = new System.Drawing.Size(1523, 539);
             this.label6.TabIndex = 35;
             // 
             // label5
@@ -343,12 +347,62 @@
             this.iconButton1.UseVisualStyleBackColor = true;
             this.iconButton1.Click += new System.EventHandler(this.iconButton1_Click);
             // 
+            // txtMontoTotalGeneral
+            // 
+            this.txtMontoTotalGeneral.BackColor = System.Drawing.SystemColors.Window;
+            this.txtMontoTotalGeneral.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMontoTotalGeneral.Location = new System.Drawing.Point(516, 677);
+            this.txtMontoTotalGeneral.Margin = new System.Windows.Forms.Padding(4);
+            this.txtMontoTotalGeneral.Name = "txtMontoTotalGeneral";
+            this.txtMontoTotalGeneral.ReadOnly = true;
+            this.txtMontoTotalGeneral.Size = new System.Drawing.Size(99, 27);
+            this.txtMontoTotalGeneral.TabIndex = 46;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(381, 677);
+            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(127, 25);
+            this.label9.TabIndex = 45;
+            this.label9.Text = "Monto Total: ";
+            // 
+            // txtTotalVentaProcedimiento
+            // 
+            this.txtTotalVentaProcedimiento.BackColor = System.Drawing.SystemColors.Window;
+            this.txtTotalVentaProcedimiento.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTotalVentaProcedimiento.Location = new System.Drawing.Point(260, 677);
+            this.txtTotalVentaProcedimiento.Margin = new System.Windows.Forms.Padding(4);
+            this.txtTotalVentaProcedimiento.Name = "txtTotalVentaProcedimiento";
+            this.txtTotalVentaProcedimiento.ReadOnly = true;
+            this.txtTotalVentaProcedimiento.Size = new System.Drawing.Size(89, 27);
+            this.txtTotalVentaProcedimiento.TabIndex = 44;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(22, 677);
+            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(235, 25);
+            this.label8.TabIndex = 43;
+            this.label8.Text = "Total Numero de Ventas: \r\n";
+            // 
             // frmReporteProcedimiento
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.ClientSize = new System.Drawing.Size(1541, 940);
+            this.ClientSize = new System.Drawing.Size(1541, 724);
+            this.Controls.Add(this.txtMontoTotalGeneral);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.txtTotalVentaProcedimiento);
+            this.Controls.Add(this.label8);
             this.Controls.Add(this.iconButton1);
             this.Controls.Add(this.dgvData);
             this.Controls.Add(this.txtBusqueda);
@@ -400,5 +454,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Precio_Venta;
         private System.Windows.Forms.DataGridViewTextBoxColumn MontoTotal;
         private FontAwesome.Sharp.IconButton iconButton1;
+        private System.Windows.Forms.TextBox txtMontoTotalGeneral;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox txtTotalVentaProcedimiento;
+        private System.Windows.Forms.Label label8;
     }
 }

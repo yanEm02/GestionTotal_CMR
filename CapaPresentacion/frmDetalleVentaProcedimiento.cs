@@ -21,14 +21,22 @@ namespace CapaPresentacion
     public partial class frmDetalleVentaProcedimiento : Form
     {
         private VentaProcedimiento oVenta;
-        public frmDetalleVentaProcedimiento()
+        private static Usuario usuarioActualFor;
+
+        public frmDetalleVentaProcedimiento(Usuario usuarioActual)
         {
             InitializeComponent();
+            usuarioActualFor = usuarioActual;
         }
 
         private void frmDetalleVentaProcedimiento_Load(object sender, EventArgs e)
         {
             txtBusqueda.Select();
+            int rolUsuario = usuarioActualFor == null ? 1 : usuarioActualFor?.oRol?.IdRol ?? 1;
+            if (rolUsuario == 2)
+            {
+                btnEliminarRegistro.Visible = false; // Oculta el botón Eliminar para usuarios estándar
+            }
         }
 
         private void btnLimpiarBuscador_Click(object sender, EventArgs e)
@@ -43,6 +51,8 @@ namespace CapaPresentacion
             txtMontoTotal.Text = "";
             txtMontoPago.Text = "";
             txtMontoCambio.Text = "";
+            txtBusqueda.Text = "";
+            txtBusqueda.Select();
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
@@ -72,7 +82,34 @@ namespace CapaPresentacion
             }
             else
             {
-                MessageBox.Show("No se encontraron resuultados", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("No se encontraron resultados", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                txtBusqueda.Select();
+            }
+        }
+
+        private void btnEliminarRegistro_Click(object sender, EventArgs e)
+        {
+            if (txtNumeroDocumento.Text == "")
+            {
+                MessageBox.Show("No hay ningun registro para eliminar", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+            else
+            {
+                if (MessageBox.Show("Desea Eliminar el registro de la venta de procedimiento?", "Mensaje", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    bool respuesta = new CN_Venta_Procedimiento().EliminarVentaProcedimiento(txtNumeroDocumento.Text, out string mensaje);
+                    if (respuesta)
+                    {
+                        MessageBox.Show("Registro eliminado", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        txtBusqueda.Text = "";
+                        btnLimpiarBuscador_Click(sender, e);
+                    }
+                    else
+                    {
+                        MessageBox.Show(mensaje, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    }
+                }
             }
         }
 
@@ -161,5 +198,7 @@ namespace CapaPresentacion
                 btnBuscar_Click(sender, e);
             }
         }
+
+        
     }
 }

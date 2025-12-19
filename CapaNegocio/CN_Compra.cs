@@ -36,5 +36,10 @@ namespace CapaNegocio
             }
             return oCompra;
         }
+
+        public bool EliminarCompra(string numeroDocumento, out string Mensaje)
+        {
+            return objcd_Compra.EliminarCompra(numeroDocumento, out Mensaje);
+        }
     }
 }

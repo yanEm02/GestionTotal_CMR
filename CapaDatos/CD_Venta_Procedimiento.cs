@@ -193,7 +193,33 @@ namespace CapaDatos
             }
 
             return oLista;
+        }
 
+        public bool EliminarVentaProcedimiento(string numeroDocumento, out string mensaje)
+        {
+            bool respuesta = false;
+            mensaje = string.Empty;
+            using (SqlConnection oconexion = new SqlConnection(Conexion.cadena))
+            {
+                try
+                {
+                    SqlCommand cmd = new SqlCommand("sp_Eliminar_Venta_Procedimiento", oconexion);
+                    cmd.Parameters.AddWithValue("numeroDocumento", numeroDocumento);
+                    cmd.Parameters.Add("resultado", SqlDbType.Int).Direction = ParameterDirection.Output;
+                    cmd.Parameters.Add("mensaje", SqlDbType.VarChar, 500).Direction = ParameterDirection.Output;
+                    cmd.CommandType = CommandType.StoredProcedure; //para declararr el tipo de comando ya que es una consulta con select
+                    oconexion.Open();//abrir cadena de conexion
+                    cmd.ExecuteNonQuery();
+                    respuesta = Convert.ToBoolean(cmd.Parameters["resultado"].Value);
+                    mensaje = cmd.Parameters["Mensaje"].Value.ToString();
+                }
+                catch (Exception ex)
+                {
+                    respuesta = false;
+                    mensaje = ex.Message;
+                }
+            }
+            return respuesta;
         }
 
 

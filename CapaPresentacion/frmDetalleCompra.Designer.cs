@@ -55,6 +55,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.txtMontoTotal = new System.Windows.Forms.TextBox();
             this.btnDescargarExcel = new FontAwesome.Sharp.IconButton();
+            this.btnEliminarRegistro = new FontAwesome.Sharp.IconButton();
             this.groupBoxInfoCompra.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvData)).BeginInit();
@@ -374,7 +375,7 @@
             // 
             this.txtMontoTotal.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtMontoTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMontoTotal.Location = new System.Drawing.Point(245, 657);
+            this.txtMontoTotal.Location = new System.Drawing.Point(173, 656);
             this.txtMontoTotal.Margin = new System.Windows.Forms.Padding(4);
             this.txtMontoTotal.Name = "txtMontoTotal";
             this.txtMontoTotal.Size = new System.Drawing.Size(183, 28);
@@ -397,11 +398,29 @@
             this.btnDescargarExcel.UseVisualStyleBackColor = true;
             this.btnDescargarExcel.Click += new System.EventHandler(this.btnDescargarExcel_Click);
             // 
+            // btnEliminarRegistro
+            // 
+            this.btnEliminarRegistro.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEliminarRegistro.IconChar = FontAwesome.Sharp.IconChar.TrashAlt;
+            this.btnEliminarRegistro.IconColor = System.Drawing.Color.Red;
+            this.btnEliminarRegistro.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnEliminarRegistro.IconSize = 24;
+            this.btnEliminarRegistro.Location = new System.Drawing.Point(412, 644);
+            this.btnEliminarRegistro.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnEliminarRegistro.Name = "btnEliminarRegistro";
+            this.btnEliminarRegistro.Size = new System.Drawing.Size(212, 52);
+            this.btnEliminarRegistro.TabIndex = 69;
+            this.btnEliminarRegistro.Text = "Eliminar Registro";
+            this.btnEliminarRegistro.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnEliminarRegistro.UseVisualStyleBackColor = true;
+            this.btnEliminarRegistro.Click += new System.EventHandler(this.btnEliminarRegistro_Click);
+            // 
             // frmDetalleCompra
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(892, 739);
+            this.Controls.Add(this.btnEliminarRegistro);
             this.Controls.Add(this.btnDescargarExcel);
             this.Controls.Add(this.txtMontoTotal);
             this.Controls.Add(this.label6);
@@ -457,5 +476,6 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox txtMontoTotal;
         private FontAwesome.Sharp.IconButton btnDescargarExcel;
+        private FontAwesome.Sharp.IconButton btnEliminarRegistro;
     }
 }

@@ -56,6 +56,10 @@
             this.Cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Subtotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label6 = new System.Windows.Forms.Label();
+            this.txtMontoTotalGeneral = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.txtTotalVentas = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvData)).BeginInit();
             this.SuspendLayout();
             // 
@@ -66,7 +70,7 @@
             this.btnBuscar.IconColor = System.Drawing.Color.Black;
             this.btnBuscar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnBuscar.IconSize = 19;
-            this.btnBuscar.Location = new System.Drawing.Point(1637, 39);
+            this.btnBuscar.Location = new System.Drawing.Point(1592, 39);
             this.btnBuscar.Margin = new System.Windows.Forms.Padding(4);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(147, 54);
@@ -142,13 +146,13 @@
             this.label1.Location = new System.Drawing.Point(9, 18);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(1799, 92);
+            this.label1.Size = new System.Drawing.Size(1744, 92);
             this.label1.TabIndex = 11;
             // 
             // txtBusqueda
             // 
             this.txtBusqueda.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBusqueda.Location = new System.Drawing.Point(1460, 148);
+            this.txtBusqueda.Location = new System.Drawing.Point(1415, 148);
             this.txtBusqueda.Margin = new System.Windows.Forms.Padding(4);
             this.txtBusqueda.Name = "txtBusqueda";
             this.txtBusqueda.Size = new System.Drawing.Size(183, 27);
@@ -163,7 +167,7 @@
             this.btnLimpiar.IconColor = System.Drawing.Color.Black;
             this.btnLimpiar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnLimpiar.IconSize = 19;
-            this.btnLimpiar.Location = new System.Drawing.Point(1735, 144);
+            this.btnLimpiar.Location = new System.Drawing.Point(1690, 144);
             this.btnLimpiar.Margin = new System.Windows.Forms.Padding(4);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(49, 34);
@@ -180,7 +184,7 @@
             this.btnBuscarPor.IconColor = System.Drawing.Color.Black;
             this.btnBuscarPor.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnBuscarPor.IconSize = 19;
-            this.btnBuscarPor.Location = new System.Drawing.Point(1682, 144);
+            this.btnBuscarPor.Location = new System.Drawing.Point(1637, 144);
             this.btnBuscarPor.Margin = new System.Windows.Forms.Padding(4);
             this.btnBuscarPor.Name = "btnBuscarPor";
             this.btnBuscarPor.Size = new System.Drawing.Size(45, 34);
@@ -194,7 +198,7 @@
             this.cmbFiltro.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbFiltro.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbFiltro.FormattingEnabled = true;
-            this.cmbFiltro.Location = new System.Drawing.Point(1272, 147);
+            this.cmbFiltro.Location = new System.Drawing.Point(1227, 147);
             this.cmbFiltro.Margin = new System.Windows.Forms.Padding(4);
             this.cmbFiltro.Name = "cmbFiltro";
             this.cmbFiltro.Size = new System.Drawing.Size(180, 28);
@@ -205,7 +209,7 @@
             this.label7.AutoSize = true;
             this.label7.BackColor = System.Drawing.Color.White;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(1153, 150);
+            this.label7.Location = new System.Drawing.Point(1108, 150);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(99, 20);
@@ -257,7 +261,7 @@
             this.dgvData.Name = "dgvData";
             this.dgvData.ReadOnly = true;
             this.dgvData.RowHeadersWidth = 51;
-            this.dgvData.Size = new System.Drawing.Size(1755, 722);
+            this.dgvData.Size = new System.Drawing.Size(1710, 526);
             this.dgvData.TabIndex = 19;
             // 
             // FechaRegistro
@@ -371,15 +375,65 @@
             this.label6.Location = new System.Drawing.Point(9, 129);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(1799, 798);
+            this.label6.Size = new System.Drawing.Size(1744, 597);
             this.label6.TabIndex = 20;
+            // 
+            // txtMontoTotalGeneral
+            // 
+            this.txtMontoTotalGeneral.BackColor = System.Drawing.SystemColors.Window;
+            this.txtMontoTotalGeneral.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMontoTotalGeneral.Location = new System.Drawing.Point(518, 740);
+            this.txtMontoTotalGeneral.Margin = new System.Windows.Forms.Padding(4);
+            this.txtMontoTotalGeneral.Name = "txtMontoTotalGeneral";
+            this.txtMontoTotalGeneral.ReadOnly = true;
+            this.txtMontoTotalGeneral.Size = new System.Drawing.Size(99, 27);
+            this.txtMontoTotalGeneral.TabIndex = 30;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(383, 740);
+            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(127, 25);
+            this.label9.TabIndex = 29;
+            this.label9.Text = "Monto Total: ";
+            // 
+            // txtTotalVentas
+            // 
+            this.txtTotalVentas.BackColor = System.Drawing.SystemColors.Window;
+            this.txtTotalVentas.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTotalVentas.Location = new System.Drawing.Point(262, 740);
+            this.txtTotalVentas.Margin = new System.Windows.Forms.Padding(4);
+            this.txtTotalVentas.Name = "txtTotalVentas";
+            this.txtTotalVentas.ReadOnly = true;
+            this.txtTotalVentas.Size = new System.Drawing.Size(89, 27);
+            this.txtTotalVentas.TabIndex = 28;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(24, 740);
+            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(294, 31);
+            this.label8.TabIndex = 27;
+            this.label8.Text = "Total Numero de Ventas: \r\n";
             // 
             // frmReporteVenta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.ClientSize = new System.Drawing.Size(1814, 940);
+            this.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.ClientSize = new System.Drawing.Size(1759, 792);
+            this.Controls.Add(this.txtMontoTotalGeneral);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.txtTotalVentas);
+            this.Controls.Add(this.label8);
             this.Controls.Add(this.txtBusqueda);
             this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.btnBuscarPor);
@@ -435,5 +489,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Precio_Venta;
         private System.Windows.Forms.DataGridViewTextBoxColumn Cantidad;
         private System.Windows.Forms.DataGridViewTextBoxColumn Subtotal;
+        private System.Windows.Forms.TextBox txtMontoTotalGeneral;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox txtTotalVentas;
+        private System.Windows.Forms.Label label8;
     }
 }

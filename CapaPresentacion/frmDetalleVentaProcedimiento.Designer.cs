@@ -59,6 +59,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.btnEliminarRegistro = new FontAwesome.Sharp.IconButton();
             ((System.ComponentModel.ISupportInitialize)(this.dgvData)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBoxInfoCompra.SuspendLayout();
@@ -397,7 +398,7 @@
             this.label8.AutoSize = true;
             this.label8.BackColor = System.Drawing.Color.White;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(457, 27);
+            this.label8.Location = new System.Drawing.Point(455, 28);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(174, 22);
             this.label8.TabIndex = 80;
@@ -423,11 +424,29 @@
             this.label1.Size = new System.Drawing.Size(890, 596);
             this.label1.TabIndex = 78;
             // 
+            // btnEliminarRegistro
+            // 
+            this.btnEliminarRegistro.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEliminarRegistro.IconChar = FontAwesome.Sharp.IconChar.TrashAlt;
+            this.btnEliminarRegistro.IconColor = System.Drawing.Color.Red;
+            this.btnEliminarRegistro.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnEliminarRegistro.IconSize = 24;
+            this.btnEliminarRegistro.Location = new System.Drawing.Point(552, 564);
+            this.btnEliminarRegistro.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnEliminarRegistro.Name = "btnEliminarRegistro";
+            this.btnEliminarRegistro.Size = new System.Drawing.Size(175, 28);
+            this.btnEliminarRegistro.TabIndex = 94;
+            this.btnEliminarRegistro.Text = "Eliminar Registro";
+            this.btnEliminarRegistro.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnEliminarRegistro.UseVisualStyleBackColor = true;
+            this.btnEliminarRegistro.Click += new System.EventHandler(this.btnEliminarRegistro_Click);
+            // 
             // frmDetalleVentaProcedimiento
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(947, 614);
+            this.Controls.Add(this.btnEliminarRegistro);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.txtMontoPago);
             this.Controls.Add(this.label10);
@@ -490,5 +509,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Procedimiento;
         private System.Windows.Forms.DataGridViewTextBoxColumn Categoria;
         private System.Windows.Forms.DataGridViewTextBoxColumn Precio;
+        private FontAwesome.Sharp.IconButton btnEliminarRegistro;
     }
 }

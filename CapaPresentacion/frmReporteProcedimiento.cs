@@ -50,10 +50,41 @@ namespace CapaPresentacion
                     item.CodigoProcedimiento,
                     item.NombreProcedimiento,
                     item.Categoria,
-                    Convert.ToDecimal(item.PrecioVenta).ToString("N2"),
-                    Convert.ToDecimal(item.MontoTotal).ToString("N2"),
+                    item.PrecioVenta, // Se pasa el valor decimal directamente
+                    item.MontoTotal,   // Se pasa el valor decimal directamente
                 });
             }
+
+            // Formatear las celdas de moneda después de agregar los datos
+            dgvData.Columns["Precio_Venta"].DefaultCellStyle.Format = "N2";
+            dgvData.Columns["MontoTotal"].DefaultCellStyle.Format = "N2";
+
+            CalcularYMostrarTotales();
+        }
+
+        private void CalcularYMostrarTotales()
+        {
+            var ventasUnicas = new HashSet<string>();
+            decimal montoTotalGeneral = 0;
+
+            foreach (DataGridViewRow row in dgvData.Rows)
+            {
+                if (row.Visible)
+                {
+                    string numeroDocumento = row.Cells["NumeroDocumento"].Value.ToString();
+
+                    if (ventasUnicas.Add(numeroDocumento))
+                    {
+                        montoTotalGeneral += Convert.ToDecimal(row.Cells["MontoTotal"].Value);
+                    }
+                }
+            }
+
+            int totalVentas = ventasUnicas.Count;
+
+            // Asumiendo que los TextBox se llaman txtTotalVentaProcedimiento y txtMontoTotalGeneral
+            txtTotalVentaProcedimiento.Text = totalVentas.ToString();
+            txtMontoTotalGeneral.Text = montoTotalGeneral.ToString("N2");
         }
 
         private void btnBuscarPor_Click(object sender, EventArgs e)
@@ -75,6 +106,7 @@ namespace CapaPresentacion
                     }
                 }
             }
+            CalcularYMostrarTotales(); // Recalcular totales después de filtrar
         }
 
         private void btnLimpiar_Click(object sender, EventArgs e)
@@ -84,6 +116,7 @@ namespace CapaPresentacion
             {
                 row.Visible = true;
             }
+            CalcularYMostrarTotales(); // Recalcular totales al limpiar filtro
         }
 
         private void btnDescargarExcel_Click(object sender, EventArgs e)
@@ -115,15 +148,15 @@ namespace CapaPresentacion
                             fila.Cells[5].Value.ToString(),
                             fila.Cells[6].Value.ToString(),
                             fila.Cells[7].Value.ToString(),
-                            fila.Cells[8].Value.ToString(),
-                            fila.Cells[9].Value.ToString(),
+                            Convert.ToDecimal(fila.Cells[8].Value).ToString("N2"),
+                            Convert.ToDecimal(fila.Cells[9].Value).ToString("N2"),
                         });
                     }
                 }
 
                 //instanciamos el savefiledialog
                 SaveFileDialog sfd = new SaveFileDialog();
-                sfd.FileName = string.Format("ReporteVentas_{0}.xlsx", DateTime.Now.ToString("ddMMyyyyHHmmss"));
+                sfd.FileName = string.Format("ReporteProcedimientos_{0}.xlsx", DateTime.Now.ToString("ddMMyyyyHHmmss"));
                 sfd.Filter = "Excel Files | *.xlsx";
                 if (sfd.ShowDialog() == DialogResult.OK)
                 {
