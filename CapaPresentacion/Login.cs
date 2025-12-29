@@ -65,5 +65,13 @@ namespace CapaPresentacion
         {
 
         }
+
+        private void txtBoxClave_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+            {
+                btnIngresar.PerformClick();
+            }
+        }
     }
 }

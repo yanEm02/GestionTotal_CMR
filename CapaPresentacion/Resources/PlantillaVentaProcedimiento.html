@@ -4,8 +4,11 @@
     <title>Recibo de Venta</title>
     <style>
         body {
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 10px;
+            /* Usar la fuente OCRB registrada. Si falla, usa una monoespaciada. */
+            font-family: 'OCRB', monospace;
+            font-size: 13px; /* Tamaño óptimo para legibilidad */
+            font-weight: bold; /* OCR-B es clara sin negrita, pero puedes poner 'bold' si prefieres */
+            line-height: 1.3;
             width: 100%;
         }
 
@@ -29,7 +32,7 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 10px;
+            font-size: 13px;
         }
 
         th, td {
@@ -76,9 +79,9 @@
     <div class="line"></div>
     <div>
         <p class="right"><br /><br /><br />
-            Monto Total: @montototal<br />
-            Pago Con: @pagocon<br />
-            Cambio: @cambio<br />
+            Monto Total: <strong>@montototal</strong><br />
+            Pago Con: <strong>@pagocon</strong><br />
+            Cambio: <strong>@cambio</strong><br />
             Forma de Pago: @tipodocumento<br />
         </p>
     </div>

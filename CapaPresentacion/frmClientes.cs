@@ -53,45 +53,41 @@ namespace CapaPresentacion
             cboBusqueda.ValueMember = "Valor";
             cboBusqueda.SelectedIndex = 0;
 
-                //mostrar todos los CLIENTES en el data grid view
-            List<Cliente> lista = new CN_Cliente().Listar();
+            CargarDatos();
 
-            //filtramos los resultados para mostrar solo los registros activos para usarios estandares y no activos /activos para administradores
-            int rolUsuario = usuarioActualFor == null ? 1 : usuarioActualFor?.oRol?.IdRol ?? 1;
-
-            foreach (Cliente item in lista)
-            {
-                // Si el usuario es administrador (rol 1) o usuarioActual es null, muestra todos
-                // Si el usuario es estándar (rol 2), muestra solo los activos
-                if (rolUsuario == 1 || rolUsuario == 0)
-                {
-                    dgvData.Rows.Add(new object[] { "", item.IdCliente, item.Documento, item.Nombre, item.Edad,
-                    item.Sexo,item.Direccion,item.Telefono,
-                    item.Estado == true ? 1 : 0,
-                    item.Estado == true ? "Activo" : "No Activo",
-            });
-                }
-                else if (rolUsuario == 2 && item.Estado == true)
-                {
-                    dgvData.Rows.Add(new object[] { "", item.IdCliente, item.Documento, item.Nombre, item.Edad,
-                    item.Sexo,item.Direccion,item.Telefono,
-                1, "Activo"
-                    });
-                }
-            }
+            int rolUsuario = usuarioActualFor?.oRol?.IdRol ?? 1;
 
             if (rolUsuario == 2)
             {
                 btnEliminar.Visible = false; // Oculta el botón Eliminar para usuarios estándar
                 cboEstado.Enabled = false; // Deshabilita el ComboBox de estado para usuarios estándar
-                //txtDocumento.Enabled = false; // Deshabilita el TextBox de documento para usuarios estándar
-                //txtNombreCompleto.Enabled = false; // Deshabilita el TextBox de razón social para usuarios estándar
-                //cboEstado.DropDownClosed += (s, args) => cboEstado.SelectedIndex = 0; // Evita que el usuario cambie el estado
             }
-            if (rolUsuario == 1 || rolUsuario == 0)
-            {
+        }
 
-            }    
+        private void CargarDatos()
+        {
+            dgvData.Rows.Clear();
+            List<Cliente> lista = new CN_Cliente().Listar();
+            int rolUsuario = usuarioActualFor?.oRol?.IdRol ?? 1;
+
+            foreach (Cliente item in lista)
+            {
+                if (rolUsuario == 1 || rolUsuario == 0)
+                {
+                    dgvData.Rows.Add(new object[] { "", item.IdCliente, item.Documento, item.Nombre, item.Edad,
+                        item.Sexo, item.Direccion, item.Telefono,
+                        item.Estado ? 1 : 0,
+                        item.Estado ? "Activo" : "No Activo"
+                    });
+                }
+                else if (rolUsuario == 2 && item.Estado)
+                {
+                    dgvData.Rows.Add(new object[] { "", item.IdCliente, item.Documento, item.Nombre, item.Edad,
+                        item.Sexo, item.Direccion, item.Telefono,
+                        1, "Activo"
+                    });
+                }
+            }
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)
@@ -102,13 +98,10 @@ namespace CapaPresentacion
             int edad;
             int.TryParse(txtEdad.Text, out edad); // Si falla, edad será 0
 
-            int documento;
-            int.TryParse(txtDocumento.Text, out documento); // Si falla, documento será 0
-
             Cliente obj = new Cliente()
             {
                 IdCliente = Convert.ToInt32(txtid.Text),
-                Documento = documento.ToString(),
+                Documento = txtDocumento.Text,
                 Nombre = txtNombreCompleto.Text,
                 Edad = edad,
                 Sexo = sexoSeleccionado.Texto,
@@ -117,50 +110,26 @@ namespace CapaPresentacion
                 Estado = Convert.ToInt32(((OpcionCombo)cboEstado.SelectedItem).Valor) == 1 ? true : false,
             };
 
-            //hacemos una condicional para decidir el comportamiento del boton guardar, si es para editar si hay un usuario selccionado o guardar si no hay usuario seleccionado 
             if (obj.IdCliente == 0)
             {
                 int idGenerado = new CN_Cliente().Registrar(obj, out mensaje);
-
                 if (idGenerado != 0)
                 {
-                    //aqui agremos lo que este en el textbox del formulario para agregarse a la data grid view
-                    dgvData.Rows.Add(new object[] { "", idGenerado, txtDocumento.Text, txtNombreCompleto.Text, txtEdad.Text,
-                    //((OpcionCombo)cmbSexo.SelectedItem).Valor.ToString(),
-                    ((OpcionCombo)cmbSexo.SelectedItem).Texto.ToString(),
-                    txtDireccion.Text, txtTelefono.Text, 
-                    ((OpcionCombo)cboEstado.SelectedItem).Valor.ToString(), //para obtener el estado de la base de datos
-                    ((OpcionCombo)cboEstado.SelectedItem).Texto.ToString(),
-                    });
-
+                    CargarDatos();
                     Limpiar();
-                    documento = 0;
                 }
                 else
                 {
                     MessageBox.Show(mensaje);
                 }
             }
-            else //aqui ejecuta el metodo editar si el indice seleccionado es el de un usuario existente 
+            else
             {
                 bool resultado = new CN_Cliente().Editar(obj, out mensaje);
-
                 if (resultado)
                 {
-                    DataGridViewRow row = dgvData.Rows[Convert.ToInt32(txtIndice.Text)];
-                    row.Cells["Id"].Value = txtid.Text;
-                    row.Cells["Documento"].Value = txtDocumento.Text;
-                    row.Cells["NombreCompleto"].Value = txtNombreCompleto.Text;
-                    row.Cells["Edad"].Value = txtEdad.Text;
-                   // row.Cells["SexoValor"].Value = ((OpcionCombo)cmbSexo.SelectedItem).Valor.ToString();
-                    row.Cells["Sexo"].Value = ((OpcionCombo)cmbSexo.SelectedItem).Texto.ToString();
-                    row.Cells["Direccion"].Value = txtDireccion.Text;
-                    row.Cells["Telefono"].Value = txtTelefono.Text;
-                    row.Cells["EstadoValor"].Value = ((OpcionCombo)cboEstado.SelectedItem).Valor.ToString();
-                    row.Cells["Estado"].Value = ((OpcionCombo)cboEstado.SelectedItem).Texto.ToString();
-
+                    CargarDatos();
                     Limpiar();
-                    documento = 0;
                 }
                 else
                 {
@@ -180,6 +149,7 @@ namespace CapaPresentacion
             txtEdad.Text = "";
             txtNombreCompleto.Text = "";
             cboEstado.SelectedIndex = 0;
+            cmbSexo.SelectedIndex = 0;
 
             txtDocumento.Select();
         }
@@ -240,8 +210,6 @@ namespace CapaPresentacion
             {
                 if (MessageBox.Show("Desea Eliminar el Cliente?", "Mensaje", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-
-                    //sacamos el id usuario de nuestra clase de usuario 
                     string mensaje = string.Empty;
                     Cliente objCliente = new Cliente()
                     {
@@ -251,7 +219,7 @@ namespace CapaPresentacion
 
                     if (respuesta)
                     {
-                        dgvData.Rows.RemoveAt(Convert.ToInt32(txtIndice.Text));
+                        CargarDatos();
                         Limpiar();
                     }
                     else
@@ -259,7 +227,6 @@ namespace CapaPresentacion
                         MessageBox.Show(mensaje, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     }
                 }
-
             }
         }
 

@@ -101,66 +101,12 @@ namespace CapaPresentacion.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a &lt;!DOCTYPE html&gt;
-        ///&lt;html&gt;
-        ///&lt;head&gt;
-        ///    &lt;title&gt;Web Page Design&lt;/title&gt;
-        ///    &lt;style&gt;
-        ///        table.border {
-        ///            border-collapse: collapse;
-        ///        }
-        ///
-        ///            table.border th {
-        ///                text-align: center;
-        ///                padding: 5px;
-        ///                border: 1px solid black;
-        ///            }
-        ///
-        ///            table.border td {
-        ///                text-align: center;
-        ///                padding: 5px;
-        ///                border: 1px solid black;
-        ///            }
-        ///    &lt;/style&gt;
-        ///&lt;/head&gt;
-        ///&lt;body&gt;
-        ///    &lt;tab [resto de la cadena truncado]&quot;;.
+        ///   Busca un recurso adaptado de tipo System.Byte[].
         /// </summary>
-        internal static string PlantillaCompra {
+        internal static byte[] OCRB_Regular {
             get {
-                return ResourceManager.GetString("PlantillaCompra", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a &lt;!DOCTYPE html&gt;
-        ///&lt;html&gt;
-        ///&lt;head&gt;
-        ///    &lt;title&gt;Web Page Design&lt;/title&gt;
-        ///    &lt;style&gt;
-        ///        table.border {
-        ///            border-collapse: collapse;
-        ///        }
-        ///
-        ///            table.border th {
-        ///                text-align: center;
-        ///                padding: 5px;
-        ///                border: 1px solid black;
-        ///            }
-        ///
-        ///            table.border td {
-        ///                text-align: center;
-        ///                padding: 5px;
-        ///                border: 1px solid black;
-        ///            }
-        ///    &lt;/style&gt;
-        ///&lt;/head&gt;
-        ///&lt;body&gt;
-        ///    &lt;tab [resto de la cadena truncado]&quot;;.
-        /// </summary>
-        internal static string PlantillaVenta {
-            get {
-                return ResourceManager.GetString("PlantillaVenta", resourceCulture);
+                object obj = ResourceManager.GetObject("OCRB_Regular", resourceCulture);
+                return ((byte[])(obj));
             }
         }
         
@@ -192,6 +138,61 @@ namespace CapaPresentacion.Properties {
         ///            border-top: 1px dashed black;
         ///            margin: 5px 0;
         ///        [resto de la cadena truncado]&quot;;.
+        /// </summary>
+        internal static string PlantillaCompra {
+            get {
+                return ResourceManager.GetString("PlantillaCompra", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a &lt;!DOCTYPE html&gt;
+        ///&lt;html&gt;
+        ///&lt;head&gt;
+        ///    &lt;title&gt;Recibo de Venta&lt;/title&gt;
+        ///    &lt;style&gt;
+        ///        body {
+        ///            font-family: &apos;Courier New&apos;, Courier, monospace;
+        ///            font-size: 10px;
+        ///            width: 100%;
+        ///        }
+        ///
+        ///        .center {
+        ///            text-align: center;
+        ///        }
+        ///
+        ///        .left {
+        ///            text-align: left;
+        ///        }
+        ///
+        ///        .right {
+        ///            text-align: right;
+        ///        }
+        ///
+        ///        .line {
+        ///            border-top: 1px dashed black;
+        ///            margin: 5px 0;
+        ///        [resto de la cadena truncado]&quot;;.
+        /// </summary>
+        internal static string PlantillaVenta {
+            get {
+                return ResourceManager.GetString("PlantillaVenta", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a &lt;!DOCTYPE html&gt;
+        ///&lt;html&gt;
+        ///&lt;head&gt;
+        ///    &lt;title&gt;Recibo de Venta&lt;/title&gt;
+        ///    &lt;style&gt;
+        ///        body {
+        ///            /* Usar Consolas, una fuente monoespaciada y clara. Courier New como alternativa. */
+        ///            font-family: Consolas, &apos;Courier New&apos;, monospace;
+        ///            font-size: 13px; /* Ligeramente más grande para mayor claridad */
+        ///            font-weight: bold; /* Mantener negrita para máxima intensidad */
+        ///            line-height: 1.3; /* Un poco más de espacio entre líneas */
+        ///            width: 100%; [resto de la cadena truncado]&quot;;.
         /// </summary>
         internal static string PlantillaVentaProcedimiento {
             get {

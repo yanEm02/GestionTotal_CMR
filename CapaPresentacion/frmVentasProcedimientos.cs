@@ -2,6 +2,7 @@
 using CapaNegocio;
 using CapaPresentacion.Sub_Forms;
 using CapaPresentacion.Utilidades;
+using iTextSharp.text.pdf;
 using Org.BouncyCastle.Utilities;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -322,6 +324,9 @@ namespace CapaPresentacion
                 {
                     Clipboard.SetText(numeroDocumento);
                 }
+
+                GenerarEImprimirFactura(objVenta, detalleVentaProcedimiento);
+
                 LimpiarProducto();
                 dgvData.Rows.Clear();
                 txtDocumentoCliente.Text = "";
@@ -336,6 +341,101 @@ namespace CapaPresentacion
                 MessageBox.Show(mensaje, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
 
+        }
+
+        private void GenerarEImprimirFactura(VentaProcedimiento oVenta, DataTable detalleVenta)
+        {
+            try
+            {
+                string textoHtml = Properties.Resources.PlantillaVentaProcedimiento.ToString();
+                Negocio oDatos = new CN_Negocio().ObtenerDatos();
+
+                // Rellenar la plantilla con los datos del negocio y de la venta
+                textoHtml = textoHtml.Replace("@nombrenegocio", oDatos.Nombre.ToUpper());
+                textoHtml = textoHtml.Replace("@docnegocio", oDatos.Rnc);
+                textoHtml = textoHtml.Replace("@direcnegocio", oDatos.Direccion);
+                textoHtml = textoHtml.Replace("@telefonoEmpresa", oDatos.Telefono);
+
+                textoHtml = textoHtml.Replace("@tipodocumento", oVenta.TipoDocumento.ToUpper());
+                textoHtml = textoHtml.Replace("@numerodocumento", oVenta.NumeroDocumento);
+
+                // Rellenar datos del cliente desde el objeto Venta
+                textoHtml = textoHtml.Replace("@nombreCliente", oVenta.oCliente.Nombre);
+                textoHtml = textoHtml.Replace("@edadCliente", oVenta.oCliente.Edad.ToString());
+                textoHtml = textoHtml.Replace("@sexoCliente", oVenta.oCliente.Sexo);
+                textoHtml = textoHtml.Replace("@telefonoCliente", oVenta.oCliente.Telefono);
+                textoHtml = textoHtml.Replace("@direccionCliente", oVenta.oCliente.Direccion);
+                textoHtml = textoHtml.Replace("@fecharegistro", DateTime.Now.ToString("dd/MM/yyyy"));
+                textoHtml = textoHtml.Replace("@usuarioregistro", usuarioActualFor.Nombre);
+
+                string filas = string.Empty;
+                foreach (DataRow row in detalleVenta.Rows)
+                {
+                    // Buscamos el nombre del procedimiento usando el IdProcedimiento
+                    string nombreProcedimiento = dgvData.Rows
+                        .Cast<DataGridViewRow>()
+                        .FirstOrDefault(r => r.Cells["IdProcedimiento"].Value.ToString() == row["IdProcedimiento"].ToString())
+                        ?.Cells["Nombre"].Value.ToString() ?? "N/A";
+
+                    filas += "<tr>";
+                    filas += "<td class='left'>" + nombreProcedimiento + "</td>";
+                    filas += "<td class='right'>" + Convert.ToDecimal(row["PrecioVenta"]).ToString("N2") + "</td>";
+                    filas += "</tr>";
+                }
+                textoHtml = textoHtml.Replace("@filas", filas);
+                textoHtml = textoHtml.Replace("@montototal", oVenta.MontoTotal.ToString("N2"));
+                textoHtml = textoHtml.Replace("@pagocon", oVenta.MontoPago.ToString("N2"));
+                textoHtml = textoHtml.Replace("@cambio", oVenta.MontoCambio.ToString("N2"));
+
+                // Define aquí la ruta fija donde quieres guardar las facturas de procedimientos.
+                string carpetaFacturas = @"C:\FacturasVentaProcedimientos"; // <-- ¡CAMBIA ESTA RUTA POR LA QUE NECESITES!
+                //string carpetaFacturas = @"C:\CarpetaFacturas"; 
+
+                if (!Directory.Exists(carpetaFacturas))
+                {
+                    Directory.CreateDirectory(carpetaFacturas);
+                }
+                string nombreArchivo = string.Format("VentaProcedimiento_{0}.pdf", oVenta.NumeroDocumento);
+                string rutaCompleta = Path.Combine(carpetaFacturas, nombreArchivo);
+
+                using (FileStream stream = new FileStream(rutaCompleta, FileMode.Create))
+                {
+                    var anchoRecibo = iTextSharp.text.Utilities.MillimetersToPoints(80);
+                    iTextSharp.text.Document pdfDoc = new iTextSharp.text.Document(new iTextSharp.text.Rectangle(0, 0, anchoRecibo, 842), 10, 10, 10, 10);
+
+                    PdfWriter writer = PdfWriter.GetInstance(pdfDoc, stream);
+                    pdfDoc.Open();
+
+                    bool obtenido = true;
+                    byte[] byteImage = new CN_Negocio().ObtenerLogo(out obtenido);
+                    if (obtenido)
+                    {
+                        iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance(byteImage);
+                        img.ScaleToFit(40, 40);
+                        img.Alignment = iTextSharp.text.Element.ALIGN_CENTER;
+                        pdfDoc.Add(img);
+                    }
+
+                    using (StringReader sr = new StringReader(textoHtml))
+                    {
+                        iTextSharp.tool.xml.XMLWorkerHelper.GetInstance().ParseXHtml(writer, pdfDoc, sr);
+                    }
+                    pdfDoc.Close();
+                }
+
+                // Imprimir el PDF recién creado
+                using (var document = PdfiumViewer.PdfDocument.Load(rutaCompleta))
+                {
+                    using (var printDocument = document.CreatePrintDocument())
+                    {
+                        printDocument.Print();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("La venta fue registrada, pero ocurrió un error al generar o imprimir la factura:\n" + ex.Message, "Error de Facturación", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

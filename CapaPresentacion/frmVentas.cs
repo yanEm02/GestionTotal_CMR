@@ -1,14 +1,17 @@
-﻿using System;
-using System.Data;
-using System.Drawing;
-using System.Globalization;
-using System.Linq;
-using System.Windows.Forms;
-using CapaEntidad;
+﻿using CapaEntidad;
 using CapaNegocio;
 using CapaPresentacion.Modales;
 using CapaPresentacion.Sub_Forms;
 using CapaPresentacion.Utilidades;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using System;
+using System.Data;
+using System.Drawing;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace CapaPresentacion
 {
@@ -193,7 +196,7 @@ namespace CapaPresentacion
                 var x = e.CellBounds.Left + (e.CellBounds.Width - w) / 2;
                 var y = e.CellBounds.Top + (e.CellBounds.Height - h) / 2;
 
-                e.Graphics.DrawImage(Properties.Resources.delete_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24, new Rectangle(x, y, w, h));
+                e.Graphics.DrawImage(Properties.Resources.delete_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24, new System.Drawing.Rectangle(x, y, w, h));
                 e.Handled = true;
             }
         }
@@ -372,15 +375,118 @@ namespace CapaPresentacion
                     Clipboard.SetText(numeroDocumento);
                 }
 
+                // ***** INICIO: NUEVA LLAMADA *****
+                // Llamamos a la función para generar e imprimir la factura
+                GenerarEImprimirFactura(oVenta, detalle_venta);
+                // ***** FIN: NUEVA LLAMADA *****
+
                 txtDocumentoCliente.Text = "0";
                 txtNombre.Text = "";
                 dgvData.Rows.Clear();
                 txtPagaCon.Text = "";
                 txtCambio.Text = "";
                 CalcularTotal();
+
+
             }
             else {
                 MessageBox.Show(mensaje, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+        }
+
+        private void GenerarEImprimirFactura(Venta oVenta, DataTable detalleVenta)
+        {
+            try
+            {
+                string textoHtml = Properties.Resources.PlantillaVenta.ToString();
+                Negocio oDatos = new CN_Negocio().ObtenerDatos();
+
+                // Rellenar la plantilla con los datos del negocio y de la venta
+                textoHtml = textoHtml.Replace("@nombrenegocio", oDatos.Nombre.ToUpper());
+                textoHtml = textoHtml.Replace("@docnegocio", oDatos.Rnc);
+                textoHtml = textoHtml.Replace("@direcnegocio", oDatos.Direccion);
+                textoHtml = textoHtml.Replace("@telefonoEmpresa", oDatos.Telefono);
+
+                textoHtml = textoHtml.Replace("@tipodocumento", oVenta.TipoDocumento.ToUpper());
+                textoHtml = textoHtml.Replace("@numerodocumento", oVenta.NumeroDocumento);
+
+                textoHtml = textoHtml.Replace("@doccliente", oVenta.DocumentoCliente);
+                textoHtml = textoHtml.Replace("@nombrecliente", oVenta.NombreCliente);
+                textoHtml = textoHtml.Replace("@fecharegistro", DateTime.Now.ToString("dd/MM/yyyy"));
+                textoHtml = textoHtml.Replace("@usuarioregistro", _usuario.Nombre);
+
+                string filas = string.Empty;
+                foreach (DataRow row in detalleVenta.Rows)
+                {
+                    // Buscamos el nombre del producto usando el IdProducto
+                    string nombreProducto = dgvData.Rows
+                        .Cast<DataGridViewRow>()
+                        .FirstOrDefault(r => r.Cells["IdProducto"].Value.ToString() == row["IdProducto"].ToString())
+                        ?.Cells["Producto"].Value.ToString() ?? "N/A";
+
+                    filas += "<tr>";
+                    filas += "<td>" + nombreProducto + "</td>";
+                    filas += "<td>" + Convert.ToDecimal(row["PrecioVenta"]).ToString("N2") + "</td>";
+                    filas += "<td>" + row["Cantidad"].ToString() + "</td>";
+                    filas += "<td>" + Convert.ToDecimal(row["SubTotal"]).ToString("N2") + "</td>";
+                    filas += "</tr>";
+                }
+                textoHtml = textoHtml.Replace("@filas", filas);
+                textoHtml = textoHtml.Replace("@montototal", oVenta.MontoTotal.ToString("N2"));
+                textoHtml = textoHtml.Replace("@pagocon", oVenta.MontoPago.ToString("N2"));
+                textoHtml = textoHtml.Replace("@cambio", oVenta.MontoCambio.ToString("N2"));
+
+                // Definir la ruta de guardado automático
+                string carpetaFacturas = @"C:\FacturasVentas"; // <-- ¡CAMBIA ESTA RUTA POR LA QUE NECESITES!
+
+                //string carpetaFacturas = @"C:\CarpetaFacturas"; 
+
+                if (!Directory.Exists(carpetaFacturas))
+                {
+                    Directory.CreateDirectory(carpetaFacturas);
+                }
+                string nombreArchivo = string.Format("Venta_{0}.pdf", oVenta.NumeroDocumento);
+                string rutaCompleta = Path.Combine(carpetaFacturas, nombreArchivo);
+
+                using (FileStream stream = new FileStream(rutaCompleta, FileMode.Create))
+                {
+                    var anchoRecibo = iTextSharp.text.Utilities.MillimetersToPoints(80);
+                    Document pdfDoc = new Document(new iTextSharp.text.Rectangle(0, 0, anchoRecibo, 842), 10, 10, 10, 10);
+
+                    PdfWriter writer = PdfWriter.GetInstance(pdfDoc, stream);
+                    pdfDoc.Open();
+
+                    // Lógica para el logo (asumiendo que ya la tienes en CN_Negocio)
+                    bool obtenido = true;
+                    byte[] byteImage = new CN_Negocio().ObtenerLogo(out obtenido);
+                    if (obtenido)
+                    {
+                        iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance(byteImage);
+                        img.ScaleToFit(40, 40);
+                        img.Alignment = iTextSharp.text.Element.ALIGN_CENTER;
+                        pdfDoc.Add(img);
+                    }
+
+                    using (StringReader sr = new StringReader(textoHtml))
+                    {
+                        iTextSharp.tool.xml.XMLWorkerHelper.GetInstance().ParseXHtml(writer, pdfDoc, sr);
+                    }
+                    pdfDoc.Close();
+                }
+
+                // Imprimir el PDF recién creado
+                using (var document = PdfiumViewer.PdfDocument.Load(rutaCompleta))
+                {
+                    using (var printDocument = document.CreatePrintDocument())
+                    {
+                        printDocument.Print();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Es importante notificar si algo falla en la impresión/generación del PDF
+                MessageBox.Show("La venta fue registrada, pero ocurrió un error al generar o imprimir la factura:\n" + ex.Message, "Error de Facturación", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

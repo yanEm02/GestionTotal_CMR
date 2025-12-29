@@ -55,7 +55,7 @@
             // 
             this.txtBoxDoc.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtBoxDoc.Location = new System.Drawing.Point(308, 102);
-            this.txtBoxDoc.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtBoxDoc.Margin = new System.Windows.Forms.Padding(4);
             this.txtBoxDoc.Name = "txtBoxDoc";
             this.txtBoxDoc.Size = new System.Drawing.Size(280, 34);
             this.txtBoxDoc.TabIndex = 3;
@@ -64,11 +64,12 @@
             // 
             this.txtBoxClave.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtBoxClave.Location = new System.Drawing.Point(308, 182);
-            this.txtBoxClave.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtBoxClave.Margin = new System.Windows.Forms.Padding(4);
             this.txtBoxClave.Name = "txtBoxClave";
             this.txtBoxClave.PasswordChar = '*';
             this.txtBoxClave.Size = new System.Drawing.Size(280, 34);
             this.txtBoxClave.TabIndex = 4;
+            this.txtBoxClave.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBoxClave_KeyDown);
             // 
             // label3
             // 
@@ -105,7 +106,7 @@
             this.btnIngresar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnIngresar.IconSize = 20;
             this.btnIngresar.Location = new System.Drawing.Point(324, 225);
-            this.btnIngresar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnIngresar.Margin = new System.Windows.Forms.Padding(4);
             this.btnIngresar.Name = "btnIngresar";
             this.btnIngresar.Size = new System.Drawing.Size(125, 43);
             this.btnIngresar.TabIndex = 7;
@@ -128,7 +129,7 @@
             this.btnCancelar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnCancelar.IconSize = 21;
             this.btnCancelar.Location = new System.Drawing.Point(457, 225);
-            this.btnCancelar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnCancelar.Margin = new System.Windows.Forms.Padding(4);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(120, 43);
             this.btnCancelar.TabIndex = 8;
@@ -143,7 +144,7 @@
             this.pictureBox1.BackColor = System.Drawing.Color.SandyBrown;
             this.pictureBox1.Image = global::CapaPresentacion.Properties.Resources.LogoCMR;
             this.pictureBox1.Location = new System.Drawing.Point(32, 53);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(188, 186);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -178,7 +179,7 @@
             this.Controls.Add(this.txtBoxDoc);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Login";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Login";

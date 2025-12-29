@@ -60,24 +60,30 @@ namespace CapaPresentacion
             cboBusqueda.ValueMember = "Valor";
             cboBusqueda.SelectedIndex = 0;
 
+            CargarDatos();
+
+
+        }
+
+        private void CargarDatos()
+        {
+            dgvData.Rows.Clear();
             List<Procedimiento> lista = new CN_Procedimiento().Listar();
 
             foreach (Procedimiento item in lista)
             {
                 dgvData.Rows.Add(new object[] { "",
-                    item.ID_Procedimiento,
-                    item.Codigo,
-                    item.Nombre,
-                    item.oCategoria.IdCategoria,
-                    item.oCategoria.Descripcion,
-                    item.PrecioVenta.ToString("N2"),
-                    item.PrecioVentaAsegurado.ToString("N2"),
-                    item.Estado == true ? 1 : 0,
-                    item.Estado == true ? "Activo" : "No Activo",
-                });
+                        item.ID_Procedimiento,
+                        item.Codigo,
+                        item.Nombre,
+                        item.oCategoria.IdCategoria,
+                        item.oCategoria.Descripcion,
+                        item.PrecioVenta.ToString("N2"),
+                        item.PrecioVentaAsegurado.ToString("N2"),
+                        item.Estado == true ? 1 : 0,
+                        item.Estado == true ? "Activo" : "No Activo",
+                    });
             }
-
-
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)
@@ -119,21 +125,8 @@ namespace CapaPresentacion
 
                 if (idGenerado != 0)
                 {
-                    //aqui agremos lo que este en el textbox del formulario para agregarse a la data grid view
-                    dgvData.Rows.Add(new object[] { "",
-                        idGenerado,
-                        txtCodigo.Text,
-                        txtNombre.Text,
-                        ((OpcionCombo)cboCategoria.SelectedItem).Valor.ToString(), //para obtener el estado de la base de datos
-                        ((OpcionCombo)cboCategoria.SelectedItem).Texto.ToString(),
-                        precioVenta.ToString("N2"), // CAMBIO AQUÍ
-                        precioVentaAsegurado.ToString("N2"), // CAMBIO AQUÍ
-                        ((OpcionCombo)cboEstado.SelectedItem).Valor.ToString(), //para obtener el estado de la base de datos
-                        ((OpcionCombo)cboEstado.SelectedItem).Texto.ToString(),
-                    });
-
+                    CargarDatos();
                     Limpiar();
-                    codigo = 0;
                 }
                 else
                 {
@@ -146,19 +139,8 @@ namespace CapaPresentacion
 
                 if (resultado)
                 {
-                    DataGridViewRow row = dgvData.Rows[Convert.ToInt32(txtIndice.Text)];
-                    row.Cells["Id"].Value = txtid.Text;
-                    row.Cells["Codigo"].Value = txtCodigo.Text;
-                    row.Cells["Nombre"].Value = txtNombre.Text;
-                    row.Cells["Id_Categoria"].Value = ((OpcionCombo)cboCategoria.SelectedItem).Valor.ToString();
-                    row.Cells["Categoria"].Value = ((OpcionCombo)cboCategoria.SelectedItem).Texto.ToString();
-                    row.Cells["PrecioVenta"].Value = precioVenta.ToString("N2"); // CAMBIO AQUÍ
-                    row.Cells["PrecioVentaAsegurado"].Value = precioVentaAsegurado.ToString("N2"); // CAMBIO AQUÍ
-                    row.Cells["EstadoValor"].Value = ((OpcionCombo)cboEstado.SelectedItem).Valor.ToString();
-                    row.Cells["Estado"].Value = ((OpcionCombo)cboEstado.SelectedItem).Texto.ToString();
-
+                    CargarDatos();
                     Limpiar();
-                    codigo = 0;
                 }
                 else
                 {
@@ -184,7 +166,7 @@ namespace CapaPresentacion
 
                     if (respuesta)
                     {
-                        dgvData.Rows.RemoveAt(Convert.ToInt32(txtIndice.Text));
+                        CargarDatos();
                         Limpiar();
                     }
                     else
@@ -244,16 +226,7 @@ namespace CapaPresentacion
 
         private void iconButton1_Click(object sender, EventArgs e)
         {
-            txtIndice.Text = "-1";
-            txtid.Text = "0";
-            txtCodigo.Text = "";
-            txtNombre.Text = "";
-            cboCategoria.SelectedIndex = 0;
-            cboEstado.SelectedIndex = 0;
-            txtPrecioVenta.Text = "";
-            txtPrecioVentaAsegurado.Text = "";
-
-            txtCodigo.Select();
+            Limpiar();
         }
 
         private void dgvData_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
@@ -385,11 +358,11 @@ namespace CapaPresentacion
                         dt.Rows.Add(new object[]
                         {
 
-                            fila.Cells[2].Value.ToString(),
-                            fila.Cells[3].Value.ToString(),
-                            fila.Cells[5].Value.ToString(),
-                            fila.Cells[6].Value.ToString(),
-                            fila.Cells[8].Value.ToString(),
+                                fila.Cells[2].Value.ToString(),
+                                fila.Cells[3].Value.ToString(),
+                                fila.Cells[5].Value.ToString(),
+                                fila.Cells[6].Value.ToString(),
+                                fila.Cells[8].Value.ToString(),
                         });
                     }
                 }

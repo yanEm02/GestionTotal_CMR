@@ -3,12 +3,13 @@ using CapaNegocio;
 using CapaPresentacion.Modales;
 using CapaPresentacion.Sub_Forms;
 using CapaPresentacion.Utilidades;
-using DocumentFormat.OpenXml.Spreadsheet;
-using DocumentFormat.OpenXml.Wordprocessing;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 using System;
 using System.Data;
 using System.Drawing;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Color = System.Drawing.Color;
@@ -202,7 +203,7 @@ namespace CapaPresentacion
                 var x = e.CellBounds.Left + (e.CellBounds.Width - w) / 2;
                 var y = e.CellBounds.Top + (e.CellBounds.Height - h) / 2;
 
-                e.Graphics.DrawImage(Properties.Resources.delete_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24, new Rectangle(x, y, w, h));
+                e.Graphics.DrawImage(Properties.Resources.delete_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24, new System.Drawing.Rectangle(x, y, w, h));
                 e.Handled = true;
             }
         }
@@ -337,6 +338,8 @@ namespace CapaPresentacion
                     Clipboard.SetText(numeroDocumento);
                 }
 
+                //GenerarEImprimirRecibo(oCompra, detalle_compra);
+
                 txtIdProveedor.Text = "0";
                 txtDocumentoProveedor.Text = "";
                 txtNombre.Text = "";
@@ -347,6 +350,100 @@ namespace CapaPresentacion
             {
                 MessageBox.Show(mensaje, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 
+            }
+        }
+
+        private void GenerarEImprimirRecibo(Compra oCompra, DataTable detalleCompra)
+        {
+            try
+            {
+                string textoHtml = Properties.Resources.PlantillaCompra.ToString();
+                Negocio oDatos = new CN_Negocio().ObtenerDatos();
+
+                // Rellenar la plantilla con los datos del negocio y de la compra
+                textoHtml = textoHtml.Replace("@nombrenegocio", oDatos.Nombre.ToUpper());
+                textoHtml = textoHtml.Replace("@docnegocio", oDatos.Rnc);
+                textoHtml = textoHtml.Replace("@direcnegocio", oDatos.Direccion);
+                textoHtml = textoHtml.Replace("@telefonoEmpresa", oDatos.Telefono);
+
+                textoHtml = textoHtml.Replace("@tipodocumento", oCompra.TipoDocumento.ToUpper());
+                textoHtml = textoHtml.Replace("@numerodocumento", oCompra.NumeroDocumento);
+
+                // Usamos los datos del proveedor desde los campos de texto del formulario
+                textoHtml = textoHtml.Replace("@docproveedor", txtDocumentoProveedor.Text);
+                textoHtml = textoHtml.Replace("@nombreproveedor", txtNombre.Text);
+                textoHtml = textoHtml.Replace("@telefonoProveedor", oCompra.oProveedor.Telefono);
+                textoHtml = textoHtml.Replace("@fecharegistro", DateTime.Now.ToString("dd/MM/yyyy"));
+                textoHtml = textoHtml.Replace("@usuarioregistro", _usuario.Nombre);
+
+                string filas = string.Empty;
+                foreach (DataRow row in detalleCompra.Rows)
+                {
+                    // Buscamos el nombre del producto usando el IdProducto
+                    string nombreProducto = dgvData.Rows
+                        .Cast<DataGridViewRow>()
+                        .FirstOrDefault(r => r.Cells["IdProducto"].Value.ToString() == row["IdProducto"].ToString())
+                        ?.Cells["Producto"].Value.ToString() ?? "N/A";
+
+                    filas += "<tr>";
+                    filas += "<td>" + nombreProducto + "</td>";
+                    filas += "<td>" + Convert.ToDecimal(row["PrecioCompra"]).ToString("N2") + "</td>";
+                    filas += "<td>" + row["Cantidad"].ToString() + "</td>";
+                    filas += "<td>" + Convert.ToDecimal(row["SubTotal"]).ToString("N2") + "</td>";
+                    filas += "</tr>";
+                }
+                textoHtml = textoHtml.Replace("@filas", filas);
+                textoHtml = textoHtml.Replace("@montototal", oCompra.MontoTotal.ToString("N2"));
+
+                // Define aquí la ruta fija donde quieres guardar los recibos de compra.
+                string carpetaRecibos = @"C:\Users\yan_e\Downloads"; // <-- ¡CAMBIA ESTA RUTA POR LA QUE NECESITES!
+
+                //string carpetaFacturas = @"C:\CarpetaFacturas"; 
+
+                if (!Directory.Exists(carpetaRecibos))
+                {
+                    Directory.CreateDirectory(carpetaRecibos);
+                }
+                string nombreArchivo = string.Format("Compra_{0}.pdf", oCompra.NumeroDocumento);
+                string rutaCompleta = Path.Combine(carpetaRecibos, nombreArchivo);
+
+                using (FileStream stream = new FileStream(rutaCompleta, FileMode.Create))
+                {
+                    var anchoRecibo = iTextSharp.text.Utilities.MillimetersToPoints(80);
+                    Document pdfDoc = new Document(new iTextSharp.text.Rectangle(0, 0, anchoRecibo, 842), 10, 10, 10, 10);
+
+                    PdfWriter writer = PdfWriter.GetInstance(pdfDoc, stream);
+                    pdfDoc.Open();
+
+                    bool obtenido = true;
+                    byte[] byteImage = new CN_Negocio().ObtenerLogo(out obtenido);
+                    if (obtenido)
+                    {
+                        iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance(byteImage);
+                        img.ScaleToFit(40, 40);
+                        img.Alignment = iTextSharp.text.Element.ALIGN_CENTER;
+                        pdfDoc.Add(img);
+                    }
+
+                    using (StringReader sr = new StringReader(textoHtml))
+                    {
+                        iTextSharp.tool.xml.XMLWorkerHelper.GetInstance().ParseXHtml(writer, pdfDoc, sr);
+                    }
+                    pdfDoc.Close();
+                }
+
+                // Imprimir el PDF recién creado
+                using (var document = PdfiumViewer.PdfDocument.Load(rutaCompleta))
+                {
+                    using (var printDocument = document.CreatePrintDocument())
+                    {
+                        printDocument.Print();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("La compra fue registrada, pero ocurrió un error al generar o imprimir el recibo:\n" + ex.Message, "Error de Recibo", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
