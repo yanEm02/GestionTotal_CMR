@@ -2,15 +2,20 @@
 using CapaNegocio;
 using CapaPresentacion.Utilidades;
 using ClosedXML.Excel;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using iTextSharp.tool.xml;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using iTextSharpTextRectangle = iTextSharp.text.Rectangle;
 
 namespace CapaPresentacion
 {
@@ -177,6 +182,63 @@ namespace CapaPresentacion
 
                 }
 
+            }
+        }
+
+        private void btnImprimirResumen_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtTotalVentaProcedimiento.Text) || txtTotalVentaProcedimiento.Text == "0")
+            {
+                MessageBox.Show("No hay datos para generar un resumen.", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            try
+            {
+                string textoHtml = Properties.Resources.PlantillaResumenProcedimiento.ToString();
+                Negocio oDatos = new CN_Negocio().ObtenerDatos();
+
+                // Rellenar la plantilla con los datos del negocio y del resumen
+                textoHtml = textoHtml.Replace("@nombrenegocio", oDatos.Nombre.ToUpper());
+                textoHtml = textoHtml.Replace("@docnegocio", oDatos.Rnc);
+                textoHtml = textoHtml.Replace("@direcnegocio", oDatos.Direccion);
+
+                textoHtml = textoHtml.Replace("@fechaInicio", txtFechaInicio.Value.ToString("dd/MM/yyyy"));
+                textoHtml = textoHtml.Replace("@fechaFin", txtFechaFin.Value.ToString("dd/MM/yyyy"));
+                textoHtml = textoHtml.Replace("@totalVentas", txtTotalVentaProcedimiento.Text);
+                textoHtml = textoHtml.Replace("@montoTotal", txtMontoTotalGeneral.Text);
+
+                // Guardar el PDF en una ruta temporal
+                string rutaCompleta = Path.Combine(Path.GetTempPath(), string.Format("Resumen_{0}.pdf", DateTime.Now.ToString("yyyyMMddHHmmss")));
+
+                using (FileStream stream = new FileStream(rutaCompleta, FileMode.Create))
+                {
+                    // Usamos un tamaño de papel de recibo estándar (80mm de ancho)
+                    var anchoRecibo = iTextSharp.text.Utilities.MillimetersToPoints(80);
+                    Document pdfDoc = new Document(new iTextSharpTextRectangle(0, 0, anchoRecibo, 842), 10, 10, 10, 10);
+
+                    PdfWriter writer = PdfWriter.GetInstance(pdfDoc, stream);
+                    pdfDoc.Open();
+
+                    using (StringReader sr = new StringReader(textoHtml))
+                    {
+                        XMLWorkerHelper.GetInstance().ParseXHtml(writer, pdfDoc, sr);
+                    }
+                    pdfDoc.Close();
+                }
+
+                // Imprimir el PDF recién creado sin diálogo
+                using (var document = PdfiumViewer.PdfDocument.Load(rutaCompleta))
+                {
+                    using (var printDocument = document.CreatePrintDocument())
+                    {
+                        printDocument.Print();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ocurrió un error al generar o imprimir el resumen:\n" + ex.Message, "Error de Impresión", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

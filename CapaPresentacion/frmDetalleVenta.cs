@@ -14,6 +14,7 @@ using CapaNegocio;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using iTextSharp.tool.xml;
+using PdfiumViewer;
 
 namespace CapaPresentacion
 {
@@ -112,18 +113,11 @@ namespace CapaPresentacion
             }
         }
 
-        private void btnDescargarExcel_Click(object sender, EventArgs e)
+        private void GenerarPdfVenta(string filePath)
         {
-            if (txtTipoDocumento.Text == "")
-            {
-                MessageBox.Show("No se encontraron resultados", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                return;
-            }
-
             string textoHtml = Properties.Resources.PlantillaVenta.ToString();
             Negocio oDatos = new CN_Negocio().ObtenerDatos();
 
-            //ACA REEMPLAZAMOS EL TEXTO DE LA PLANTILLA HTML CON INFO DEL FORMULARIO DE LA COMPRA
             textoHtml = textoHtml.Replace("@nombrenegocio", oDatos.Nombre.ToUpper());
             textoHtml = textoHtml.Replace("@docnegocio", oDatos.Rnc);
             textoHtml = textoHtml.Replace("@direcnegocio", oDatos.Direccion);
@@ -134,7 +128,6 @@ namespace CapaPresentacion
 
             textoHtml = textoHtml.Replace("@doccliente", txtNumDocumento.Text);
             textoHtml = textoHtml.Replace("@nombrecliente", txtNombreCliente.Text);
-            //textoHtml = textoHtml.Replace("@telefonoCliente", oVenta.oCliente.Telefono);
             textoHtml = textoHtml.Replace("@fecharegistro", txtFecha.Text);
             textoHtml = textoHtml.Replace("@usuarioregistro", txtUsuario.Text);
 
@@ -153,109 +146,55 @@ namespace CapaPresentacion
             textoHtml = textoHtml.Replace("@pagocon", txtMontoPago.Text);
             textoHtml = textoHtml.Replace("@cambio", txtMontoCambio.Text);
 
+            using (FileStream stream = new FileStream(filePath, FileMode.Create))
+            {
+                var anchoRecibo = 226.77f; // 80mm en puntos
+                Document pdfDoc = new Document(new iTextSharp.text.Rectangle(0, 0, anchoRecibo, 842), 10, 10, 10, 10);
+                PdfWriter writer = PdfWriter.GetInstance(pdfDoc, stream);
+                pdfDoc.Open();
+
+                bool obtenido = true;
+                byte[] byteImage = new CN_Negocio().ObtenerLogo(out obtenido);
+                if (obtenido)
+                {
+                    iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance(byteImage);
+                    img.ScaleToFit(40, 40);
+                    img.Alignment = Element.ALIGN_CENTER;
+                    pdfDoc.Add(img);
+                }
+
+                using (StringReader sr = new StringReader(textoHtml))
+                {
+                    XMLWorkerHelper.GetInstance().ParseXHtml(writer, pdfDoc, sr);
+                }
+                pdfDoc.Close();
+            }
+        }
+
+        private void btnDescargarExcel_Click(object sender, EventArgs e)
+        {
+            if (txtTipoDocumento.Text == "")
+            {
+                MessageBox.Show("No se encontraron resultados", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
             SaveFileDialog saveFile = new SaveFileDialog();
             saveFile.FileName = string.Format("Venta_{0}.pdf", txtNumeroDocumento.Text);
             saveFile.Filter = "Pdf Files|*.pdf";
 
             if (saveFile.ShowDialog() == DialogResult.OK)
             {
-                string filePath = saveFile.FileName; // Guardamos la ruta del archivo
-                using (FileStream stream = new FileStream(filePath, FileMode.Create))
-                {
-                    // Definimos solo el ancho del recibo y márgenes pequeños.
-                    var anchoRecibo = Utilities.MillimetersToPoints(80);
-                    Document pdfDoc = new Document(new iTextSharp.text.Rectangle(0, 0, anchoRecibo, 842), 10, 10, 10, 10);
-
-                    PdfWriter writer = PdfWriter.GetInstance(pdfDoc, stream); //creamos el pdf con el pdfwriter
-                    pdfDoc.Open();
-
-                    // --- INICIO: Cargar y registrar la fuente OCR-B ---
-                    string tempFontFile = null;
-                    try
-                    {
-                        // La ruta del recurso es "NombreDelProyecto.NombreDeLaCarpeta.NombreDelArchivo"
-                        string fontResourcePath = "CapaPresentacion.Resources.OCRB_Regular.ttf";
-                        using (Stream fontStream = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream(fontResourcePath))
-                        {
-                            if (fontStream != null)
-                            {
-                                byte[] fontBytes = new byte[fontStream.Length];
-                                fontStream.Read(fontBytes, 0, (int)fontStream.Length);
-
-                                // Crear un archivo temporal para la fuente
-                                tempFontFile = Path.GetTempFileName();
-                                File.WriteAllBytes(tempFontFile, fontBytes);
-
-                                // Registrar la fuente usando la ruta del archivo temporal
-                                FontFactory.Register(tempFontFile, "OCRB");
-                            }
-                            else
-                            {
-                                // Si no se encuentra la fuente, se usará una por defecto. Opcional: mostrar un mensaje.
-                                MessageBox.Show("Advertencia: No se pudo cargar la fuente OCR-B. Se usará una fuente por defecto.", "Fuente no encontrada", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            }
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Error al cargar la fuente: " + ex.Message, "Error de Fuente", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    // --- FIN: Cargar y registrar la fuente OCR-B ---
-
-                    bool obtenido = true;
-                    byte[] byteImage = new CN_Negocio().ObtenerLogo(out obtenido);
-
-                    if (obtenido)
-                    {
-                        iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance(byteImage);
-                        img.ScaleToFit(40, 40); // Ajustar tamaño del logo
-                        img.Alignment = Element.ALIGN_CENTER; // Centrar el logo
-                        pdfDoc.Add(img);
-                    }
-
-                    using (StringReader sr = new StringReader(textoHtml))
-                    {
-                        XMLWorkerHelper.GetInstance().ParseXHtml(writer, pdfDoc, sr);
-                    }
-                    pdfDoc.Close();
-                    stream.Close(); //cerramos pdf y archivo de memoria
-                    MessageBox.Show("Factura Generada", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                    // Limpiar el archivo temporal de la fuente después de usarlo
-                    if (tempFontFile != null && File.Exists(tempFontFile))
-                    {
-                        try
-                        {
-                            File.Delete(tempFontFile);
-                        }
-                        catch
-                        {
-                            // No hacer nada si no se puede borrar, es un archivo temporal.
-                        }
-                    }
-                }
-
-                // Iniciar el proceso de impresión directo con PdfiumViewer
                 try
                 {
-                    using (var document = PdfiumViewer.PdfDocument.Load(filePath))
-                    {
-                        using (var printDocument = document.CreatePrintDocument())
-                        {
-                            // Opcional: puedes especificar una impresora por su nombre
-                            // printDocument.PrinterSettings.PrinterName = "NombreDeTuImpresora";
-
-                            // Imprime en la impresora predeterminada del sistema
-                            printDocument.Print();
-                        }
-                    }
+                    GenerarPdfVenta(saveFile.FileName);
+                    MessageBox.Show("Factura Generada", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("No se pudo imprimir el documento. Error: " + ex.Message, "Error de Impresión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Error al generar el PDF: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-
         }
 
         private void txtBusqueda_KeyDown(object sender, KeyEventArgs e)
@@ -263,6 +202,48 @@ namespace CapaPresentacion
             if (e.KeyCode == Keys.Enter)
             {
                 btnBuscar_Click(sender, e);
+            }
+        }
+
+        private void btnImprimir_Click(object sender, EventArgs e)
+        {
+            if (txtTipoDocumento.Text == "")
+            {
+                MessageBox.Show("No se encontraron resultados para imprimir", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            string tempFilePath = Path.GetTempFileName() + ".pdf";
+
+            try
+            {
+                GenerarPdfVenta(tempFilePath);
+
+                using (var document = PdfiumViewer.PdfDocument.Load(tempFilePath))
+                {
+                    using (var printDocument = document.CreatePrintDocument())
+                    {
+                        printDocument.Print();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("No se pudo imprimir el documento. Error: " + ex.Message, "Error de Impresión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                if (File.Exists(tempFilePath))
+                {
+                    try
+                    {
+                        File.Delete(tempFilePath);
+                    }
+                    catch
+                    {
+                        // No es crítico si no se puede borrar
+                    }
+                }
             }
         }
     }  

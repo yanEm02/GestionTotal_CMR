@@ -95,15 +95,12 @@ namespace CapaPresentacion
             string mensaje = string.Empty;
             OpcionCombo sexoSeleccionado = (OpcionCombo)cmbSexo.SelectedItem;
 
-            int edad;
-            int.TryParse(txtEdad.Text, out edad); // Si falla, edad será 0
-
             Cliente obj = new Cliente()
             {
                 IdCliente = Convert.ToInt32(txtid.Text),
                 Documento = txtDocumento.Text,
                 Nombre = txtNombreCompleto.Text,
-                Edad = edad,
+                Edad = txtEdad.Text,
                 Sexo = sexoSeleccionado.Texto,
                 Direccion = txtDireccion.Text,
                 Telefono = txtTelefono.Text,
@@ -189,7 +186,7 @@ namespace CapaPresentacion
                     txtEdad.Text = dgvData.Rows[indice].Cells["Edad"].Value.ToString();
                     cmbSexo.SelectedIndex = cmbSexo.FindStringExact(dgvData.Rows[indice].Cells["Sexo"].Value.ToString());
                     txtDireccion.Text = dgvData.Rows[indice].Cells["Direccion"].Value.ToString();
-                    txtTelefono.Text = dgvData.Rows[indice].Cells["telefono"].Value.ToString();
+                    txtTelefono.Text = dgvData.Rows[indice].Cells["Telefono"].Value.ToString();
 
                     foreach (OpcionCombo oc in cboEstado.Items)
                     {
@@ -280,21 +277,23 @@ namespace CapaPresentacion
 
         private void txtEdad_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            if ((sender as TextBox).Text.Length >= 15 && !char.IsControl(e.KeyChar))
             {
-                e.Handled = true;
+                e.Handled = true; // Cancela la acción para no exceder el límite
             }
         }
 
         private void txtTelefono_KeyPress(object sender, KeyPressEventArgs e)
         {
+            // Si la tecla presionada no es una tecla de control (como retroceso) Y no es un dígito
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
-                e.Handled = true;
+                e.Handled = true; // Cancela la acción
             }
-            if ((sender as TextBox).Text.Length >= 10)
+            // Si la longitud del texto es 14 o más Y la tecla presionada no es de control
+            else if ((sender as TextBox).Text.Length >= 14 && !char.IsControl(e.KeyChar))
             {
-                e.Handled = true;
+                e.Handled = true; // Cancela la acción para no exceder el límite
             }
         }
 
@@ -305,5 +304,6 @@ namespace CapaPresentacion
                 e.Handled = true;
             }
         }
+
     }
 }

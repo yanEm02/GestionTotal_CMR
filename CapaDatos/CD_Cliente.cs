@@ -40,7 +40,7 @@ namespace CapaDatos
                                 IdCliente = Convert.ToInt32(dr["Id_Cliente"]),
                                 Documento = dr["Documento"].ToString(),
                                 Nombre = dr["NombreCompleto"].ToString(),
-                                Edad = dr["Edad"] != DBNull.Value ? Convert.ToInt32(dr["Edad"]) : 0, // Default to 0 if NULL
+                                Edad = dr["Edad"].ToString(), 
                                 Sexo = dr["Sexo"].ToString(),
                                 Direccion = dr["Direccion"].ToString(),
                                 Telefono = dr["telefono"].ToString(),
@@ -117,7 +117,7 @@ namespace CapaDatos
                     cmd.Parameters.AddWithValue("Direccion", obj.Direccion);
                     cmd.Parameters.AddWithValue("Telefono", obj.Telefono);
                     cmd.Parameters.AddWithValue("estado", obj.Estado);
-                    cmd.Parameters.Add("Resultado", SqlDbType.Int).Direction = ParameterDirection.Output;
+                    cmd.Parameters.Add("Resultado", SqlDbType.Bit).Direction = ParameterDirection.Output;
                     cmd.Parameters.Add("mensaje", SqlDbType.VarChar, 500).Direction = ParameterDirection.Output;
                     cmd.CommandType = CommandType.StoredProcedure; //para declararr el tipo de comando ya que es un proc almacenado
 

@@ -18,6 +18,8 @@ namespace CapaPresentacion
     public partial class frmVentas : Form
     {
         private Usuario _usuario;
+        private Cliente clienteSeleccionado; // para almacenar el objeto del cliente completo
+
         public frmVentas(Usuario oUsuario = null)
         {
             _usuario = oUsuario;
@@ -38,6 +40,22 @@ namespace CapaPresentacion
             txtPagaCon.Text = "";
             txtCambio.Text = "";
             txtIdProducto.Text = "0";
+
+            CargarNombresClientes();
+        }
+
+        private void CargarNombresClientes()
+        {
+            var listaClientes = new CN_Cliente().Listar().Where(c => c.Estado).ToList();
+            AutoCompleteStringCollection source = new AutoCompleteStringCollection();
+            foreach (var cliente in listaClientes)
+            {
+                source.Add(cliente.Nombre);
+            }
+
+            txtDocumentoCliente.AutoCompleteCustomSource = source;
+            txtDocumentoCliente.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            txtDocumentoCliente.AutoCompleteSource = AutoCompleteSource.CustomSource;
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
@@ -297,6 +315,7 @@ namespace CapaPresentacion
             if (e.KeyData == Keys.Enter)
             {
                 calcularCambio();
+                e.SuppressKeyPress = true;
             }
         }
 
@@ -369,11 +388,7 @@ namespace CapaPresentacion
 
             if (respuesta)
             {
-                var result = MessageBox.Show("Numero de venta generada:\n" + numeroDocumento + "\n\nDesea copiar al portapapeles?", "Mensaje", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-                if (result == DialogResult.Yes)
-                {
-                    Clipboard.SetText(numeroDocumento);
-                }
+                var result = MessageBox.Show("Numero de venta generada:\n" + numeroDocumento, "Mensaje", MessageBoxButtons.OK);
 
                 // ***** INICIO: NUEVA LLAMADA *****
                 // Llamamos a la función para generar e imprimir la factura
@@ -488,6 +503,31 @@ namespace CapaPresentacion
                 // Es importante notificar si algo falla en la impresión/generación del PDF
                 MessageBox.Show("La venta fue registrada, pero ocurrió un error al generar o imprimir la factura:\n" + ex.Message, "Error de Facturación", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void txtDocumentoCliente_KeyDown(object sender, KeyEventArgs e)
+        {
+            // Busca el cliente por NOMBRE en la lista obtenida de la base de datos
+            Cliente oCliente = new CN_Cliente().Listar()
+                .FirstOrDefault(c => c.Nombre.Equals(txtDocumentoCliente.Text, StringComparison.OrdinalIgnoreCase) && c.Estado == true);
+
+            if (oCliente != null)
+            {
+                // Si se encuentra, almacena el objeto y rellena los campos
+                clienteSeleccionado = oCliente;
+                txtDocumentoCliente.Text = oCliente.Documento;
+                txtNombre.Text = oCliente.Nombre;
+                txtProducto.Select(); // Mueve el foco al siguiente campo
+            }
+            else
+            {
+                // Si no se encuentra, informa al usuario
+                MessageBox.Show("Cliente no encontrado o inactivo.", "No encontrado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                clienteSeleccionado = null;
+                txtNombre.Text = "";
+                txtDocumentoCliente.SelectAll();
+            }
+            e.SuppressKeyPress = true; // Evita el sonido de "ding"
         }
     }
 }

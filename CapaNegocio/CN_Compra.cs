@@ -41,5 +41,15 @@ namespace CapaNegocio
         {
             return objcd_Compra.EliminarCompra(numeroDocumento, out Mensaje);
         }
+
+        public bool RegistrarPago(HistorialPagoCompra obj, out string Mensaje)
+        {
+            return objcd_Compra.RegistrarPago(obj, out Mensaje);
+        }
+
+        public List<HistorialPagoCompra> ObtenerHistorialPagos(int idCompra)
+        {
+            return objcd_Compra.ObtenerHistorialPagos(idCompra);
+        }
     }
 }

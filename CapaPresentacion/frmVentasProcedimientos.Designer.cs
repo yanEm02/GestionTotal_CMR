@@ -186,6 +186,7 @@
             this.txtPagaCon.Size = new System.Drawing.Size(141, 30);
             this.txtPagaCon.TabIndex = 57;
             this.txtPagaCon.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtPagaCon_KeyDown_1);
+            this.txtPagaCon.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPagaCon_KeyPress);
             // 
             // txtCambio
             // 
@@ -255,7 +256,7 @@
             this.btnCrearVenta.Location = new System.Drawing.Point(1016, 646);
             this.btnCrearVenta.Margin = new System.Windows.Forms.Padding(4);
             this.btnCrearVenta.Name = "btnCrearVenta";
-            this.btnCrearVenta.Size = new System.Drawing.Size(158, 65);
+            this.btnCrearVenta.Size = new System.Drawing.Size(172, 65);
             this.btnCrearVenta.TabIndex = 58;
             this.btnCrearVenta.Text = "Registrar";
             this.btnCrearVenta.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
@@ -384,6 +385,7 @@
             this.chkBoxAsegurado.Size = new System.Drawing.Size(40, 30);
             this.chkBoxAsegurado.TabIndex = 30;
             this.chkBoxAsegurado.UseVisualStyleBackColor = true;
+            this.chkBoxAsegurado.CheckedChanged += new System.EventHandler(this.chkBoxAsegurado_CheckedChanged);
             // 
             // label9
             // 
@@ -435,12 +437,12 @@
             this.label5.BackColor = System.Drawing.Color.White;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label5.Location = new System.Drawing.Point(5, 23);
+            this.label5.Location = new System.Drawing.Point(5, 25);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(159, 20);
+            this.label5.Size = new System.Drawing.Size(120, 20);
             this.label5.TabIndex = 25;
-            this.label5.Text = "Numero Documento";
+            this.label5.Text = "Buscar Cliente";
             // 
             // label6
             // 
@@ -464,6 +466,7 @@
             this.txtDocumentoCliente.Name = "txtDocumentoCliente";
             this.txtDocumentoCliente.Size = new System.Drawing.Size(178, 30);
             this.txtDocumentoCliente.TabIndex = 25;
+            this.txtDocumentoCliente.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtDocumentoCliente_KeyDown);
             // 
             // groupBox3
             // 
@@ -576,6 +579,7 @@
             this.txtCodigo.Name = "txtCodigo";
             this.txtCodigo.Size = new System.Drawing.Size(133, 30);
             this.txtCodigo.TabIndex = 25;
+            this.txtCodigo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCodigo_KeyDown_1);
             // 
             // label14
             // 

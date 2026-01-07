@@ -52,6 +52,7 @@
             this.menuAcercaDe = new FontAwesome.Sharp.IconMenuItem();
             this.contenedor = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.productosGastablesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menu.SuspendLayout();
             this.contenedor.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -98,14 +99,14 @@
             // registrarToolStripMenuItem
             // 
             this.registrarToolStripMenuItem.Name = "registrarToolStripMenuItem";
-            this.registrarToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.registrarToolStripMenuItem.Size = new System.Drawing.Size(165, 26);
             this.registrarToolStripMenuItem.Text = "Registrar";
             this.registrarToolStripMenuItem.Click += new System.EventHandler(this.registrarToolStripMenuItem_Click);
             // 
             // verDetalleToolStripMenuItem
             // 
             this.verDetalleToolStripMenuItem.Name = "verDetalleToolStripMenuItem";
-            this.verDetalleToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.verDetalleToolStripMenuItem.Size = new System.Drawing.Size(165, 26);
             this.verDetalleToolStripMenuItem.Text = "Ver Detalle";
             this.verDetalleToolStripMenuItem.Click += new System.EventHandler(this.verDetalleToolStripMenuItem_Click);
             // 
@@ -196,8 +197,9 @@
             // menuInventario
             // 
             this.menuInventario.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.subMenuCategoria,
-            this.procedimientoToolStripMenuItem});
+            this.procedimientoToolStripMenuItem,
+            this.productosGastablesToolStripMenuItem,
+            this.subMenuCategoria});
             this.menuInventario.IconChar = FontAwesome.Sharp.IconChar.BoxesPacking;
             this.menuInventario.IconColor = System.Drawing.Color.Black;
             this.menuInventario.IconFont = FontAwesome.Sharp.IconFont.Auto;
@@ -212,15 +214,15 @@
             // subMenuCategoria
             // 
             this.subMenuCategoria.Name = "subMenuCategoria";
-            this.subMenuCategoria.Size = new System.Drawing.Size(189, 26);
+            this.subMenuCategoria.Size = new System.Drawing.Size(226, 26);
             this.subMenuCategoria.Text = "Categoria";
             this.subMenuCategoria.Click += new System.EventHandler(this.categoriaToolStripMenuItem_Click);
             // 
             // procedimientoToolStripMenuItem
             // 
             this.procedimientoToolStripMenuItem.Name = "procedimientoToolStripMenuItem";
-            this.procedimientoToolStripMenuItem.Size = new System.Drawing.Size(189, 26);
-            this.procedimientoToolStripMenuItem.Text = "Procedimiento";
+            this.procedimientoToolStripMenuItem.Size = new System.Drawing.Size(226, 26);
+            this.procedimientoToolStripMenuItem.Text = "Procedimientos";
             this.procedimientoToolStripMenuItem.Click += new System.EventHandler(this.procedimientoToolStripMenuItem_Click);
             // 
             // menuReporte
@@ -312,6 +314,9 @@
             // 
             // pictureBox1
             // 
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox1.Image = global::CapaPresentacion.Properties.Resources.LogoCMR;
             this.pictureBox1.Location = new System.Drawing.Point(329, 137);
             this.pictureBox1.Name = "pictureBox1";
@@ -319,6 +324,13 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
+            // 
+            // productosGastablesToolStripMenuItem
+            // 
+            this.productosGastablesToolStripMenuItem.Name = "productosGastablesToolStripMenuItem";
+            this.productosGastablesToolStripMenuItem.Size = new System.Drawing.Size(226, 26);
+            this.productosGastablesToolStripMenuItem.Text = "Productos Gastables";
+            this.productosGastablesToolStripMenuItem.Click += new System.EventHandler(this.productosGastablesToolStripMenuItem_Click);
             // 
             // Inicio
             // 
@@ -368,6 +380,7 @@
         private System.Windows.Forms.ToolStripMenuItem reportePToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem procedimientoToolStripMenuItem;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.ToolStripMenuItem productosGastablesToolStripMenuItem;
     }
 }
 

@@ -34,23 +34,26 @@ namespace CapaPresentacion.Sub_Forms
 
             foreach (DataGridViewColumn columna in dgvData.Columns)
             {
-                
-                cboBusqueda.Items.Add(new OpcionCombo() { Valor = columna.Name, Texto = columna.HeaderText });
-                
+                // Evitar que la columna oculta aparezca en el ComboBox de búsqueda
+                if (columna.Visible)
+                {
+                    cboBusqueda.Items.Add(new OpcionCombo() { Valor = columna.Name, Texto = columna.HeaderText });
+                }
             }
 
             cboBusqueda.DisplayMember = "Texto";
             cboBusqueda.ValueMember = "Valor";
             cboBusqueda.SelectedIndex = 0;
 
-            // Carga la lista de clientes en el campo de la clase
-            listaClientes = new CN_Cliente().Listar();
+            // Carga la lista de clientes y la ordena por IdCliente descendente para mostrar los más nuevos primero
+            listaClientes = new CN_Cliente().Listar().OrderByDescending(c => c.IdCliente).ToList();
 
             // Itera sobre la lista para poblar el DataGridView
             foreach (Cliente item in listaClientes)
             {
                 if(item.Estado)
-                    dgvData.Rows.Add(new object[] {item.Documento, item.Nombre, item.Edad, item.Sexo, item.Telefono });
+                    // Añadimos el IdCliente en la primera columna (oculta)
+                    dgvData.Rows.Add(new object[] {item.IdCliente, item.Documento, item.Nombre, item.Edad, item.Sexo, item.Telefono });
             }
         }
 
@@ -61,11 +64,11 @@ namespace CapaPresentacion.Sub_Forms
 
             if(iRow >= 0 && iColumn >= 0)
             {
-                // Obtiene el número de documento de la fila seleccionada
-                string documentoSeleccionado = dgvData.Rows[iRow].Cells["Documento"].Value.ToString();
+                // Obtiene el ID del cliente desde la columna oculta (índice 0).
+                int idClienteSeleccionado = Convert.ToInt32(dgvData.Rows[iRow].Cells["IdCliente"].Value);
 
-                // Busca el cliente completo en la lista por su documento
-                _Cliente = listaClientes.FirstOrDefault(c => c.Documento == documentoSeleccionado);
+                // Busca el cliente completo en la lista por su ID único.
+                _Cliente = listaClientes.FirstOrDefault(c => c.IdCliente == idClienteSeleccionado);
 
                 // Cierra el formulario si se encontró el cliente
                 if (_Cliente != null)
@@ -113,13 +116,12 @@ namespace CapaPresentacion.Sub_Forms
             string mensaje = string.Empty;
             OpcionCombo sexoSeleccionado = (OpcionCombo)cmbSexo.SelectedItem;
 
-
             Cliente obj = new Cliente()
             {
                 IdCliente = Convert.ToInt32(txtid.Text),
                 Documento = txtDocumento.Text,
                 Nombre = txtNombreCompleto.Text,
-                Edad = Convert.ToInt32(txtEdad.Text),
+                Edad = txtEdad.Text,
                 Sexo = sexoSeleccionado.Texto,
                 Direccion = txtDireccion.Text,
                 Telefono = txtTelefono.Text,
@@ -130,13 +132,16 @@ namespace CapaPresentacion.Sub_Forms
 
             if (idGenerado != 0)
             {
-                // Asignar el ID generado al objeto y agregarlo a la lista
+                // Asignar el ID generado al objeto y agregarlo al inicio de la lista
                 obj.IdCliente = idGenerado;
-                listaClientes.Add(obj);
+                listaClientes.Insert(0, obj);
 
-                //aqui agremos lo que este en el textbox del formulario para agregarse a la data grid view
-                dgvData.Rows.Add(new object[] {txtDocumento.Text, txtNombreCompleto.Text, txtEdad.Text,
-                    //((OpcionCombo)cmbSexo.SelectedItem).Valor.ToString(),
+                // Insertamos la nueva fila al principio del DataGridView (índice 0)
+                dgvData.Rows.Insert(0, new object[] {
+                    idGenerado, // Añadimos el nuevo ID a la columna oculta
+                    txtDocumento.Text,
+                    txtNombreCompleto.Text,
+                    txtEdad.Text,
                     ((OpcionCombo)cmbSexo.SelectedItem).Texto.ToString(),
                     txtTelefono.Text,
                     });
@@ -147,9 +152,6 @@ namespace CapaPresentacion.Sub_Forms
             {
                 MessageBox.Show(mensaje);
             }
-
-
-       
         }
 
         private void Limpiar()
@@ -176,11 +178,40 @@ namespace CapaPresentacion.Sub_Forms
 
         private void txtEdad_KeyPress(object sender, KeyPressEventArgs e)
         {
-            // Permite solo números y teclas de control (como retroceso)
+            if ((sender as TextBox).Text.Length >= 15 && !char.IsControl(e.KeyChar))
+            {
+                e.Handled = true; // Cancela la acción para no exceder el límite
+            }
+        }
+
+        private void txtTelefono_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Si la tecla presionada no es una tecla de control (como retroceso) Y no es un dígito
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
+                e.Handled = true; // Cancela la acción
+            }
+            // Si la longitud del texto es 14 o más Y la tecla presionada no es de control
+            else if ((sender as TextBox).Text.Length >= 14 && !char.IsControl(e.KeyChar))
+            {
+                e.Handled = true; // Cancela la acción para no exceder el límite
+            }
+        }
+
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            Limpiar();
+        }
+
+        private void txtBusqueda_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                btnBuscar.PerformClick();
+                // Evita que el sonido de "ding" de Windows suene al presionar Enter
                 e.Handled = true;
             }
+
         }
     }
 }

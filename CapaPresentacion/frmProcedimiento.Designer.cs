@@ -83,10 +83,10 @@
             this.btnExportar.IconColor = System.Drawing.Color.Green;
             this.btnExportar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnExportar.IconSize = 16;
-            this.btnExportar.Location = new System.Drawing.Point(1001, 620);
+            this.btnExportar.Location = new System.Drawing.Point(1020, 620);
             this.btnExportar.Margin = new System.Windows.Forms.Padding(4);
             this.btnExportar.Name = "btnExportar";
-            this.btnExportar.Size = new System.Drawing.Size(184, 31);
+            this.btnExportar.Size = new System.Drawing.Size(184, 41);
             this.btnExportar.TabIndex = 86;
             this.btnExportar.Text = "Descargar Excel";
             this.btnExportar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -105,7 +105,7 @@
             this.btnLimpiarBuscador.IconColor = System.Drawing.Color.Black;
             this.btnLimpiarBuscador.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnLimpiarBuscador.IconSize = 16;
-            this.btnLimpiarBuscador.Location = new System.Drawing.Point(1132, 20);
+            this.btnLimpiarBuscador.Location = new System.Drawing.Point(1151, 20);
             this.btnLimpiarBuscador.Margin = new System.Windows.Forms.Padding(4);
             this.btnLimpiarBuscador.Name = "btnLimpiarBuscador";
             this.btnLimpiarBuscador.Size = new System.Drawing.Size(43, 31);
@@ -125,7 +125,7 @@
             this.btnBuscar.IconColor = System.Drawing.Color.Black;
             this.btnBuscar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnBuscar.IconSize = 16;
-            this.btnBuscar.Location = new System.Drawing.Point(1079, 20);
+            this.btnBuscar.Location = new System.Drawing.Point(1098, 20);
             this.btnBuscar.Margin = new System.Windows.Forms.Padding(4);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(45, 31);
@@ -288,7 +288,7 @@
             this.label2.Location = new System.Drawing.Point(0, 0);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(247, 658);
+            this.label2.Size = new System.Drawing.Size(272, 668);
             this.label2.TabIndex = 62;
             // 
             // label1
@@ -314,7 +314,7 @@
             // txtBusqueda
             // 
             this.txtBusqueda.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBusqueda.Location = new System.Drawing.Point(882, 26);
+            this.txtBusqueda.Location = new System.Drawing.Point(901, 26);
             this.txtBusqueda.Margin = new System.Windows.Forms.Padding(4);
             this.txtBusqueda.Name = "txtBusqueda";
             this.txtBusqueda.Size = new System.Drawing.Size(167, 22);
@@ -324,7 +324,7 @@
             // 
             this.cboBusqueda.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboBusqueda.FormattingEnabled = true;
-            this.cboBusqueda.Location = new System.Drawing.Point(736, 24);
+            this.cboBusqueda.Location = new System.Drawing.Point(755, 24);
             this.cboBusqueda.Margin = new System.Windows.Forms.Padding(4);
             this.cboBusqueda.Name = "cboBusqueda";
             this.cboBusqueda.Size = new System.Drawing.Size(138, 24);
@@ -335,7 +335,7 @@
             this.label8.AutoSize = true;
             this.label8.BackColor = System.Drawing.Color.YellowGreen;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(629, 28);
+            this.label8.Location = new System.Drawing.Point(648, 28);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(99, 20);
@@ -357,7 +357,7 @@
             this.label7.BackColor = System.Drawing.Color.YellowGreen;
             this.label7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(261, 6);
+            this.label7.Location = new System.Drawing.Point(280, 6);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(924, 59);
@@ -391,7 +391,7 @@
             this.PrecioVentaAsegurado,
             this.EstadoValor,
             this.Estado});
-            this.dgvData.Location = new System.Drawing.Point(261, 69);
+            this.dgvData.Location = new System.Drawing.Point(280, 69);
             this.dgvData.Margin = new System.Windows.Forms.Padding(4);
             this.dgvData.MultiSelect = false;
             this.dgvData.Name = "dgvData";
@@ -564,7 +564,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1194, 658);
+            this.ClientSize = new System.Drawing.Size(1213, 668);
             this.Controls.Add(this.iconButton1);
             this.Controls.Add(this.txtPrecioVentaAsegurado);
             this.Controls.Add(this.label4);

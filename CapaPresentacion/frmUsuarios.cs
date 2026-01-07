@@ -22,8 +22,6 @@ namespace CapaPresentacion
         //cargamos le formulario
         private void frmUsuarios_Load(object sender, System.EventArgs e)
         {
-
-
             //COMBOBOX DE ESTADO
             //agregamos los items del combobox para desplegarlos, usando la clase dentro de utilidades, usamos clases y objetos 
             cboEstado.Items.Add(new OpcionCombo() { Valor = 1 , Texto = "Activo" });
@@ -216,7 +214,6 @@ namespace CapaPresentacion
             txtid.Text = "0";
             txtDocumento.Text = "";
             txtCorreo.Text = "";
-            txtConfirmarClave.Text = "";
             txtClave.Text = "";
             txtNombreCompleto.Text = "";
             cboRol.SelectedIndex = 0;
@@ -261,7 +258,6 @@ namespace CapaPresentacion
                     txtNombreCompleto.Text = dgvData.Rows[indice].Cells["NombreCompleto"].Value.ToString();
                     txtCorreo.Text = dgvData.Rows[indice].Cells["Correo"].Value.ToString();
                     txtClave.Text = dgvData.Rows[indice].Cells["Clave"].Value.ToString();
-                    txtConfirmarClave.Text = dgvData.Rows[indice].Cells["Clave"].Value.ToString();
 
                     //agreagamos los combobox
                     foreach(OpcionCombo oc in cboRol.Items)

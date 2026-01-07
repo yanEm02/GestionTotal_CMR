@@ -57,6 +57,7 @@
             this.label9 = new System.Windows.Forms.Label();
             this.txtTotalVentaProcedimiento = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
+            this.btnImprimirResumen = new FontAwesome.Sharp.IconButton();
             ((System.ComponentModel.ISupportInitialize)(this.dgvData)).BeginInit();
             this.SuspendLayout();
             // 
@@ -393,12 +394,31 @@
             this.label8.TabIndex = 43;
             this.label8.Text = "Total Numero de Ventas: \r\n";
             // 
+            // btnImprimirResumen
+            // 
+            this.btnImprimirResumen.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnImprimirResumen.IconChar = FontAwesome.Sharp.IconChar.Print;
+            this.btnImprimirResumen.IconColor = System.Drawing.Color.Black;
+            this.btnImprimirResumen.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnImprimirResumen.IconSize = 19;
+            this.btnImprimirResumen.Location = new System.Drawing.Point(1302, 660);
+            this.btnImprimirResumen.Margin = new System.Windows.Forms.Padding(4);
+            this.btnImprimirResumen.Name = "btnImprimirResumen";
+            this.btnImprimirResumen.Size = new System.Drawing.Size(226, 39);
+            this.btnImprimirResumen.TabIndex = 47;
+            this.btnImprimirResumen.Text = "Imprimir Resumen";
+            this.btnImprimirResumen.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnImprimirResumen.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnImprimirResumen.UseVisualStyleBackColor = true;
+            this.btnImprimirResumen.Click += new System.EventHandler(this.btnImprimirResumen_Click);
+            // 
             // frmReporteProcedimiento
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.ClientSize = new System.Drawing.Size(1541, 724);
+            this.Controls.Add(this.btnImprimirResumen);
             this.Controls.Add(this.txtMontoTotalGeneral);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.txtTotalVentaProcedimiento);
@@ -458,5 +478,6 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox txtTotalVentaProcedimiento;
         private System.Windows.Forms.Label label8;
+        private FontAwesome.Sharp.IconButton btnImprimirResumen;
     }
 }

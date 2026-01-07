@@ -5,6 +5,7 @@ using CapaPresentacion.Sub_Forms;
 using CapaPresentacion.Utilidades;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
+using PdfiumViewer;
 using System;
 using System.Data;
 using System.Drawing;
@@ -28,17 +29,27 @@ namespace CapaPresentacion
 
         private void frmCompras_Load(object sender, System.EventArgs e)
         {
-            cmbTipoDocumento.Items.Add(new OpcionCombo() { Valor = "Efectivo", Texto = "Efectivo" });
-            cmbTipoDocumento.Items.Add(new OpcionCombo() { Valor = "Tarjeta", Texto = "Tarjeta" });
-            cmbTipoDocumento.Items.Add(new OpcionCombo() { Valor = "Transferencia", Texto = "Transferencia" });
+            cmbTipoDocumento.Items.Add(new OpcionCombo() { Valor = "Contado", Texto = "Contado" });
+            cmbTipoDocumento.Items.Add(new OpcionCombo() { Valor = "Credito", Texto = "Credito" });
             cmbTipoDocumento.DisplayMember = "Texto";
             cmbTipoDocumento.ValueMember = "Valor";
             cmbTipoDocumento.SelectedIndex = 0;
+
+            cmbTipoPago.Items.Add(new OpcionCombo() { Valor = "Efectivo", Texto = "Efectivo" });
+            cmbTipoPago.Items.Add(new OpcionCombo() { Valor = "Tarjeta", Texto = "Tarjeta" });
+            cmbTipoPago.Items.Add(new OpcionCombo() { Valor = "Transferencia", Texto = "Transferencia" });
+            cmbTipoPago.DisplayMember = "Texto";
+            cmbTipoPago.ValueMember = "Valor";
+            cmbTipoPago.SelectedIndex = 0;
+
 
             txtFecha.Text = DateTime.Now.ToString("dd/MM/yyyy");
 
             txtIdProveedor.Text = "0";
             txtIdProducto.Text = "0";
+
+            // Ocultar campos de crédito por defecto
+            ActualizarVisibilidadCamposCredito();
         }
 
         //aca agarramos el provvedor una vez seleccionado a traves del sub formularioo 
@@ -72,7 +83,7 @@ namespace CapaPresentacion
                     txtIdProducto.Text = subForm._producto.IdProducto.ToString();
                     txtCodProducto.Text = subForm._producto.Codigo;
                     txtProducto.Text = subForm._producto.Nombre;
-                    txtPrecioCompra.Select(); 
+                    txtPrecioCompra.Select();
                 }
                 else
                 {
@@ -269,6 +280,23 @@ namespace CapaPresentacion
             }
         }
 
+        private void cmbTipoDocumento_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ActualizarVisibilidadCamposCredito();
+        }
+
+        private void ActualizarVisibilidadCamposCredito()
+        {
+            bool esCredito = ((OpcionCombo)cmbTipoDocumento.SelectedItem).Texto == "Credito";
+
+            label13.Visible = esCredito;
+            txtFechaLimitePago.Visible = esCredito;
+            label12.Visible = esCredito;
+            txtMontoPago.Visible = esCredito;
+            label14.Visible = esCredito;
+            cmbTipoPago.Visible = esCredito;
+        }
+
 
         //configuramos el boton de registrar 
         private void iconButton2_Click(object sender, EventArgs e)
@@ -290,7 +318,7 @@ namespace CapaPresentacion
                 MessageBox.Show("El monto total debe ser un número válido.", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            
+
 
             DataTable detalle_compra = new DataTable(); //creamos el data table
 
@@ -318,13 +346,44 @@ namespace CapaPresentacion
             int idCorrelativo = new CN_Compra().ObtenerCorrelativo(); //generamos el numero de compra aleatorio
             string numeroDocumento = string.Format("{0:00000}", idCorrelativo);
 
+            string tipoDocumentoSeleccionado = ((OpcionCombo)cmbTipoDocumento.SelectedItem).Texto;
+            decimal montoPagoInicial = 0;
+            decimal montoPendiente = 0;
+            string fechaLimite = null;
+
+            if (tipoDocumentoSeleccionado == "Credito")
+            {
+                if (!string.IsNullOrWhiteSpace(txtMontoPago.Text) && !decimal.TryParse(txtMontoPago.Text, NumberStyles.Currency, CultureInfo.CurrentCulture, out montoPagoInicial))
+                {
+                    MessageBox.Show("El monto de pago inicial no es válido.", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                if (montoPagoInicial > montoTotal)
+                {
+                    MessageBox.Show("El pago inicial no puede ser mayor al monto total.", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+               // montoPendiente = montoTotal - montoPagoInicial;
+                fechaLimite = txtFechaLimitePago.Value.ToString("yyyy-MM-dd");
+            }
+            else // Si es "Contado"
+            {
+                montoPendiente = 0; // En Contado, no hay monto pendiente
+                fechaLimite = null; // No hay fecha límite
+            }
+
+
             Compra oCompra = new Compra()
             {
                 oUsuario = new Usuario() { IdUsuario = _usuario.IdUsuario },
                 oProveedor = new Proveedor() { IdProveedor = Convert.ToInt32(txtIdProveedor.Text) },
-                TipoDocumento = ((OpcionCombo)cmbTipoDocumento.SelectedItem).Texto,
+                TipoDocumento = tipoDocumentoSeleccionado,
                 NumeroDocumento = numeroDocumento,
                 MontoTotal = montoTotal,
+                MontoPendiente = montoTotal,
+                FechaLimite = fechaLimite
             };
 
             string mensaje = string.Empty;
@@ -332,19 +391,41 @@ namespace CapaPresentacion
 
             if (respuesta)
             {
+                // Si es a crédito y hubo un pago inicial, registrarlo en el historial
+                if (tipoDocumentoSeleccionado == "Credito" && montoPagoInicial > 0)
+                {
+                    // Obtenemos la compra recién creada para tener su ID
+                    Compra compraRegistrada = new CN_Compra().ObtenerCompra(numeroDocumento);
+                    if (compraRegistrada.IdCompra != 0)
+                    {
+                        HistorialPagoCompra primerPago = new HistorialPagoCompra()
+                        {
+                            oCompra = new Compra() { IdCompra = compraRegistrada.IdCompra },
+                            Cantidad = montoPagoInicial,
+                            TipoPago = ((OpcionCombo)cmbTipoPago.SelectedItem).Texto
+                        };
+                        bool pagoExitoso = new CN_Compra().RegistrarPago(primerPago, out string msgPago);
+                        if (!pagoExitoso)
+                        {
+                            MessageBox.Show("Advertencia: La compra fue registrada, pero no se pudo registrar el pago inicial.\n" + msgPago, "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                    }
+                }
+
                 var result = MessageBox.Show("Numero de compra generada:\n" + numeroDocumento + "\n\nDesea copiar al portapapeles?", "Mensaje", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                 if (result == DialogResult.Yes)
                 {
                     Clipboard.SetText(numeroDocumento);
                 }
 
-                //GenerarEImprimirRecibo(oCompra, detalle_compra);
+                GenerarYGuardarFactura(oCompra, detalle_compra);
 
                 txtIdProveedor.Text = "0";
                 txtDocumentoProveedor.Text = "";
                 txtNombre.Text = "";
                 dgvData.Rows.Clear();
                 CalcularTotal();
+                txtMontoPago.Text = "";
             }
             else
             {
@@ -353,18 +434,17 @@ namespace CapaPresentacion
             }
         }
 
-        private void GenerarEImprimirRecibo(Compra oCompra, DataTable detalleCompra)
+        private void GenerarYGuardarFactura(Compra oCompra, DataTable detalleCompra)
         {
             try
             {
-                string textoHtml = Properties.Resources.PlantillaCompra.ToString();
+                string textoHtml = Properties.Resources.PlantillaCompraHojaNormal.ToString();
                 Negocio oDatos = new CN_Negocio().ObtenerDatos();
 
                 // Rellenar la plantilla con los datos del negocio y de la compra
                 textoHtml = textoHtml.Replace("@nombrenegocio", oDatos.Nombre.ToUpper());
                 textoHtml = textoHtml.Replace("@docnegocio", oDatos.Rnc);
                 textoHtml = textoHtml.Replace("@direcnegocio", oDatos.Direccion);
-                textoHtml = textoHtml.Replace("@telefonoEmpresa", oDatos.Telefono);
 
                 textoHtml = textoHtml.Replace("@tipodocumento", oCompra.TipoDocumento.ToUpper());
                 textoHtml = textoHtml.Replace("@numerodocumento", oCompra.NumeroDocumento);
@@ -372,14 +452,12 @@ namespace CapaPresentacion
                 // Usamos los datos del proveedor desde los campos de texto del formulario
                 textoHtml = textoHtml.Replace("@docproveedor", txtDocumentoProveedor.Text);
                 textoHtml = textoHtml.Replace("@nombreproveedor", txtNombre.Text);
-                textoHtml = textoHtml.Replace("@telefonoProveedor", oCompra.oProveedor.Telefono);
                 textoHtml = textoHtml.Replace("@fecharegistro", DateTime.Now.ToString("dd/MM/yyyy"));
                 textoHtml = textoHtml.Replace("@usuarioregistro", _usuario.Nombre);
 
                 string filas = string.Empty;
                 foreach (DataRow row in detalleCompra.Rows)
                 {
-                    // Buscamos el nombre del producto usando el IdProducto
                     string nombreProducto = dgvData.Rows
                         .Cast<DataGridViewRow>()
                         .FirstOrDefault(r => r.Cells["IdProducto"].Value.ToString() == row["IdProducto"].ToString())
@@ -395,23 +473,17 @@ namespace CapaPresentacion
                 textoHtml = textoHtml.Replace("@filas", filas);
                 textoHtml = textoHtml.Replace("@montototal", oCompra.MontoTotal.ToString("N2"));
 
-                // Define aquí la ruta fija donde quieres guardar los recibos de compra.
-                string carpetaRecibos = @"C:\Users\yan_e\Downloads"; // <-- ¡CAMBIA ESTA RUTA POR LA QUE NECESITES!
-
-                //string carpetaFacturas = @"C:\CarpetaFacturas"; 
-
-                if (!Directory.Exists(carpetaRecibos))
+                string carpetaFacturas = @"C:\FacturasCompras";
+                if (!Directory.Exists(carpetaFacturas))
                 {
-                    Directory.CreateDirectory(carpetaRecibos);
+                    Directory.CreateDirectory(carpetaFacturas);
                 }
                 string nombreArchivo = string.Format("Compra_{0}.pdf", oCompra.NumeroDocumento);
-                string rutaCompleta = Path.Combine(carpetaRecibos, nombreArchivo);
+                string rutaCompleta = Path.Combine(carpetaFacturas, nombreArchivo);
 
                 using (FileStream stream = new FileStream(rutaCompleta, FileMode.Create))
                 {
-                    var anchoRecibo = iTextSharp.text.Utilities.MillimetersToPoints(80);
-                    Document pdfDoc = new Document(new iTextSharp.text.Rectangle(0, 0, anchoRecibo, 842), 10, 10, 10, 10);
-
+                    Document pdfDoc = new Document(PageSize.A4, 25, 25, 25, 25);
                     PdfWriter writer = PdfWriter.GetInstance(pdfDoc, stream);
                     pdfDoc.Open();
 
@@ -420,8 +492,9 @@ namespace CapaPresentacion
                     if (obtenido)
                     {
                         iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance(byteImage);
-                        img.ScaleToFit(40, 40);
-                        img.Alignment = iTextSharp.text.Element.ALIGN_CENTER;
+                        img.ScaleToFit(60, 60);
+                        img.Alignment = iTextSharp.text.Image.UNDERLYING;
+                        img.SetAbsolutePosition(pdfDoc.Left, pdfDoc.Top - 60);
                         pdfDoc.Add(img);
                     }
 
@@ -432,18 +505,21 @@ namespace CapaPresentacion
                     pdfDoc.Close();
                 }
 
-                // Imprimir el PDF recién creado
-                using (var document = PdfiumViewer.PdfDocument.Load(rutaCompleta))
+                // Preguntar al usuario si desea imprimir
+                if (MessageBox.Show("Factura guardada en " + carpetaFacturas + ".\n¿Desea imprimirla ahora?", "Imprimir Factura", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    using (var printDocument = document.CreatePrintDocument())
+                    using (var document = PdfiumViewer.PdfDocument.Load(rutaCompleta))
                     {
-                        printDocument.Print();
+                        using (var printDocument = document.CreatePrintDocument())
+                        {
+                            printDocument.Print();
+                        }
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("La compra fue registrada, pero ocurrió un error al generar o imprimir el recibo:\n" + ex.Message, "Error de Recibo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("La compra fue registrada, pero ocurrió un error al generar o imprimir la factura:\n" + ex.Message, "Error de Facturación", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

@@ -391,7 +391,7 @@
             this.label10.AutoSize = true;
             this.label10.BackColor = System.Drawing.Color.YellowGreen;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(43, 498);
+            this.label10.Location = new System.Drawing.Point(43, 494);
             this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(66, 22);
@@ -403,7 +403,7 @@
             this.cboEstado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboEstado.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboEstado.FormattingEnabled = true;
-            this.cboEstado.Location = new System.Drawing.Point(46, 524);
+            this.cboEstado.Location = new System.Drawing.Point(46, 520);
             this.cboEstado.Margin = new System.Windows.Forms.Padding(4);
             this.cboEstado.Name = "cboEstado";
             this.cboEstado.Size = new System.Drawing.Size(215, 28);

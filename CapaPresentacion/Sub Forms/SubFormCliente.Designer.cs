@@ -37,11 +37,6 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.dgvData = new System.Windows.Forms.DataGridView();
-            this.Documento = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NombreCompleto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Edad = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Sexo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Telefono = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.txtDireccion = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
@@ -59,6 +54,12 @@
             this.btnGuardar = new FontAwesome.Sharp.IconButton();
             this.btnLimpiar = new FontAwesome.Sharp.IconButton();
             this.txtid = new System.Windows.Forms.TextBox();
+            this.IdCliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Documento = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NombreCompleto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Edad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Sexo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Telefono = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvData)).BeginInit();
             this.SuspendLayout();
             // 
@@ -110,6 +111,7 @@
             this.txtBusqueda.Name = "txtBusqueda";
             this.txtBusqueda.Size = new System.Drawing.Size(147, 24);
             this.txtBusqueda.TabIndex = 63;
+            this.txtBusqueda.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBusqueda_KeyPress);
             // 
             // cboBusqueda
             // 
@@ -161,6 +163,7 @@
             this.dgvData.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvData.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.IdCliente,
             this.Documento,
             this.NombreCompleto,
             this.Edad,
@@ -185,50 +188,10 @@
             this.dgvData.TabIndex = 59;
             this.dgvData.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvData_CellDoubleClick);
             // 
-            // Documento
-            // 
-            this.Documento.HeaderText = "No. Documento";
-            this.Documento.MinimumWidth = 6;
-            this.Documento.Name = "Documento";
-            this.Documento.ReadOnly = true;
-            this.Documento.Width = 150;
-            // 
-            // NombreCompleto
-            // 
-            this.NombreCompleto.HeaderText = "Nombre";
-            this.NombreCompleto.MinimumWidth = 6;
-            this.NombreCompleto.Name = "NombreCompleto";
-            this.NombreCompleto.ReadOnly = true;
-            this.NombreCompleto.Width = 180;
-            // 
-            // Edad
-            // 
-            this.Edad.HeaderText = "Edad";
-            this.Edad.MinimumWidth = 6;
-            this.Edad.Name = "Edad";
-            this.Edad.ReadOnly = true;
-            this.Edad.Width = 125;
-            // 
-            // Sexo
-            // 
-            this.Sexo.HeaderText = "Sexo";
-            this.Sexo.MinimumWidth = 6;
-            this.Sexo.Name = "Sexo";
-            this.Sexo.ReadOnly = true;
-            this.Sexo.Width = 125;
-            // 
-            // Telefono
-            // 
-            this.Telefono.HeaderText = "Telefono";
-            this.Telefono.MinimumWidth = 6;
-            this.Telefono.Name = "Telefono";
-            this.Telefono.ReadOnly = true;
-            this.Telefono.Width = 125;
-            // 
             // txtDireccion
             // 
             this.txtDireccion.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDireccion.Location = new System.Drawing.Point(255, 243);
+            this.txtDireccion.Location = new System.Drawing.Point(255, 235);
             this.txtDireccion.Margin = new System.Windows.Forms.Padding(4);
             this.txtDireccion.Name = "txtDireccion";
             this.txtDireccion.Size = new System.Drawing.Size(215, 27);
@@ -239,7 +202,7 @@
             this.label12.AutoSize = true;
             this.label12.BackColor = System.Drawing.Color.YellowGreen;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(251, 212);
+            this.label12.Location = new System.Drawing.Point(251, 204);
             this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(85, 22);
@@ -251,7 +214,7 @@
             this.label11.AutoSize = true;
             this.label11.BackColor = System.Drawing.Color.YellowGreen;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(12, 145);
+            this.label11.Location = new System.Drawing.Point(12, 134);
             this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(51, 22);
@@ -263,7 +226,7 @@
             this.cmbSexo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbSexo.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbSexo.FormattingEnabled = true;
-            this.cmbSexo.Location = new System.Drawing.Point(15, 171);
+            this.cmbSexo.Location = new System.Drawing.Point(15, 160);
             this.cmbSexo.Margin = new System.Windows.Forms.Padding(4);
             this.cmbSexo.Name = "cmbSexo";
             this.cmbSexo.Size = new System.Drawing.Size(215, 28);
@@ -272,7 +235,7 @@
             // txtEdad
             // 
             this.txtEdad.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEdad.Location = new System.Drawing.Point(255, 171);
+            this.txtEdad.Location = new System.Drawing.Point(255, 160);
             this.txtEdad.Margin = new System.Windows.Forms.Padding(4);
             this.txtEdad.Name = "txtEdad";
             this.txtEdad.Size = new System.Drawing.Size(215, 27);
@@ -284,7 +247,7 @@
             this.label9.AutoSize = true;
             this.label9.BackColor = System.Drawing.Color.YellowGreen;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(250, 145);
+            this.label9.Location = new System.Drawing.Point(250, 134);
             this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(52, 22);
@@ -306,18 +269,19 @@
             // txtTelefono
             // 
             this.txtTelefono.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTelefono.Location = new System.Drawing.Point(15, 243);
+            this.txtTelefono.Location = new System.Drawing.Point(15, 235);
             this.txtTelefono.Margin = new System.Windows.Forms.Padding(4);
             this.txtTelefono.Name = "txtTelefono";
             this.txtTelefono.Size = new System.Drawing.Size(215, 27);
             this.txtTelefono.TabIndex = 73;
+            this.txtTelefono.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtTelefono_KeyPress);
             // 
             // labelClave
             // 
             this.labelClave.AutoSize = true;
             this.labelClave.BackColor = System.Drawing.Color.YellowGreen;
             this.labelClave.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelClave.Location = new System.Drawing.Point(11, 217);
+            this.labelClave.Location = new System.Drawing.Point(11, 209);
             this.labelClave.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelClave.Name = "labelClave";
             this.labelClave.Size = new System.Drawing.Size(81, 22);
@@ -422,6 +386,7 @@
             this.btnLimpiar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnLimpiar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnLimpiar.UseVisualStyleBackColor = false;
+            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
             // 
             // txtid
             // 
@@ -432,6 +397,55 @@
             this.txtid.TabIndex = 85;
             this.txtid.Text = "0";
             this.txtid.Visible = false;
+            // 
+            // IdCliente
+            // 
+            this.IdCliente.HeaderText = "IdCliente";
+            this.IdCliente.MinimumWidth = 6;
+            this.IdCliente.Name = "IdCliente";
+            this.IdCliente.ReadOnly = true;
+            this.IdCliente.Visible = false;
+            this.IdCliente.Width = 125;
+            // 
+            // Documento
+            // 
+            this.Documento.HeaderText = "No. Documento";
+            this.Documento.MinimumWidth = 6;
+            this.Documento.Name = "Documento";
+            this.Documento.ReadOnly = true;
+            this.Documento.Width = 150;
+            // 
+            // NombreCompleto
+            // 
+            this.NombreCompleto.HeaderText = "Nombre";
+            this.NombreCompleto.MinimumWidth = 6;
+            this.NombreCompleto.Name = "NombreCompleto";
+            this.NombreCompleto.ReadOnly = true;
+            this.NombreCompleto.Width = 180;
+            // 
+            // Edad
+            // 
+            this.Edad.HeaderText = "Edad";
+            this.Edad.MinimumWidth = 6;
+            this.Edad.Name = "Edad";
+            this.Edad.ReadOnly = true;
+            this.Edad.Width = 125;
+            // 
+            // Sexo
+            // 
+            this.Sexo.HeaderText = "Sexo";
+            this.Sexo.MinimumWidth = 6;
+            this.Sexo.Name = "Sexo";
+            this.Sexo.ReadOnly = true;
+            this.Sexo.Width = 125;
+            // 
+            // Telefono
+            // 
+            this.Telefono.HeaderText = "Telefono";
+            this.Telefono.MinimumWidth = 6;
+            this.Telefono.Name = "Telefono";
+            this.Telefono.ReadOnly = true;
+            this.Telefono.Width = 125;
             // 
             // SubFormCliente
             // 
@@ -495,13 +509,14 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
+        private FontAwesome.Sharp.IconButton btnGuardar;
+        private FontAwesome.Sharp.IconButton btnLimpiar;
+        private System.Windows.Forms.TextBox txtid;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IdCliente;
         private System.Windows.Forms.DataGridViewTextBoxColumn Documento;
         private System.Windows.Forms.DataGridViewTextBoxColumn NombreCompleto;
         private System.Windows.Forms.DataGridViewTextBoxColumn Edad;
         private System.Windows.Forms.DataGridViewTextBoxColumn Sexo;
         private System.Windows.Forms.DataGridViewTextBoxColumn Telefono;
-        private FontAwesome.Sharp.IconButton btnGuardar;
-        private FontAwesome.Sharp.IconButton btnLimpiar;
-        private System.Windows.Forms.TextBox txtid;
     }
 }

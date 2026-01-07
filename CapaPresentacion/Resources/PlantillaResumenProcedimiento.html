@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Resumen de Procedimientos</title>
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 12px;
+            width: 100%;
+        }
+        .center { text-align: center; }
+        .left { text-align: left; }
+        .right { text-align: right; }
+        .line { border-top: 1px dashed black; margin: 5px 0; }
+        table { width: 100%; border-collapse: collapse; font-size: 12px; }
+        th, td { padding: 4px; }
+    </style>
+</head>
+<body>
+    <div class="center">
+        <p>
+            <strong>@nombrenegocio</strong><br />
+            RNC: @docnegocio<br />
+            @direcnegocio
+        </p>
+    </div>
+    <div class="line"></div>
+    <p class="center">
+        <strong>RESUMEN DE PROCEDIMIENTOS</strong>
+    </p>
+    <div class="line"></div>
+    <p>
+        <strong>Período del:</strong> @fechaInicio<br />
+        <strong>Hasta el:</strong> @fechaFin
+    </p>
+    <div class="line"></div>
+    <br />
+    <table>
+        <tr>
+            <td class="left">Total de Ventas de Procedimientos:</td>
+            <td class="right"><strong>@totalVentas</strong></td>
+        </tr>
+        <tr>
+            <td class="left">Monto Total General:</td>
+            <td class="right"><strong>@montoTotal</strong></td>
+        </tr>
+    </table>
+    <br />
+    <div class="line"></div>
+    <p class="center">Fin del Resumen</p>
+</body>
+</html>

@@ -31,8 +31,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.cmbTipoDocumento = new System.Windows.Forms.ComboBox();
             this.txtFecha = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.txtIdProveedor = new System.Windows.Forms.TextBox();
@@ -66,6 +64,14 @@
             this.label11 = new System.Windows.Forms.Label();
             this.iconButton2 = new FontAwesome.Sharp.IconButton();
             this.iconButton1 = new FontAwesome.Sharp.IconButton();
+            this.txtMontoPago = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.txtFechaLimitePago = new System.Windows.Forms.DateTimePicker();
+            this.cmbTipoDocumento = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.cmbTipoPago = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -114,30 +120,6 @@
             this.label1.Size = new System.Drawing.Size(55, 20);
             this.label1.TabIndex = 25;
             this.label1.Text = "Fecha";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.White;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label2.Location = new System.Drawing.Point(192, 25);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(123, 20);
-            this.label2.TabIndex = 26;
-            this.label2.Text = "Forma de Pago";
-            // 
-            // cmbTipoDocumento
-            // 
-            this.cmbTipoDocumento.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbTipoDocumento.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmbTipoDocumento.FormattingEnabled = true;
-            this.cmbTipoDocumento.Location = new System.Drawing.Point(196, 53);
-            this.cmbTipoDocumento.Margin = new System.Windows.Forms.Padding(4);
-            this.cmbTipoDocumento.Name = "cmbTipoDocumento";
-            this.cmbTipoDocumento.Size = new System.Drawing.Size(160, 33);
-            this.cmbTipoDocumento.TabIndex = 25;
             // 
             // txtFecha
             // 
@@ -498,7 +480,7 @@
             // txtTotalPagar
             // 
             this.txtTotalPagar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTotalPagar.Location = new System.Drawing.Point(1008, 651);
+            this.txtTotalPagar.Location = new System.Drawing.Point(1008, 350);
             this.txtTotalPagar.Margin = new System.Windows.Forms.Padding(4);
             this.txtTotalPagar.Name = "txtTotalPagar";
             this.txtTotalPagar.ReadOnly = true;
@@ -511,7 +493,7 @@
             this.label11.BackColor = System.Drawing.Color.White;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label11.Location = new System.Drawing.Point(1004, 614);
+            this.label11.Location = new System.Drawing.Point(1004, 322);
             this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(109, 20);
@@ -550,11 +532,112 @@
             this.iconButton1.UseVisualStyleBackColor = true;
             this.iconButton1.Click += new System.EventHandler(this.iconButton1_Click);
             // 
+            // txtMontoPago
+            // 
+            this.txtMontoPago.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMontoPago.Location = new System.Drawing.Point(1008, 632);
+            this.txtMontoPago.Margin = new System.Windows.Forms.Padding(4);
+            this.txtMontoPago.Name = "txtMontoPago";
+            this.txtMontoPago.Size = new System.Drawing.Size(119, 30);
+            this.txtMontoPago.TabIndex = 40;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.BackColor = System.Drawing.Color.White;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label12.Location = new System.Drawing.Point(1004, 604);
+            this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(146, 20);
+            this.label12.TabIndex = 39;
+            this.label12.Text = "Monto Inicial Pago";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.BackColor = System.Drawing.Color.White;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label13.Location = new System.Drawing.Point(1004, 471);
+            this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(149, 20);
+            this.label13.TabIndex = 41;
+            this.label13.Text = "Fecha Limite Pago";
+            // 
+            // txtFechaLimitePago
+            // 
+            this.txtFechaLimitePago.CalendarFont = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtFechaLimitePago.CustomFormat = "dd/mm/yyyy";
+            this.txtFechaLimitePago.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.txtFechaLimitePago.Location = new System.Drawing.Point(1008, 502);
+            this.txtFechaLimitePago.Margin = new System.Windows.Forms.Padding(4);
+            this.txtFechaLimitePago.Name = "txtFechaLimitePago";
+            this.txtFechaLimitePago.Size = new System.Drawing.Size(136, 22);
+            this.txtFechaLimitePago.TabIndex = 43;
+            // 
+            // cmbTipoDocumento
+            // 
+            this.cmbTipoDocumento.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbTipoDocumento.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbTipoDocumento.FormattingEnabled = true;
+            this.cmbTipoDocumento.Location = new System.Drawing.Point(196, 53);
+            this.cmbTipoDocumento.Margin = new System.Windows.Forms.Padding(4);
+            this.cmbTipoDocumento.Name = "cmbTipoDocumento";
+            this.cmbTipoDocumento.Size = new System.Drawing.Size(160, 33);
+            this.cmbTipoDocumento.TabIndex = 25;
+            this.cmbTipoDocumento.SelectedIndexChanged += new System.EventHandler(this.cmbTipoDocumento_SelectedIndexChanged);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.White;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label2.Location = new System.Drawing.Point(192, 25);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(123, 20);
+            this.label2.TabIndex = 26;
+            this.label2.Text = "Forma de Pago";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.BackColor = System.Drawing.Color.White;
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label14.Location = new System.Drawing.Point(1003, 537);
+            this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(123, 20);
+            this.label14.TabIndex = 28;
+            this.label14.Text = "Forma de Pago";
+            // 
+            // cmbTipoPago
+            // 
+            this.cmbTipoPago.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbTipoPago.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbTipoPago.FormattingEnabled = true;
+            this.cmbTipoPago.Location = new System.Drawing.Point(1005, 561);
+            this.cmbTipoPago.Margin = new System.Windows.Forms.Padding(4);
+            this.cmbTipoPago.Name = "cmbTipoPago";
+            this.cmbTipoPago.Size = new System.Drawing.Size(160, 33);
+            this.cmbTipoPago.TabIndex = 27;
+            // 
             // frmCompras
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(1209, 788);
+            this.Controls.Add(this.label14);
+            this.Controls.Add(this.txtFechaLimitePago);
+            this.Controls.Add(this.cmbTipoPago);
+            this.Controls.Add(this.label13);
+            this.Controls.Add(this.txtMontoPago);
+            this.Controls.Add(this.label12);
             this.Controls.Add(this.iconButton2);
             this.Controls.Add(this.txtTotalPagar);
             this.Controls.Add(this.label11);
@@ -586,8 +669,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox cmbTipoDocumento;
         private System.Windows.Forms.TextBox txtFecha;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label3;
@@ -621,5 +702,13 @@
         private System.Windows.Forms.TextBox txtTotalPagar;
         private System.Windows.Forms.Label label11;
         private FontAwesome.Sharp.IconButton iconButton2;
+        private System.Windows.Forms.TextBox txtMontoPago;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.DateTimePicker txtFechaLimitePago;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ComboBox cmbTipoDocumento;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.ComboBox cmbTipoPago;
     }
 }

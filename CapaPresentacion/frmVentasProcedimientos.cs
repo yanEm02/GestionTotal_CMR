@@ -23,6 +23,7 @@ namespace CapaPresentacion
 
         private Usuario usuarioActualFor; //almacenamos el usuario que se ha logeado
         private Cliente clienteSeleccionado; // para almacenar el objeto del cliente completo
+        private List<Cliente> listaClientes; // <-- Añadimos una lista para mantener los clientes en memoria
 
         public frmVentasProcedimientos(Usuario oUsuario)
         {
@@ -44,6 +45,9 @@ namespace CapaPresentacion
             txtPagaCon.Text = "";
             txtCambio.Text = "";
             txtIdProcedimiento.Text = "0";
+
+            CargarNombresProcedimientos(); // <-- Añade esta línea
+            CargarNombresClientes();
         }
 
         //BUSCAR PROCEDIMIENTO 
@@ -53,7 +57,8 @@ namespace CapaPresentacion
             {
                 var result = subForm.ShowDialog();
 
-                if (result == DialogResult.OK) {
+                if (result == DialogResult.OK)
+                {
                     txtIdProcedimiento.Text = subForm._procedimiento.ID_Procedimiento.ToString();
                     txtCodigo.Text = subForm._procedimiento.Codigo.ToString();
                     txtProcedimiento.Text = subForm._procedimiento.Nombre;
@@ -73,6 +78,35 @@ namespace CapaPresentacion
                 }
 
             }
+        }
+
+        private void CargarNombresProcedimientos()
+        {
+            var listaProcedimientos = new CN_Procedimiento().Listar().Where(p => p.Estado).ToList();
+            AutoCompleteStringCollection source = new AutoCompleteStringCollection();
+            foreach (var procedimiento in listaProcedimientos)
+            {
+                source.Add(procedimiento.Nombre);
+            }
+
+            txtCodigo.AutoCompleteCustomSource = source;
+            txtCodigo.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            txtCodigo.AutoCompleteSource = AutoCompleteSource.CustomSource;
+        }
+
+        private void CargarNombresClientes()
+        {
+            // Obtenemos los clientes y los guardamos en la lista de la clase
+            listaClientes = new CN_Cliente().Listar().Where(c => c.Estado).ToList();
+            AutoCompleteStringCollection source = new AutoCompleteStringCollection();
+            foreach (var cliente in listaClientes)
+            {
+                source.Add(cliente.Nombre);
+            }
+
+            txtDocumentoCliente.AutoCompleteCustomSource = source;
+            txtDocumentoCliente.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            txtDocumentoCliente.AutoCompleteSource = AutoCompleteSource.CustomSource;
         }
 
         //BUSCAR PACIENTE 
@@ -95,6 +129,9 @@ namespace CapaPresentacion
                 {
                     txtDocumentoCliente.Select();
                 }
+
+                // Volvemos a cargar los nombres de los clientes para refrescar la lista de autocompletar
+                CargarNombresClientes();
             }
         }
 
@@ -179,17 +216,17 @@ namespace CapaPresentacion
             if (!procedimientoExiste) //agregamos el procedimiento a la caja de texto
             {
                 dgvData.Rows.Add(new object[]{
-                    txtIdProcedimiento.Text,
-                    txtCodigo.Text,
-                    txtProcedimiento.Text,
-                    txtCategoria.Text,
-                    precio.ToString("N2"),
-                });
+                        txtIdProcedimiento.Text,
+                        txtCodigo.Text,
+                        txtProcedimiento.Text,
+                        txtCategoria.Text,
+                        precio.ToString("N2"),
+                    });
 
                 CalcularTotal();
                 LimpiarProducto();
                 txtCodigo.Select();
-                
+
             }
         }
 
@@ -198,6 +235,7 @@ namespace CapaPresentacion
             if (e.KeyData == Keys.Enter)
             {
                 calcularCambio();
+                e.SuppressKeyPress = true;
             }
         }
 
@@ -224,7 +262,7 @@ namespace CapaPresentacion
             }
         }
 
-  
+
         private void dgvData_CellPainting_1(object sender, DataGridViewCellPaintingEventArgs e)
         {
             if (e.RowIndex < 0)
@@ -263,10 +301,17 @@ namespace CapaPresentacion
 
         private void btnCrearVenta_Click(object sender, EventArgs e)
         {
-            // Valida usando el objeto en lugar del texto
-            if (clienteSeleccionado == null) 
+            // Volvemos a validar el cliente seleccionado contra el texto del formulario
+            if (clienteSeleccionado == null || clienteSeleccionado.Nombre != txtNombre.Text)
             {
-                MessageBox.Show("Debe Seleccionar un Cliente", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // Si no coinciden, intentamos encontrarlo de nuevo.
+                clienteSeleccionado = listaClientes.FirstOrDefault(c => c.Nombre == txtNombre.Text && c.Documento == txtDocumentoCliente.Text);
+            }
+
+            // Valida usando el objeto en lugar del texto
+            if (clienteSeleccionado == null || clienteSeleccionado.IdCliente == 0)
+            {
+                MessageBox.Show("Debe Seleccionar un Cliente válido. Verifique que el nombre y documento sean correctos.", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             if (dgvData.Rows.Count < 1)
@@ -292,9 +337,9 @@ namespace CapaPresentacion
             foreach (DataGridViewRow row in dgvData.Rows)
             { //agregamos los valores dentro del datatable
                 detalleVentaProcedimiento.Rows.Add(new object[]{
-                    Convert.ToInt32(row.Cells["IdProcedimiento"].Value.ToString()),
-                    Convert.ToDecimal(row.Cells["Precio"].Value, CultureInfo.CurrentCulture),
-                });
+                        Convert.ToInt32(row.Cells["IdProcedimiento"].Value.ToString()),
+                        Convert.ToDecimal(row.Cells["Precio"].Value, CultureInfo.CurrentCulture),
+                    });
             }
 
             int idCorrelativo = new CN_Venta_Procedimiento().ObtenerCorrelativo(); //generamos el numero de compra aleatorio
@@ -307,8 +352,8 @@ namespace CapaPresentacion
                 oUsuario = new Usuario() { IdUsuario = usuarioActualFor.IdUsuario },
                 TipoDocumento = ((OpcionCombo)cmbTipoDocumento.SelectedItem).Valor.ToString(),
                 NumeroDocumento = numeroDocumento,
-                // Asigna directamente el objeto Cliente que ya tienes
-                oCliente = this.clienteSeleccionado, 
+                // Asigna un nuevo objeto Cliente solo con el ID, que es lo que necesita la FK
+                oCliente = new Cliente() { IdCliente = this.clienteSeleccionado.IdCliente },
                 MontoPago = Convert.ToDecimal(txtPagaCon.Text, CultureInfo.CurrentCulture),
                 MontoCambio = Convert.ToDecimal(txtCambio.Text, CultureInfo.CurrentCulture),
                 MontoTotal = Convert.ToDecimal(txtTotalPagar.Text, CultureInfo.CurrentCulture),
@@ -319,13 +364,12 @@ namespace CapaPresentacion
 
             if (respuesta)
             {
-                var result = MessageBox.Show("Numero de venta generada:\n" + numeroDocumento + "\n\nDesea copiar al portapapeles?", "Mensaje", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-                if (result == DialogResult.Yes)
-                {
-                    Clipboard.SetText(numeroDocumento);
-                }
+                var result = MessageBox.Show("Numero de venta generada:\n" + numeroDocumento, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                GenerarEImprimirFactura(objVenta, detalleVentaProcedimiento);
+                Clipboard.SetText(numeroDocumento);
+
+                // Para generar la factura, pasamos el objeto cliente completo que ya teníamos
+                GenerarEImprimirFactura(objVenta, detalleVentaProcedimiento, this.clienteSeleccionado);
 
                 LimpiarProducto();
                 dgvData.Rows.Clear();
@@ -343,7 +387,7 @@ namespace CapaPresentacion
 
         }
 
-        private void GenerarEImprimirFactura(VentaProcedimiento oVenta, DataTable detalleVenta)
+        private void GenerarEImprimirFactura(VentaProcedimiento oVenta, DataTable detalleVenta, Cliente oClienteFactura)
         {
             try
             {
@@ -359,14 +403,18 @@ namespace CapaPresentacion
                 textoHtml = textoHtml.Replace("@tipodocumento", oVenta.TipoDocumento.ToUpper());
                 textoHtml = textoHtml.Replace("@numerodocumento", oVenta.NumeroDocumento);
 
-                // Rellenar datos del cliente desde el objeto Venta
-                textoHtml = textoHtml.Replace("@nombreCliente", oVenta.oCliente.Nombre);
-                textoHtml = textoHtml.Replace("@edadCliente", oVenta.oCliente.Edad.ToString());
-                textoHtml = textoHtml.Replace("@sexoCliente", oVenta.oCliente.Sexo);
-                textoHtml = textoHtml.Replace("@telefonoCliente", oVenta.oCliente.Telefono);
-                textoHtml = textoHtml.Replace("@direccionCliente", oVenta.oCliente.Direccion);
+                // Rellenar datos del cliente desde el objeto completo
+                textoHtml = textoHtml.Replace("@nombreCliente", oClienteFactura.Nombre);
+                textoHtml = textoHtml.Replace("@edadCliente", oClienteFactura.Edad.ToString());
+                textoHtml = textoHtml.Replace("@sexoCliente", oClienteFactura.Sexo);
+                textoHtml = textoHtml.Replace("@telefonoCliente", oClienteFactura.Telefono);
+                textoHtml = textoHtml.Replace("@direccionCliente", oClienteFactura.Direccion);
                 textoHtml = textoHtml.Replace("@fecharegistro", DateTime.Now.ToString("dd/MM/yyyy"));
                 textoHtml = textoHtml.Replace("@usuarioregistro", usuarioActualFor.Nombre);
+
+                // Asignar valor a @asegurado según el estado del CheckBox
+                string tipoPaciente = chkBoxAsegurado.Checked ? "Asegurado" : "Privado";
+                textoHtml = textoHtml.Replace("@asegurado", tipoPaciente);
 
                 string filas = string.Empty;
                 foreach (DataRow row in detalleVenta.Rows)
@@ -389,7 +437,7 @@ namespace CapaPresentacion
 
                 // Define aquí la ruta fija donde quieres guardar las facturas de procedimientos.
                 string carpetaFacturas = @"C:\FacturasVentaProcedimientos"; // <-- ¡CAMBIA ESTA RUTA POR LA QUE NECESITES!
-                //string carpetaFacturas = @"C:\CarpetaFacturas"; 
+                                                                            //string carpetaFacturas = @"C:\CarpetaFacturas"; 
 
                 if (!Directory.Exists(carpetaFacturas))
                 {
@@ -435,6 +483,111 @@ namespace CapaPresentacion
             catch (Exception ex)
             {
                 MessageBox.Show("La venta fue registrada, pero ocurrió un error al generar o imprimir la factura:\n" + ex.Message, "Error de Facturación", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void txtCodigo_KeyDown_1(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                // Busca el procedimiento por NOMBRE en la lista obtenida de la base de datos
+                Procedimiento oProcedimiento = new CN_Procedimiento().Listar()
+                    .FirstOrDefault(p => p.Nombre.Equals(txtCodigo.Text, StringComparison.OrdinalIgnoreCase) && p.Estado == true);
+
+                if (oProcedimiento != null)
+                {
+                    // Si se encuentra, rellena los campos
+                    txtIdProcedimiento.Text = oProcedimiento.ID_Procedimiento.ToString();
+                    txtCodigo.Text = oProcedimiento.Codigo.ToString(); // Opcional: mostrar el código después de seleccionar
+                    txtProcedimiento.Text = oProcedimiento.Nombre;
+                    txtCategoria.Text = oProcedimiento.oCategoria.Descripcion;
+
+                    // Aplica la lógica del precio según si es asegurado o no
+                    if (chkBoxAsegurado.Checked)
+                    {
+                        txtPrecio.Text = oProcedimiento.PrecioVentaAsegurado.ToString("N2");
+                    }
+                    else
+                    {
+                        txtPrecio.Text = oProcedimiento.PrecioVenta.ToString("N2");
+                    }
+                    // Mueve el foco al botón de agregar para agilizar el siguiente paso
+                    iconButton1.Select();
+                }
+                else
+                {
+                    // Si no se encuentra, informa al usuario y limpia los campos
+                    MessageBox.Show("Procedimiento no encontrado o inactivo.", "No encontrado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtIdProcedimiento.Text = "0";
+                    txtProcedimiento.Text = "";
+                    txtPrecio.Text = "";
+                    txtCategoria.Text = "";
+                    txtCodigo.SelectAll();
+                }
+                // Evita que el sonido de "ding" de Windows suene al presionar Enter
+                e.SuppressKeyPress = true;
+            }
+        }
+
+        private void txtDocumentoCliente_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                // Busca todos los clientes que coincidan con el nombre y estén activos, usando la lista en memoria.
+                var clientesEncontrados = listaClientes
+                    .Where(c => c.Nombre.Equals(txtDocumentoCliente.Text, StringComparison.OrdinalIgnoreCase))
+                    .ToList();
+
+                if (clientesEncontrados.Count == 1)
+                {
+                    // Si solo hay un resultado, lo seleccionamos automáticamente.
+                    clienteSeleccionado = clientesEncontrados[0];
+                    txtDocumentoCliente.Text = clienteSeleccionado.Documento;
+                    txtNombre.Text = clienteSeleccionado.Nombre;
+                    txtCodigo.Select(); // Mueve el foco al siguiente campo.
+                }
+                else if (clientesEncontrados.Count > 1)
+                {
+                    // Si hay múltiples resultados, abrimos el formulario de búsqueda para que el usuario elija.
+                    MessageBox.Show("Se encontraron varios clientes con el mismo nombre. Por favor, seleccione el correcto de la lista.", "Múltiples coincidencias", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    btnBuscar_Click(sender, e); // Reutilizamos la lógica del botón de búsqueda.
+                }
+                else
+                {
+                    // Si no se encuentra ningún cliente.
+                    MessageBox.Show("Cliente no encontrado o inactivo.", "No encontrado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    clienteSeleccionado = null;
+                    txtNombre.Text = "";
+                    txtDocumentoCliente.SelectAll();
+                }
+                e.SuppressKeyPress = true; // Evita el sonido de "ding".
+            }
+        }
+
+        private void chkBoxAsegurado_CheckedChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void txtPagaCon_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char separadorDecimal = Convert.ToChar(CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator);
+            char separadorMiles = Convert.ToChar(CultureInfo.CurrentCulture.NumberFormat.NumberGroupSeparator);
+
+            if (char.IsDigit(e.KeyChar) || char.IsControl(e.KeyChar))
+            {
+                e.Handled = false;
+            }
+            else if (e.KeyChar == separadorDecimal && txtPagaCon.Text.IndexOf(separadorDecimal) == -1)
+            {
+                e.Handled = false;
+            }
+            else if (e.KeyChar == separadorMiles)
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
             }
         }
     }

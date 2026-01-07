@@ -73,5 +73,13 @@ namespace CapaPresentacion
                 btnIngresar.PerformClick();
             }
         }
+
+        private void Login_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                btnIngresar.PerformClick();
+            }
+        }
     }
 }

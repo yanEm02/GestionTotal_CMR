@@ -11,7 +11,7 @@ namespace CapaEntidad
         public int IdCliente { get; set; }
         public string Documento { get; set; }
         public string Nombre { get; set; }
-        public int Edad { get; set; }
+        public string Edad { get; set; }
         public string Sexo { get; set; }
         public string Direccion { get; set; }
         public string Telefono { get; set; }

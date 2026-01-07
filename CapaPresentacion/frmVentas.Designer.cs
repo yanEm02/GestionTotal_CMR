@@ -243,6 +243,7 @@
             this.txtDocumentoCliente.Name = "txtDocumentoCliente";
             this.txtDocumentoCliente.Size = new System.Drawing.Size(178, 30);
             this.txtDocumentoCliente.TabIndex = 25;
+            this.txtDocumentoCliente.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtDocumentoCliente_KeyDown);
             // 
             // groupBox3
             // 

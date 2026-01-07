@@ -75,7 +75,7 @@
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(146, 26);
             this.label3.TabIndex = 3;
-            this.label3.Text = "Version: 1.0.0";
+            this.label3.Text = "Version: 2.0.0";
             // 
             // subFormAcercaDe
             // 

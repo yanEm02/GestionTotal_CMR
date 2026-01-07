@@ -117,8 +117,10 @@ namespace CapaPresentacion.Properties {
         ///    &lt;title&gt;Recibo de Venta&lt;/title&gt;
         ///    &lt;style&gt;
         ///        body {
-        ///            font-family: &apos;Courier New&apos;, Courier, monospace;
-        ///            font-size: 10px;
+        ///            font-family: &apos;OCRB&apos;, monospace;
+        ///            font-size: 13px; /* Tama�o �ptimo para legibilidad */
+        ///            font-weight: bold; /* OCR-B es clara sin negrita, pero puedes poner &apos;bold&apos; si prefieres */
+        ///            line-height: 1.3;
         ///            width: 100%;
         ///        }
         ///
@@ -130,14 +132,7 @@ namespace CapaPresentacion.Properties {
         ///            text-align: left;
         ///        }
         ///
-        ///        .right {
-        ///            text-align: right;
-        ///        }
-        ///
-        ///        .line {
-        ///            border-top: 1px dashed black;
-        ///            margin: 5px 0;
-        ///        [resto de la cadena truncado]&quot;;.
+        ///   [resto de la cadena truncado]&quot;;.
         /// </summary>
         internal static string PlantillaCompra {
             get {
@@ -149,30 +144,75 @@ namespace CapaPresentacion.Properties {
         ///   Busca una cadena traducida similar a &lt;!DOCTYPE html&gt;
         ///&lt;html&gt;
         ///&lt;head&gt;
-        ///    &lt;title&gt;Recibo de Venta&lt;/title&gt;
+        ///    &lt;title&gt;Web Page Design&lt;/title&gt;
+        ///    &lt;style&gt;
+        ///        table.border {
+        ///            border-collapse: collapse;
+        ///        }
+        ///
+        ///            table.border th {
+        ///                text-align: center;
+        ///                padding: 5px;
+        ///                border: 1px solid black;
+        ///            }
+        ///
+        ///            table.border td {
+        ///                text-align: center;
+        ///                padding: 5px;
+        ///                border: 1px solid black;
+        ///            }
+        ///    &lt;/style&gt;
+        ///&lt;/head&gt;
+        ///&lt;body&gt;
+        ///    &lt;tab [resto de la cadena truncado]&quot;;.
+        /// </summary>
+        internal static string PlantillaCompraHojaNormal {
+            get {
+                return ResourceManager.GetString("PlantillaCompraHojaNormal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a &lt;!DOCTYPE html&gt;
+        ///&lt;html&gt;
+        ///&lt;head&gt;
+        ///    &lt;title&gt;Resumen de Procedimientos&lt;/title&gt;
         ///    &lt;style&gt;
         ///        body {
         ///            font-family: &apos;Courier New&apos;, Courier, monospace;
-        ///            font-size: 10px;
+        ///            font-size: 12px;
+        ///            width: 100%;
+        ///        }
+        ///        .center { text-align: center; }
+        ///        .left { text-align: left; }
+        ///        .right { text-align: right; }
+        ///        .line { border-top: 1px dashed black; margin: 5px 0; }
+        ///        table { width: 100%; border-collapse: collapse; font-size: 12px; }
+        ///        th, td { pa [resto de la cadena truncado]&quot;;.
+        /// </summary>
+        internal static string PlantillaResumenProcedimiento {
+            get {
+                return ResourceManager.GetString("PlantillaResumenProcedimiento", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a &lt;!DOCTYPE html&gt;
+        ///&lt;html&gt;
+        ///&lt;head&gt;
+        ///    &lt;title&gt;Recibo de Venta&lt;/title&gt;
+        ///    &lt;style&gt;
+        ///        body {
+        ///            /* Usar la fuente OCRB registrada. Si falla, usa una monoespaciada. */
+        ///            font-family: &apos;OCRB&apos;, monospace;
+        ///            font-size: 13px; /* Tama�o �ptimo para legibilidad */
+        ///            font-weight: bold; /* OCR-B es clara sin negrita, pero puedes poner &apos;bold&apos; si prefieres */
+        ///            line-height: 1.3;
         ///            width: 100%;
         ///        }
         ///
         ///        .center {
-        ///            text-align: center;
-        ///        }
-        ///
-        ///        .left {
-        ///            text-align: left;
-        ///        }
-        ///
-        ///        .right {
-        ///            text-align: right;
-        ///        }
-        ///
-        ///        .line {
-        ///            border-top: 1px dashed black;
-        ///            margin: 5px 0;
-        ///        [resto de la cadena truncado]&quot;;.
+        ///            text-align: c [resto de la cadena truncado]&quot;;.
         /// </summary>
         internal static string PlantillaVenta {
             get {
@@ -187,12 +227,16 @@ namespace CapaPresentacion.Properties {
         ///    &lt;title&gt;Recibo de Venta&lt;/title&gt;
         ///    &lt;style&gt;
         ///        body {
-        ///            /* Usar Consolas, una fuente monoespaciada y clara. Courier New como alternativa. */
-        ///            font-family: Consolas, &apos;Courier New&apos;, monospace;
-        ///            font-size: 13px; /* Ligeramente más grande para mayor claridad */
-        ///            font-weight: bold; /* Mantener negrita para máxima intensidad */
-        ///            line-height: 1.3; /* Un poco más de espacio entre líneas */
-        ///            width: 100%; [resto de la cadena truncado]&quot;;.
+        ///            /* Usar la fuente OCRB registrada. Si falla, usa una monoespaciada. */
+        ///            font-family: &apos;OCRB&apos;, monospace;
+        ///            font-size: 13px; /* Tamaño óptimo para legibilidad */
+        ///            font-weight: bold; /* OCR-B es clara sin negrita, pero puedes poner &apos;bold&apos; si prefieres */
+        ///            line-height: 1.3;
+        ///            width: 100%;
+        ///        }
+        ///
+        ///        .center {
+        ///            text-align: c [resto de la cadena truncado]&quot;;.
         /// </summary>
         internal static string PlantillaVentaProcedimiento {
             get {

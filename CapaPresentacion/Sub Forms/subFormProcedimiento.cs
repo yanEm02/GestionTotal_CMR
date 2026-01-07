@@ -103,5 +103,14 @@ namespace CapaPresentacion.Sub_Forms
                 this.Close();
             }
         }
+
+        private void txtBusqueda_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                btnBuscar.PerformClick();
+                e.Handled = true;
+            }
+        }
     }
 }

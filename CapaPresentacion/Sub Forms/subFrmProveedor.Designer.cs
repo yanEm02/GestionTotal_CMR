@@ -35,11 +35,11 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.dgvData = new System.Windows.Forms.DataGridView();
-            this.btnLimpiarBuscador = new FontAwesome.Sharp.IconButton();
-            this.btnBuscar = new FontAwesome.Sharp.IconButton();
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Documento = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RazonSocial = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnLimpiarBuscador = new FontAwesome.Sharp.IconButton();
+            this.btnBuscar = new FontAwesome.Sharp.IconButton();
             ((System.ComponentModel.ISupportInitialize)(this.dgvData)).BeginInit();
             this.SuspendLayout();
             // 
@@ -50,6 +50,7 @@
             this.txtBusqueda.Name = "txtBusqueda";
             this.txtBusqueda.Size = new System.Drawing.Size(124, 22);
             this.txtBusqueda.TabIndex = 63;
+            this.txtBusqueda.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBusqueda_KeyPress);
             // 
             // cboBusqueda
             // 
@@ -124,6 +125,31 @@
             this.dgvData.TabIndex = 59;
             this.dgvData.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvData_CellDoubleClick);
             // 
+            // Id
+            // 
+            this.Id.HeaderText = "Id";
+            this.Id.MinimumWidth = 6;
+            this.Id.Name = "Id";
+            this.Id.ReadOnly = true;
+            this.Id.Visible = false;
+            this.Id.Width = 125;
+            // 
+            // Documento
+            // 
+            this.Documento.HeaderText = "RNC";
+            this.Documento.MinimumWidth = 6;
+            this.Documento.Name = "Documento";
+            this.Documento.ReadOnly = true;
+            this.Documento.Width = 150;
+            // 
+            // RazonSocial
+            // 
+            this.RazonSocial.HeaderText = "Nombre";
+            this.RazonSocial.MinimumWidth = 6;
+            this.RazonSocial.Name = "RazonSocial";
+            this.RazonSocial.ReadOnly = true;
+            this.RazonSocial.Width = 180;
+            // 
             // btnLimpiarBuscador
             // 
             this.btnLimpiarBuscador.BackColor = System.Drawing.Color.White;
@@ -163,31 +189,6 @@
             this.btnBuscar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnBuscar.UseVisualStyleBackColor = false;
             this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
-            // 
-            // Id
-            // 
-            this.Id.HeaderText = "Id";
-            this.Id.MinimumWidth = 6;
-            this.Id.Name = "Id";
-            this.Id.ReadOnly = true;
-            this.Id.Visible = false;
-            this.Id.Width = 125;
-            // 
-            // Documento
-            // 
-            this.Documento.HeaderText = "RNC";
-            this.Documento.MinimumWidth = 6;
-            this.Documento.Name = "Documento";
-            this.Documento.ReadOnly = true;
-            this.Documento.Width = 150;
-            // 
-            // RazonSocial
-            // 
-            this.RazonSocial.HeaderText = "Nombre";
-            this.RazonSocial.MinimumWidth = 6;
-            this.RazonSocial.Name = "RazonSocial";
-            this.RazonSocial.ReadOnly = true;
-            this.RazonSocial.Width = 180;
             // 
             // subFrmProveedor
             // 

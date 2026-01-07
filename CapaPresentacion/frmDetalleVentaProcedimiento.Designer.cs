@@ -60,6 +60,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.btnEliminarRegistro = new FontAwesome.Sharp.IconButton();
+            this.btnImprimir = new FontAwesome.Sharp.IconButton();
             ((System.ComponentModel.ISupportInitialize)(this.dgvData)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBoxInfoCompra.SuspendLayout();
@@ -104,11 +105,11 @@
             this.btnDescargarExcel.IconColor = System.Drawing.Color.DarkOrange;
             this.btnDescargarExcel.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnDescargarExcel.IconSize = 24;
-            this.btnDescargarExcel.Location = new System.Drawing.Point(734, 563);
+            this.btnDescargarExcel.Location = new System.Drawing.Point(703, 563);
             this.btnDescargarExcel.Name = "btnDescargarExcel";
-            this.btnDescargarExcel.Size = new System.Drawing.Size(162, 29);
+            this.btnDescargarExcel.Size = new System.Drawing.Size(193, 44);
             this.btnDescargarExcel.TabIndex = 89;
-            this.btnDescargarExcel.Text = "Descargar PDF";
+            this.btnDescargarExcel.Text = "Guardar Factura PDF";
             this.btnDescargarExcel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnDescargarExcel.UseVisualStyleBackColor = true;
             this.btnDescargarExcel.Click += new System.EventHandler(this.btnDescargarExcel_Click);
@@ -398,11 +399,11 @@
             this.label8.AutoSize = true;
             this.label8.BackColor = System.Drawing.Color.White;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(455, 28);
+            this.label8.Location = new System.Drawing.Point(482, 30);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(174, 22);
+            this.label8.Size = new System.Drawing.Size(144, 22);
             this.label8.TabIndex = 80;
-            this.label8.Text = "Numero Documento:";
+            this.label8.Text = "Numero Factura:";
             // 
             // label2
             // 
@@ -421,7 +422,7 @@
             this.label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label1.Location = new System.Drawing.Point(28, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(890, 596);
+            this.label1.Size = new System.Drawing.Size(890, 605);
             this.label1.TabIndex = 78;
             // 
             // btnEliminarRegistro
@@ -431,21 +432,39 @@
             this.btnEliminarRegistro.IconColor = System.Drawing.Color.Red;
             this.btnEliminarRegistro.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnEliminarRegistro.IconSize = 24;
-            this.btnEliminarRegistro.Location = new System.Drawing.Point(552, 564);
+            this.btnEliminarRegistro.Location = new System.Drawing.Point(522, 564);
             this.btnEliminarRegistro.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnEliminarRegistro.Name = "btnEliminarRegistro";
-            this.btnEliminarRegistro.Size = new System.Drawing.Size(175, 28);
+            this.btnEliminarRegistro.Size = new System.Drawing.Size(175, 43);
             this.btnEliminarRegistro.TabIndex = 94;
             this.btnEliminarRegistro.Text = "Eliminar Registro";
             this.btnEliminarRegistro.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnEliminarRegistro.UseVisualStyleBackColor = true;
             this.btnEliminarRegistro.Click += new System.EventHandler(this.btnEliminarRegistro_Click);
             // 
+            // btnImprimir
+            // 
+            this.btnImprimir.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnImprimir.IconChar = FontAwesome.Sharp.IconChar.Print;
+            this.btnImprimir.IconColor = System.Drawing.Color.Gray;
+            this.btnImprimir.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnImprimir.IconSize = 24;
+            this.btnImprimir.Location = new System.Drawing.Point(332, 563);
+            this.btnImprimir.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnImprimir.Name = "btnImprimir";
+            this.btnImprimir.Size = new System.Drawing.Size(184, 44);
+            this.btnImprimir.TabIndex = 95;
+            this.btnImprimir.Text = "Imprimir Factura";
+            this.btnImprimir.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnImprimir.UseVisualStyleBackColor = true;
+            this.btnImprimir.Click += new System.EventHandler(this.btnImprimir_Click);
+            // 
             // frmDetalleVentaProcedimiento
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(947, 614);
+            this.ClientSize = new System.Drawing.Size(947, 623);
+            this.Controls.Add(this.btnImprimir);
             this.Controls.Add(this.btnEliminarRegistro);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.txtMontoPago);
@@ -510,5 +529,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Categoria;
         private System.Windows.Forms.DataGridViewTextBoxColumn Precio;
         private FontAwesome.Sharp.IconButton btnEliminarRegistro;
+        private FontAwesome.Sharp.IconButton btnImprimir;
     }
 }

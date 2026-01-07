@@ -119,22 +119,6 @@ namespace CapaPresentacion
             AbrirFormulario((IconMenuItem)sender, new frmUsuarios());
         }
 
-        //==========CATEGORIAS===
-        //private void iconMenuItemToolStripMenuItem_Click(object sender, EventArgs e)
-        //{
-        //    AbrirFormulario(menuMantenedor, new frmCategoria());
-        //}
-
-        //private void subMenuProducto_Click(object sender, EventArgs e)
-        //{
-        //    AbrirFormulario(menuMantenedor, new frmProducto());
-
-        //}
-        //private void subMenuNegocio_Click(object sender, EventArgs e)
-        //{
-        //    AbrirFormulario(menuMantenedor, new frmNegocio());
-        //}
-
         //==========VENTAS===
         private void subMenuRegistrarVenta_Click(object sender, EventArgs e)
         {
@@ -208,16 +192,19 @@ namespace CapaPresentacion
 
         private void menuInventario_Click(object sender, EventArgs e)
         {
-            AbrirFormulario((IconMenuItem)sender, new frmProducto());
         }
 
         private void categoriaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AbrirFormulario(menuMantenedor, new frmCategoria());
+            AbrirFormulario(menuInventario, new frmCategoria());
         }
         private void procedimientoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AbrirFormulario(menuMantenedor, new frmProcedimiento());
+            AbrirFormulario(menuInventario, new frmProcedimiento());
+        }
+        private void productosGastablesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario(menuInventario, new frmProducto());
         }
 
         //==========CONFIGURACIOKN/MANTENEDOR ===
@@ -306,5 +293,7 @@ namespace CapaPresentacion
             menu.Items.Add(toolStripLblUsuario);
             menu.Items.Add(toolStripLblTextoUsuario);
         }
+
+       
     }
 }

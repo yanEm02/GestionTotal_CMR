@@ -22,11 +22,6 @@ namespace CapaNegocio
             //regla de validacion 
             Mensaje = string.Empty;
 
-            if (obj.Documento == "")
-            {
-                Mensaje += "Es necesario el documento del Cliente\n";
-            }
-
             if (obj.Nombre == "")
             {
                 Mensaje += "Es necesario el nombre del Cliente\n";
@@ -49,19 +44,9 @@ namespace CapaNegocio
             //regla de validacion 
             Mensaje = string.Empty;
 
-            if (obj.Documento == "")
-            {
-                Mensaje += "Es necesario el documento del Cliente\n";
-            }
-
             if (obj.Nombre == "")
             {
                 Mensaje += "Es necesario el nombre del Cliente\n";
-            }
-
-            if (obj.Telefono == "")
-            {
-                Mensaje += "Es necesario el Telefono del Cliente\n";
             }
 
             if (Mensaje != string.Empty)

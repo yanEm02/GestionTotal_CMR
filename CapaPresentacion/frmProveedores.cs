@@ -275,13 +275,15 @@ namespace CapaPresentacion
 
         private void txtTelefono_KeyPress(object sender, KeyPressEventArgs e)
         {
+            // Si la tecla presionada no es una tecla de control (como retroceso) Y no es un dígito
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
-                e.Handled = true;
+                e.Handled = true; // Cancela la acción
             }
-            if ((sender as TextBox).Text.Length >= 10)
+            // Si la longitud del texto es 14 o más Y la tecla presionada no es de control
+            else if ((sender as TextBox).Text.Length >= 14 && !char.IsControl(e.KeyChar))
             {
-                e.Handled = true;
+                e.Handled = true; // Cancela la acción para no exceder el límite
             }
         }
     }

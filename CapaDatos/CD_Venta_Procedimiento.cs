@@ -126,7 +126,7 @@ namespace CapaDatos
                                 {
                                     Documento = dataReader["Documento"].ToString(),
                                     Nombre = dataReader["NombreCliente"].ToString(),
-                                    Edad = int.Parse(dataReader["Edad"].ToString()),
+                                    Edad = dataReader["Edad"].ToString(),
                                     Sexo = dataReader["Sexo"].ToString(),
                                     Telefono = dataReader["Telefono"].ToString(),
                                     Direccion = dataReader["Direccion"].ToString()

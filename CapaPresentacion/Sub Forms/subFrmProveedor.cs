@@ -98,5 +98,14 @@ namespace CapaPresentacion.Modales
 
             }
         }
+
+        private void txtBusqueda_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                btnBuscar.PerformClick();
+                e.Handled = true;
+            }
+        }
     }
 }
