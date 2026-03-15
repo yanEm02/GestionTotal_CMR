@@ -33,11 +33,6 @@ namespace CapaNegocio
                 Mensaje += "Es necesario el nombre del Producto\n";
             }
 
-            if (obj.Descripcion == "")
-            {
-                Mensaje += "Es necesario la descripcion del Producto\n";
-            }
-
             if (Mensaje != string.Empty)
             {
                 return 0;
@@ -63,11 +58,6 @@ namespace CapaNegocio
             if (obj.Nombre == "")
             {
                 Mensaje += "Es necesario el nombre del Producto\n";
-            }
-
-            if (obj.Descripcion == "")
-            {
-                Mensaje += "Es necesario la descripcion del Producto\n";
             }
 
             if (Mensaje != string.Empty)

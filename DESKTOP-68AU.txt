@@ -1,0 +1,17 @@
+Nombre del dispositivo	DESKTOP-68AUO5N
+Procesador	Intel(R) Core(TM) i5-6500 CPU @ 3.20GHz   3.20 GHz
+RAM instalada	4.00 GB (3.89 GB utilizable)
+Almacenamiento	466 GB HDD ST500DM002-1SB10A
+Tarjeta gráfica	Intel(R) HD Graphics 530 (128 MB)
+Identificador de dispositivo	DEF9B160-F52D-45E2-B7A7-EB9F38EC6374
+Id. del producto	00330-80000-00000-AA095
+Tipo de sistema	Sistema operativo de 64 bits, procesador x64
+Lápiz y entrada táctil	Compatibilidad con entrada manuscrita y táctil con 256 puntos táctiles
+
+Server=localhost\SQLEXPRESS;Database=master;Trusted_Connection=True;
+
+ELIMINAR CLIENTES
+ELIMINAR FACTURAS 
+VER EL TOTAL DE LO VENDIDO EN EL DIA EN EL REPORTE
+MUESTRAR LOS CEROR
+limpiar los precios del formulario de registrar procedimientos cuando se cliquea el botón limpiar 
