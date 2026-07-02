@@ -21,7 +21,7 @@ namespace CapaDatos
                 try
                 {
                     StringBuilder query = new StringBuilder();
-                    query.AppendLine("select count(*) + 1 from VENTA");
+                    query.AppendLine("select ISNULL(MAX(CAST(numeroDocumento AS INT)), 0) + 1 from VENTA");
 
                     SqlCommand cmd = new SqlCommand(query.ToString(), oconexion);
                     cmd.CommandType = CommandType.Text; //para declararr el tipo de comando ya que es una consulta con select

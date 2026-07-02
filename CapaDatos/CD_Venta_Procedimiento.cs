@@ -23,7 +23,9 @@ namespace CapaDatos
                 try
                 {
                     StringBuilder query = new StringBuilder();
-                    query.AppendLine("select count(*) + 1 from VENTA_Procedimiento");
+                    // BUG FIX: Cambiamos "count(*) + 1" por el máximo de la columna "numeroDocumento"
+                    // Esto evita que se repitan números al eliminar registros intermedios
+                    query.AppendLine("select ISNULL(MAX(CAST(numeroDocumento AS INT)), 0) + 1 from VENTA_Procedimiento");
 
                     SqlCommand cmd = new SqlCommand(query.ToString(), oconexion);
                     cmd.CommandType = CommandType.Text; //para declararr el tipo de comando ya que es una consulta con select
